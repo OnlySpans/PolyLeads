@@ -1,5 +1,5 @@
 'use client';
-
+import { LoaderCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -40,17 +40,20 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               minLength={6}
               required={true}
               placeholder='Пароль'
-              autoComplete='email'
+              autoComplete='off'
               autoCorrect='off'
               disabled={isLoading}
             />
           </div>
           <Button disabled={isLoading}>
-            {isLoading &&
-              'icon*'
-              // <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            }
-            Войти
+            {isLoading ? (
+              <>
+                <LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
+                Подождите
+              </>
+            ) : (
+              'Войти'
+            )}
           </Button>
         </div>
       </form>
