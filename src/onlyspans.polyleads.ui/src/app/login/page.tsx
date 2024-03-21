@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { UserAuthForm } from '@/app/login/components/user-auth-form';
+import { AuthForm } from '@/app/login/components/AuthForm';
 import { buttonVariants } from '@/components/ui/button';
 
 export default function AuthenticationPage() {
@@ -41,7 +41,7 @@ export default function AuthenticationPage() {
                 Используйте email или имя пользователя
               </p>
             </div>
-            <UserAuthForm />
+            <AuthForm />
           </div>
         </div>
       </div>
