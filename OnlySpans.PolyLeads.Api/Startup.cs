@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using HotChocolate.Data;
 using Mapster;
 using MapsterMapper;
 using Marten;
@@ -19,7 +20,8 @@ public static class Startup
            .AddMarten()
            .AddLogging()
            .AddMapper()
-           .AddHttpClient();
+           .AddHttpClient()
+           .AddGraphQl();
 
         return Task.FromResult(builder);
     }
@@ -32,6 +34,7 @@ public static class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
+        app.MapGraphQL();
 
         // Otherwise SpaProxy won't work
         app.UseEndpoints(_ => { });
@@ -63,6 +66,31 @@ public static class Startup
            .Services
            .AddMediatR(config =>
                 config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddGraphQl(this WebApplicationBuilder builder)
+    {
+        builder
+           .Services
+           .AddGraphQLServer()
+            //.AddErrorFilter<GenericErrorFilter>()
+            //.AddFluentValidation()
+           .AddMartenFiltering()
+           .AddMartenSorting()
+           .AddProjections()
+           .AddFiltering()
+           .AddQueryableCursorPagingProvider()
+           .SetPagingOptions(new()
+            {
+                IncludeTotalCount = true
+            })
+           .AddInMemorySubscriptions()
+           .AddMutationConventions()
+           .AddQueryType()
+           .AddMutationType();
+        //.AddApiTypes();
 
         return builder;
     }
@@ -123,6 +151,7 @@ public static class Startup
 
         return builder;
     }
+
     private static WebApplicationBuilder AddHttpClient(this WebApplicationBuilder builder)
     {
         builder
@@ -131,7 +160,7 @@ public static class Startup
 
         return builder;
     }
-    
+
     public static WebApplicationBuilder ConfigureStaticLogger(this WebApplicationBuilder builder)
     {
         // always log to console as default behaviour

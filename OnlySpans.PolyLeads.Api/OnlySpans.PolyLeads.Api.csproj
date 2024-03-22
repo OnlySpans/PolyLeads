@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AppAny.HotChocolate.FluentValidation" Version="0.11.1" />
       <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.0" />
+      <PackageReference Include="HotChocolate.Data.Marten" Version="13.9.0" />
       <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.0" />
       <PackageReference Include="Mapster" Version="7.4.0" />
       <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
