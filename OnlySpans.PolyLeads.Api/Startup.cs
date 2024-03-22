@@ -33,8 +33,6 @@ public static class Startup
         app.UseAuthorization();
         app.MapGraphQL("api/graphql");
 
-        app.MapControllers();
-
         return app;
     }
 
