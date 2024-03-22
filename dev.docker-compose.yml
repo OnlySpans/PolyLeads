@@ -1,11 +1,9 @@
  services:
   postgres:
-    container_name: TheAgency.Twitter.Postgres
+    container_name: OnlySpans.PolyLeads.Postgres
     image: postgres
     ports:
       - 5432:5432
-    volumes:
-      - ./SqlScripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_PASSWORD: postgres
     restart: always

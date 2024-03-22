@@ -7,7 +7,6 @@ using Npgsql;
 using Serilog;
 using Weasel.Core;
 
-
 namespace OnlySpans.PolyLeads.Api;
 
 public static class Startup
@@ -16,12 +15,10 @@ public static class Startup
     {
         builder
            .AddMediatR()
-           .AddControllers()
            .AddMarten()
            .AddLogging()
            .AddMapper()
-           .AddHttpClient()
-           .AddGraphQl();
+           .AddGraphQL();
 
         return Task.FromResult(builder);
     }
@@ -34,28 +31,9 @@ public static class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
-        app.MapGraphQL();
+        app.MapGraphQL("api/graphql");
 
-        // Otherwise SpaProxy won't work
-        app.UseEndpoints(_ => { });
-
-        app.UseDevelopmentSpaHost();
         app.MapControllers();
-
-        return app;
-    }
-
-    private static WebApplication UseDevelopmentSpaHost(this WebApplication app)
-    {
-        if (!app.Environment.IsDevelopment())
-            return app;
-
-        var spaDevelopmentServerUrl = app.Configuration["SpaDevelopmentServerUrl"];
-
-        if (string.IsNullOrEmpty(spaDevelopmentServerUrl))
-            return app;
-
-        app.UseSpa(spa => spa.UseProxyToSpaDevelopmentServer(spaDevelopmentServerUrl));
 
         return app;
     }
@@ -70,7 +48,7 @@ public static class Startup
         return builder;
     }
 
-    private static WebApplicationBuilder AddGraphQl(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddGraphQL(this WebApplicationBuilder builder)
     {
         builder
            .Services
@@ -97,16 +75,12 @@ public static class Startup
 
     private static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
     {
-        builder.Host.UseSerilog((_, configuration) => { configuration.ReadFrom.Configuration(builder.Configuration); });
-
-        return builder;
-    }
-
-    private static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
-    {
         builder
-           .Services
-           .AddControllers();
+           .Host
+           .UseSerilog((_, configuration) => 
+            { 
+                configuration.ReadFrom.Configuration(builder.Configuration); 
+            });
 
         return builder;
     }
@@ -137,7 +111,7 @@ public static class Startup
             {
                 var connectionString = builder
                    .Configuration
-                   .GetConnectionString("EventStore")!;
+                   .GetConnectionString("DocumentStore")!;
 
                 options.Connection(connectionString);
                 options.Logger();
@@ -148,15 +122,6 @@ public static class Startup
            .AssertDatabaseMatchesConfigurationOnStartup()
            .OptimizeArtifactWorkflow()
            .UseLightweightSessions();
-
-        return builder;
-    }
-
-    private static WebApplicationBuilder AddHttpClient(this WebApplicationBuilder builder)
-    {
-        builder
-           .Services
-           .AddHttpClient();
 
         return builder;
     }
