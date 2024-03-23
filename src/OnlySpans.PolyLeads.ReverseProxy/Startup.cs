@@ -41,9 +41,8 @@ public static class Startup
     private static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
     {
         builder.Host.UseSerilog((_, configuration) =>
-        {
-            configuration.ReadFrom.Configuration(builder.Configuration);
-        });
+            configuration.ReadFrom.Configuration(builder.Configuration),
+            writeToProviders: true);
 
         return builder;
     }

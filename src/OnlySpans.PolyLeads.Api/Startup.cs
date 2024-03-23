@@ -131,9 +131,8 @@ public static class Startup
         builder
            .Host
            .UseSerilog((_, configuration) =>
-            {
-                configuration.ReadFrom.Configuration(builder.Configuration);
-            });
+                configuration.ReadFrom.Configuration(builder.Configuration),
+                writeToProviders: true);
 
         builder
            .Services
