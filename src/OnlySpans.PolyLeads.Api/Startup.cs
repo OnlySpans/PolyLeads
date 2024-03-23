@@ -20,6 +20,7 @@ public static class Startup
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
         builder
+           .AddAuth()
            .AddMediatR()
            .AddMarten()
            .AddLogging()
@@ -36,13 +37,11 @@ public static class Startup
     {
         await app.MigrateDatabase();
 
-        app.UseExceptionHandler();
-
         app.UseRouting();
 
         app.UseAuthentication();
         app.UseAuthorization();
-        app.MapGraphQL("api/graphql");
+        app.MapGraphQL("/api/graphql");
 
         return app;
     }
@@ -176,7 +175,6 @@ public static class Startup
                 options.Connection(connectionString);
                 options.Logger(provider.GetRequiredService<IMartenLogger>());
                 options.AutoCreateSchemaObjects = AutoCreate.All;
-                options.DatabaseSchemaName = new NpgsqlConnectionStringBuilder(connectionString).Username!;
 
                 return options;
             })
@@ -193,6 +191,20 @@ public static class Startup
         builder
            .Services
            .AddScoped<IDocumentRecognition, SearchablePdfRecognition>();
+
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
+    {
+        var services = builder
+           .Services;
+
+        services
+           .AddAuthentication();
+
+        services
+           .AddAuthorization();
 
         return builder;
     }
