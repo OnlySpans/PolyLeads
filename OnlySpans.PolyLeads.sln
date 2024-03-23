@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{48A0FAEB-B9F5-4061-B062-85F25266FE46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api", "OnlySpans.PolyLeads.Api\OnlySpans.PolyLeads.Api.csproj", "{C5F91596-F110-4A16-9501-6CAD5ADF14AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api", "src\OnlySpans.PolyLeads.Api\OnlySpans.PolyLeads.Api.csproj", "{C5F91596-F110-4A16-9501-6CAD5ADF14AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.ReverseProxy", "OnlySpans.PolyLeads.ReverseProxy\OnlySpans.PolyLeads.ReverseProxy.csproj", "{13C6DD91-5BAC-4D55-BA6E-757586B30210}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.ReverseProxy", "src\OnlySpans.PolyLeads.ReverseProxy\OnlySpans.PolyLeads.ReverseProxy.csproj", "{13C6DD91-5BAC-4D55-BA6E-757586B30210}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{74E986A5-C8C9-45E6-9F74-88B98BBE308D}"
 EndProject
