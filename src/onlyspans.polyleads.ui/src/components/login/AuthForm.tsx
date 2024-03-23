@@ -7,7 +7,7 @@ import React from 'react';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function AuthForm({ className, ...props }: UserAuthFormProps) {
+const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -60,3 +60,5 @@ export function AuthForm({ className, ...props }: UserAuthFormProps) {
     </div>
   );
 }
+
+export default AuthForm;
