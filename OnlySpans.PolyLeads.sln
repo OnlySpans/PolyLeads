@@ -20,11 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.Schema", "src\OnlySpans.PolyLeads.Api.Schema\OnlySpans.PolyLeads.Api.Schema.csproj", "{0FEC7030-9659-461D-93D6-C383EF0A88CE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "sql", "{AAB0E199-F5D0-4588-AA60-243F6165183E}"
-	ProjectSection(SolutionItems) = preProject
-		SqlScripts\init.sql = sql\init.sql
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.ServiceDefaults", "src\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj", "{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.AppHost", "src\OnlySpans.Aspire.AppHost\OnlySpans.Aspire.AppHost.csproj", "{E6AFAB39-2F39-447F-9F38-A00DEB4F161F}"
