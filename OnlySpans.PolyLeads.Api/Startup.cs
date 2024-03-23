@@ -4,6 +4,9 @@ using Mapster;
 using MapsterMapper;
 using Marten;
 using Npgsql;
+using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
+using OnlySpans.PolyLeads.Api.Services.Logging;
+using OnlySpans.PolyLeads.Api.Services.Recognition;
 using Serilog;
 using Weasel.Core;
 
@@ -18,7 +21,8 @@ public static class Startup
            .AddMarten()
            .AddLogging()
            .AddMapper()
-           .AddGraphQL();
+           .AddGraphQL()
+           .AddDocumentRecognition();
 
         return Task.FromResult(builder);
     }
@@ -75,10 +79,14 @@ public static class Startup
     {
         builder
            .Host
-           .UseSerilog((_, configuration) => 
-            { 
-                configuration.ReadFrom.Configuration(builder.Configuration); 
+           .UseSerilog((_, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(builder.Configuration);
             });
+
+        builder
+           .Services
+           .AddSingleton<IMartenLogger, DefaultMartenLogger>();
 
         return builder;
     }
@@ -105,16 +113,20 @@ public static class Startup
     {
         builder
            .Services
-           .AddMarten(options =>
+           .AddMarten(provider =>
             {
+                var options = new StoreOptions();
+
                 var connectionString = builder
                    .Configuration
                    .GetConnectionString("DocumentStore")!;
 
                 options.Connection(connectionString);
-                options.Logger();
+                options.Logger(provider.GetRequiredService<IMartenLogger>());
                 options.AutoCreateSchemaObjects = AutoCreate.All;
                 options.DatabaseSchemaName = new NpgsqlConnectionStringBuilder(connectionString).Username!;
+
+                return options;
             })
            .ApplyAllDatabaseChangesOnStartup()
            .AssertDatabaseMatchesConfigurationOnStartup()
@@ -123,6 +135,16 @@ public static class Startup
 
         return builder;
     }
+
+    private static WebApplicationBuilder AddDocumentRecognition(this WebApplicationBuilder builder)
+    {
+        builder
+           .Services
+           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>();
+
+        return builder;
+    }
+
 
     public static WebApplicationBuilder ConfigureStaticLogger(this WebApplicationBuilder builder)
     {

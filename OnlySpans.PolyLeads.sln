@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{74E986A5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.Tests", "tests\OnlySpans.PolyLeads.Api.Tests\OnlySpans.PolyLeads.Api.Tests.csproj", "{E94FD102-8374-410A-A77A-22F9AD3E2D31}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5F921C70-5836-46FE-995E-8FD8C442C4E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F921C70-5836-46FE-995E-8FD8C442C4E5}"
 	ProjectSection(SolutionItems) = preProject
 		dev.docker-compose.yml = dev.docker-compose.yml
 	EndProjectSection

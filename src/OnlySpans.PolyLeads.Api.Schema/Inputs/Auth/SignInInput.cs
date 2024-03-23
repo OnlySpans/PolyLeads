@@ -1,6 +1,4 @@
-﻿using OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign.SignInKey;
-
-namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign;
+﻿namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth;
 
 [GraphQLDescription("Данные, необходимые для авторизации пользователя")]
 public sealed record SignInInput
