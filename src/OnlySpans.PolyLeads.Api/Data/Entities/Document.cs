@@ -2,10 +2,10 @@ using OnlySpans.PolyLeads.Api.Data.Abstractions;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class Document
-    : IHasCreationInfo,
-      IHasUpdateInfo,
-      ISoftDeletable
+public class Document :
+    IHasCreationInfo,
+    IHasUpdateInfo,
+    ISoftDeletable
 {
     public long Id { get; set; } = 0;
 
@@ -32,7 +32,7 @@ public class Document
 
     public virtual FileEntry? FileEntry { get; set; } = default!;
 
-    public virtual ICollection<DocumentInGroup> DocumentInGroups { get; set; } = new List<DocumentInGroup>();
+    public virtual ICollection<DocumentInGroup> DocumentsInGroups { get; set; } = [];
 
-    public virtual ICollection<DocumentGroup> Groups { get; set; } = new List<DocumentGroup>();
+    public virtual ICollection<DocumentGroup> Groups { get; set; } = [];
 }

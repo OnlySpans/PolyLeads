@@ -12,7 +12,7 @@ using OnlySpans.PolyLeads.Api.Data.Contexts;
 namespace OnlySpans.PolyLeads.Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240323191713_Initial")]
+    [Migration("20240323224728_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -223,7 +223,7 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                     b.Property<long>("FileEntryId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("RecognisedAt")
+                    b.Property<DateTime>("RecognizedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -277,13 +277,13 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
             modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentInGroup", b =>
                 {
                     b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", "DocumentGroup")
-                        .WithMany("DocumentInGroups")
+                        .WithMany()
                         .HasForeignKey("DocumentGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.Document", "Document")
-                        .WithMany("DocumentInGroups")
+                        .WithMany("DocumentsInGroups")
                         .HasForeignKey("DocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,14 +328,12 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
 
             modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.Document", b =>
                 {
-                    b.Navigation("DocumentInGroups");
+                    b.Navigation("DocumentsInGroups");
                 });
 
             modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", b =>
                 {
                     b.Navigation("ChildGroups");
-
-                    b.Navigation("DocumentInGroups");
                 });
 
             modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", b =>

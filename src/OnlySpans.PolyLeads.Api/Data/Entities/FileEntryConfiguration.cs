@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class FileEntryConfiguration : IEntityTypeConfiguration<FileEntry>
+public sealed class FileEntryConfiguration : IEntityTypeConfiguration<FileEntry>
 {
     public void Configure(EntityTypeBuilder<FileEntry> builder)
     {
-        builder
-           .HasKey(x => x.Id);
-
         builder
            .Property(x => x.Name)
            .HasMaxLength(128);
@@ -31,7 +28,6 @@ public class FileEntryConfiguration : IEntityTypeConfiguration<FileEntry>
         builder
            .HasOne(x => x.Document)
            .WithOne(x => x.FileEntry)
-           .HasForeignKey<Document>(x => x.FileEntryId)
-           .IsRequired(false);
+           .HasForeignKey<Document>(x => x.FileEntryId);
     }
 }

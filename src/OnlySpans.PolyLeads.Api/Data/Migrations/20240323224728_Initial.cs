@@ -133,7 +133,7 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FileEntryId = table.Column<long>(type: "bigint", nullable: false),
                     AllText = table.Column<string>(type: "character varying(65536)", maxLength: 65536, nullable: false),
-                    RecognisedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    RecognizedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
