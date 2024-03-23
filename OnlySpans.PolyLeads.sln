@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "sql", "{AAB0E
 		SqlScripts\init.sql = sql\init.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.ServiceDefaults", "src\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj", "{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,11 +52,16 @@ Global
 		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C5F91596-F110-4A16-9501-6CAD5ADF14AF} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{13C6DD91-5BAC-4D55-BA6E-757586B30210} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{E94FD102-8374-410A-A77A-22F9AD3E2D31} = {74E986A5-C8C9-45E6-9F74-88B98BBE308D}
 		{0FEC7030-9659-461D-93D6-C383EF0A88CE} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
+		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 	EndGlobalSection
 EndGlobal
