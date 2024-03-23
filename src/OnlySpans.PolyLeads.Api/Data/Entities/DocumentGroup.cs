@@ -9,6 +9,8 @@ public class DocumentGroup
 {
     public long Id { get; set; } = 0;
 
+    public long? ParentGroupId { get; set; } = 0;
+
     public string Name { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
@@ -33,5 +35,7 @@ public class DocumentGroup
 
     public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
 
-    public virtual ICollection<DocumentGroup> Groups { get; set; } = new List<DocumentGroup>();
+    public virtual DocumentGroup? ParentGroup { get; set; } = default!;
+
+    public virtual ICollection<DocumentGroup> ChildGroups { get; set; } = new List<DocumentGroup>();
 }

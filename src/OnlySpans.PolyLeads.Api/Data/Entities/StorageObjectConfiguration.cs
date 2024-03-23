@@ -20,7 +20,7 @@ public class StorageObjectConfiguration : IEntityTypeConfiguration<StorageObject
 
         builder
            .HasOne(x => x.FileEntry)
-           .WithOne()
+           .WithOne(x => x.StorageObject)
            .HasForeignKey<FileEntry>(x => x.StorageObjectId);
     }
 }

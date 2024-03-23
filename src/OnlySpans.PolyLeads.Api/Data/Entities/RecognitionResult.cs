@@ -9,4 +9,6 @@ public class RecognitionResult
     public string AllText { get; set; } = string.Empty;
 
     public DateTime RecognisedAt { get; set; } = default!;
+
+    public virtual FileEntry FileEntry { get; set; } = default!;
 }

@@ -19,8 +19,9 @@ public class DocumentGroupConfiguration : IEntityTypeConfiguration<DocumentGroup
            .HasMaxLength(512);
 
         builder
-           .HasMany(x => x.Groups)
-           .WithMany(x => x.Groups)
-           .UsingEntity<ChildGroup>();
+           .HasOne(x => x.ParentGroup)
+           .WithMany(x => x.ChildGroups)
+           .HasForeignKey(x => x.ParentGroupId)
+           .IsRequired(false);
     }
 }

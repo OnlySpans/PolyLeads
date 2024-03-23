@@ -20,8 +20,6 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<DocumentGroup> DocumentGroups { get; init; } = default!;
 
-    public DbSet<ChildGroup> ChildGroups { get; init; } = default!;
-
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
