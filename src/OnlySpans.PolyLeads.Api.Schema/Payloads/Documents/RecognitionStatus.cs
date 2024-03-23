@@ -1,19 +1,20 @@
 ﻿namespace OnlySpans.PolyLeads.Api.Schema.Payloads.Documents;
 
-[GraphQLDescription(
-    """
-    Статус распознавания текста:
-    0 - неизвестен
-    1 - в очереди
-    2 - выполняется
-    3 - текст успешно распознан
-    4 - при распозновании текста произошла ошибка
-    """)]
+[GraphQLDescription("Статус распознавания текста")]
 public enum RecognitionStatus
 {
-    Unknown,
-    Queued,
-    Processing,
-    Success,
-    Error
+    [GraphQLDescription("Неизвестен")]
+    Unknown = 0,
+
+    [GraphQLDescription("В очереди")]
+    Queued = 1,
+
+    [GraphQLDescription("Выполняется")]
+    Processing = 2,
+
+    [GraphQLDescription("Текст успешно распознан")]
+    Success = 3,
+
+    [GraphQLDescription("При распозновании текста произошла ошибка")]
+    Error = 4
 }

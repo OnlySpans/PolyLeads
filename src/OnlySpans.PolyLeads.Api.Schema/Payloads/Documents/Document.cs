@@ -30,5 +30,5 @@ public sealed record Document
     public string UpdatedBy { get; init; } = string.Empty;
 
     [GraphQLDescription("Файл (содержание документа)")]
-    public FileEntryWithoutCreateInfo File { get; init; } = default!;
+    public FileEntry File { get; init; } = default!;
 }
