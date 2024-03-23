@@ -1,8 +1,8 @@
-using OnlySpans.PolyLeads.Api.Abstractions;
+using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
 using OnlySpans.PolyLeads.Api.Data.Records.Recognition;
 using UglyToad.PdfPig;
 
-namespace OnlySpans.PolyLeads.Api.Services;
+namespace OnlySpans.PolyLeads.Api.Services.Recognition;
 
 public sealed class SearchablePdfRecognition :
     IDocumentRecognition
