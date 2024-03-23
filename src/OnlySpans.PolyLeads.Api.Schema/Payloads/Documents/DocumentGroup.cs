@@ -1,8 +1,6 @@
-﻿using HotChocolate;
+﻿namespace OnlySpans.PolyLeads.Api.Schema.Payloads.Documents;
 
-namespace OnlySpans.PolyLeads.Api.Schema.Payloads.Documents;
-
-[GraphQLDescription("Группа документов - содержит документы и/или другие группы документов")]
+[GraphQLDescription("Группа документов")]
 public sealed record DocumentGroup
 {
     [GraphQLDescription("Идентификатор")] 
@@ -27,8 +25,8 @@ public sealed record DocumentGroup
     public string UpdatedBy { get; init; } = string.Empty;
 
     [GraphQLDescription("Другие группы документов, находящиеся внутри")]
-    public IReadOnlyList<DocumentGroup>? Groups { get; init; } = default;
+    public IReadOnlyList<DocumentGroup> Groups { get; init; } = [];
 
     [GraphQLDescription("Документы")] 
-    public IReadOnlyList<Document>? Documents { get; init; } = default;
+    public IReadOnlyList<Document> Documents { get; init; } = [];
 }

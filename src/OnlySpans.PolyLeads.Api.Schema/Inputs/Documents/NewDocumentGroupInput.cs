@@ -1,5 +1,4 @@
-﻿using HotChocolate;
-using OnlySpans.PolyLeads.Api.Schema.Inputs.Files;
+﻿using OnlySpans.PolyLeads.Api.Schema.Inputs.Files;
 
 namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Documents;
 
@@ -13,8 +12,8 @@ public sealed record NewDocumentGroupInput
     public string Description { get; init; } = string.Empty;
 
     [GraphQLDescription("Файлы")]
-    public IReadOnlyList<CreateFileInput>? Files { get; init; } = default;
+    public Optional<IReadOnlyList<CreateFileInput>?> Files { get; init; } = default!;
 
     [GraphQLDescription("Новые группы документов")]
-    public IReadOnlyList<NewDocumentGroupInput>? Groups { get; init; } = default;
+    public Optional<IReadOnlyList<NewDocumentGroupInput>?> Groups { get; init; } = default!;
 }

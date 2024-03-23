@@ -1,7 +1,4 @@
-﻿using HotChocolate;
-using OnlySpans.PolyLeads.Api.Schema.Inputs.Users.Sign.SignInKey;
-
-namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Users.Sign;
+﻿namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign;
 
 [GraphQLDescription("Данные, необходимые для создания нового аккаунта")]
 public sealed record SignUpInput
@@ -13,13 +10,13 @@ public sealed record SignUpInput
     public string LastName { get; init; } = string.Empty;
 
     [GraphQLDescription("Отчество пользователя")]
-    public string Patronymic { get; init; } = string.Empty;
+    public Optional<string?> Patronymic { get; init; } = default!;
 
     [GraphQLDescription("Никнейм пользователя")]
-    public UserName UserName { get; init; } = default!;
+    public string UserName { get; init; } = string.Empty;
 
     [GraphQLDescription("Почта пользователя")]
-    public Email Email { get; init; } = default!;
+    public string Email { get; init; } = string.Empty;
 
     [GraphQLDescription("Пароль от аккаунта")]
     public string Password { get; init; } = string.Empty;

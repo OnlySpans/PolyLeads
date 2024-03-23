@@ -1,7 +1,6 @@
-﻿using HotChocolate;
-using OnlySpans.PolyLeads.Api.Schema.Inputs.Users.Sign.SignInKey;
+﻿using OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign.SignInKey;
 
-namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Users.Sign;
+namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign;
 
 [GraphQLDescription("Данные, необходимые для авторизации пользователя")]
 public sealed record SignInInput

@@ -1,9 +1,8 @@
-﻿using HotChocolate;
-using OnlySpans.PolyLeads.Api.Schema.Payloads.Files;
+﻿using OnlySpans.PolyLeads.Api.Schema.Payloads.Files;
 
 namespace OnlySpans.PolyLeads.Api.Schema.Payloads.Documents;
 
-[GraphQLDescription("Документ - представляет из себя файл с дополнительной информацией сверху")]
+[GraphQLDescription("Документ")]
 public sealed record Document
 {
     [GraphQLDescription("Идентификатор")] 
@@ -15,15 +14,8 @@ public sealed record Document
     [GraphQLDescription("Описание")]
     public string Description { get; init; } = string.Empty;
 
-    [GraphQLDescription("""
-                        Статус распознавания текста:
-                        0 - неизвестен
-                        1 - в очереди
-                        2 - выполняется
-                        3 - текст успешно распознан
-                        4 - при распозновании текста произошла ошибка
-                        """)]
-    public int RecognitionStatus { get; init; } = 0;
+    [GraphQLDescription("Статус распознавания текста")]
+    public RecognitionStatus RecognitionStatus { get; init; } = RecognitionStatus.Unknown;
 
     [GraphQLDescription("Дата создания")]
     public DateTime CreatedAt { get; init; } = DateTime.MinValue;
