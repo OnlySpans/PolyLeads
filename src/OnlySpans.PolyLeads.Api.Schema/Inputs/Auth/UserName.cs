@@ -1,4 +1,4 @@
-﻿namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth.Sign.SignInKey;
+﻿namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth;
 
 [GraphQLDescription("Никнейм")]
 public sealed record UserName : ISignInKey
