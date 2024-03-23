@@ -20,17 +20,18 @@ public class FileEntryConfiguration : IEntityTypeConfiguration<FileEntry>
 
         builder
            .HasMany(x => x.RecognitionResults)
-           .WithOne()
+           .WithOne(x => x.FileEntry)
            .HasForeignKey(x => x.FileEntryId);
 
         builder
            .HasMany(x => x.RecognitionStatuses)
-           .WithOne()
+           .WithOne(x => x.FileEntry)
            .HasForeignKey(x => x.FileEntryId);
 
         builder
            .HasOne(x => x.Document)
-           .WithOne()
-           .HasForeignKey<Document>(x => x.FileEntryId);
+           .WithOne(x => x.FileEntry)
+           .HasForeignKey<Document>(x => x.FileEntryId)
+           .IsRequired(false);
     }
 }

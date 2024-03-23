@@ -25,6 +25,7 @@ public static class Startup
            .AddLogging()
            .AddMapper()
            .AddGraphQL()
+           .AddApplicationDbContext()
            .AddDocumentRecognition();
 
         return Task.FromResult(builder);
