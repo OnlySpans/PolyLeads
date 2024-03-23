@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.Schema", "src\OnlySpans.PolyLeads.Api.Schema\OnlySpans.PolyLeads.Api.Schema.csproj", "{0FEC7030-9659-461D-93D6-C383EF0A88CE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{AAB0E199-F5D0-4588-AA60-243F6165183E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "sql", "{AAB0E199-F5D0-4588-AA60-243F6165183E}"
 	ProjectSection(SolutionItems) = preProject
-		SqlScripts\init.sql = SqlScripts\init.sql
+		SqlScripts\init.sql = sql\init.sql
 	EndProjectSection
 EndProject
 Global
