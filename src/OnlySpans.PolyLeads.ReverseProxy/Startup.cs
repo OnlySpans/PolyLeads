@@ -7,6 +7,7 @@ public static class Startup
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
         builder
+           .AddServiceDefaults()
            .AddReverseProxy()
            .AddLogging();
 

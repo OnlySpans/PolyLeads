@@ -25,7 +25,8 @@ public static class Startup
            .AddLogging()
            .AddMapper()
            .AddGraphQL()
-           .AddDocumentRecognition();
+           .AddDocumentRecognition()
+           .AddServiceDefaults();
 
         return Task.FromResult(builder);
     }
@@ -60,9 +61,9 @@ public static class Startup
     }
 
     #endregion
-    
+
     #region WebApplicationBuilder | Add.*
-    
+
     private static WebApplicationBuilder AddApplicationDbContext(this WebApplicationBuilder builder)
     {
         Action<DbContextOptionsBuilder> options = options =>
@@ -185,7 +186,7 @@ public static class Startup
 
         return builder;
     }
-    
+
     private static WebApplicationBuilder AddDocumentRecognition(this WebApplicationBuilder builder)
     {
         builder
@@ -194,11 +195,11 @@ public static class Startup
 
         return builder;
     }
-    
+
     #endregion
-    
+
     #region WebApplicationBuilder | public deps
-    
+
     public static WebApplicationBuilder ConfigureStaticLogger(this WebApplicationBuilder builder)
     {
         // always log to console as default behaviour
@@ -211,6 +212,6 @@ public static class Startup
 
         return builder;
     }
-    
+
     #endregion
 }
