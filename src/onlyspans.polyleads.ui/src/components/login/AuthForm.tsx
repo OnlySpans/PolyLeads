@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { IAuthFormVM } from '@/components/login/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
-interface IAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface IAuthFormProps {}
 
 const AuthForm: React.FC<IAuthFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
