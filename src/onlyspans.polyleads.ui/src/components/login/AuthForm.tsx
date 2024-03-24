@@ -1,13 +1,17 @@
 'use client';
 import { LoaderCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import React from 'react';
+import useGet from '@/hooks/useGet';
+import { IAuthFormVM } from '@/components/login/AuthForm.vm';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface IAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
+const AuthForm: React.FC<IAuthFormProps> = () => {
+  const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -20,7 +24,7 @@ const AuthForm = ({ className, ...props }: UserAuthFormProps) => {
   }
 
   return (
-    <div className={cn('grid gap-6', className)} {...props}>
+    <div className={'grid gap-6'}>
       <form onSubmit={onSubmit}>
         <div className='grid gap-2'>
           <div className='grid gap-1'>

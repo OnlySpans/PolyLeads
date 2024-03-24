@@ -1,6 +1,12 @@
+import 'reflect-metadata';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import DependencyContainer, {
+  createDependencyContainer,
+} from '@/contexts/dependencyContainer';
+import { Container } from 'inversify';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
@@ -12,10 +18,13 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  const dependencyContainer: Container = createDependencyContainer();
   return (
     <html>
-      <body className={inter.className}>{children}</body>
-    </html>
+      <DependencyContainer.Provider value={dependencyContainer}>
+        <body className={inter.className}>{children}</body>
+      </DependencyContainer.Provider>
+    </html> 
   );
 };
 

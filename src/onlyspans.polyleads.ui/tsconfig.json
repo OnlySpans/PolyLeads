@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,

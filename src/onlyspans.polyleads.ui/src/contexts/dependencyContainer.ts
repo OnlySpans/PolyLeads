@@ -1,10 +1,13 @@
-import { Container } from 'inversify';
+'use client';
 import React from 'react';
+import { Container } from 'inversify';
+import AuthFormVM, { IAuthFormVM } from '@/components/login/AuthForm.vm';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
 
-  //container.bind<IFileService>(ServiceSymbols.IFileService).to(FileService);
+  container.bind<IAuthFormVM>(ServiceSymbols.IAuthFormVM).to(AuthFormVM);
 
   return container;
 };
