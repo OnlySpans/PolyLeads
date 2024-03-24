@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import AuthForm from '@/components/login/AuthForm';
 
-export default function AuthenticationPage() {
+const AuthenticationPage = () => {
   return (
     <>
       <div className='bg-fixed container relative hidden h-screen flex-col items-center justify-center min-[300px]:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
@@ -22,7 +22,6 @@ export default function AuthenticationPage() {
             className='absolute inset-0 bg-cover h-screen bg-center bg-no-repeat'
             style={{
               backgroundImage: 'url(/polytech.jpg)',
-              filter: 'grayscale(1)',
             }}
           ></div>
 
@@ -47,4 +46,6 @@ export default function AuthenticationPage() {
       </div>
     </>
   );
-}
+};
+
+export default AuthenticationPage;

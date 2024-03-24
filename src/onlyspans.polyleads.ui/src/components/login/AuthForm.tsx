@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import React from 'react';
 import useGet from '@/hooks/useGet';
+import { observer } from 'mobx-react-lite';
 import { IAuthFormVM } from '@/components/login/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
@@ -12,20 +13,9 @@ interface IAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 const AuthForm: React.FC<IAuthFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
 
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }
-
   return (
     <div className={'grid gap-6'}>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={vm.login}>
         <div className='grid gap-2'>
           <div className='grid gap-1'>
             <Input
@@ -35,7 +25,7 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               placeholder='Имя пользователя или email'
               autoComplete='email'
               autoCorrect='off'
-              disabled={isLoading}
+              disabled={vm.isLoading}
             />
           </div>
           <div className='grid gap-1'>
@@ -46,11 +36,11 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               placeholder='Пароль'
               autoComplete='off'
               autoCorrect='off'
-              disabled={isLoading}
+              disabled={vm.isLoading}
             />
           </div>
-          <Button disabled={isLoading}>
-            {isLoading ? (
+          <Button disabled={vm.isLoading}>
+            {vm.isLoading ? (
               <>
                 <LoaderCircle className='mr-2 h-4 w-4 animate-spin' />
                 Подождите
@@ -65,4 +55,4 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
   );
 }
 
-export default AuthForm;
+export default observer(AuthForm);
