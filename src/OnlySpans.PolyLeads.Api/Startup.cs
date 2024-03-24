@@ -35,20 +35,21 @@ public static class Startup
 
     public static async Task<WebApplication> Configure(this WebApplication app)
     {
-        await app.MigrateDatabase();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.UseRouting();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.MapGraphQL("/api/graphql");
+        app.MapGraphQL("api/graphql");
+
+        await app.MigrateDatabaseAsync();
 
         return app;
     }
 
     #region WebApplicationBuilder | Use.*
 
-    private static async Task MigrateDatabase(this WebApplication app)
+    private static async Task MigrateDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;
@@ -66,27 +67,25 @@ public static class Startup
 
     private static WebApplicationBuilder AddApplicationDbContext(this WebApplicationBuilder builder)
     {
-        Action<DbContextOptionsBuilder> options = options =>
-        {
-            var connectionString = builder
-               .Configuration
-               .GetConnectionString("ApplicationDbContext")!;
-
-            var connectionStringBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-            var username = connectionStringBuilder.Username;
-
-            options.UseNpgsql(connectionString, o =>
-            {
-                if (username is null)
-                    return;
-
-                o.MigrationsHistoryTable(HistoryRepository.DefaultTableName, username);
-            });
-        };
-
         builder
            .Services
-           .AddDbContextFactory<ApplicationDbContext>(options);
+           .AddDbContextPool<ApplicationDbContext>(options =>
+            {
+                var connectionString = builder
+                   .Configuration
+                   .GetConnectionString("ApplicationDbContext")!;
+
+                var connectionStringBuilder = new NpgsqlConnectionStringBuilder(connectionString);
+                var username = connectionStringBuilder.Username;
+
+                options.UseNpgsql(connectionString, o =>
+                {
+                    if (username is null)
+                        return;
+
+                    o.MigrationsHistoryTable(HistoryRepository.DefaultTableName, username);
+                });
+            });
 
         return builder;
     }

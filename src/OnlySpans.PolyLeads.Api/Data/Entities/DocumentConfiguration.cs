@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class DocumentConfiguration : IEntityTypeConfiguration<Document>
+public sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
 {
     public void Configure(EntityTypeBuilder<Document> builder)
     {
-        builder
-           .HasKey(x => x.Id);
-
         builder
            .Property(x => x.Name)
            .HasMaxLength(128);

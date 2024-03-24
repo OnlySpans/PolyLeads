@@ -2,10 +2,10 @@ using OnlySpans.PolyLeads.Api.Data.Abstractions;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class DocumentGroup
-    : IHasCreationInfo,
-      IHasUpdateInfo,
-      ISoftDeletable
+public class DocumentGroup :
+    IHasCreationInfo,
+    IHasUpdateInfo,
+    ISoftDeletable
 {
     public long Id { get; set; } = 0;
 
@@ -31,11 +31,9 @@ public class DocumentGroup
     public Guid? DeletedBy { get; init; }
 
 
-    public virtual ICollection<DocumentInGroup> DocumentInGroups { get; set; } = new List<DocumentInGroup>();
-
-    public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
+    public virtual ICollection<Document> Documents { get; set; } = [];
 
     public virtual DocumentGroup? ParentGroup { get; set; } = default!;
 
-    public virtual ICollection<DocumentGroup> ChildGroups { get; set; } = new List<DocumentGroup>();
+    public virtual ICollection<DocumentGroup> ChildGroups { get; set; } = [];
 }

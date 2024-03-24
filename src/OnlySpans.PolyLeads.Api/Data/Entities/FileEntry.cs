@@ -2,9 +2,9 @@ using OnlySpans.PolyLeads.Api.Data.Abstractions;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class FileEntry
-    : IHasCreationInfo,
-      ISoftDeletable
+public class FileEntry :
+    IHasCreationInfo,
+    ISoftDeletable
 {
     public long Id { get; set; } = 0;
 
@@ -31,7 +31,7 @@ public class FileEntry
 
     public virtual Document Document { get; set; } = default!;
 
-    public virtual ICollection<FileRecognitionStatus> RecognitionStatuses { get; set; } = new List<FileRecognitionStatus>();
+    public virtual ICollection<FileRecognitionStatus> RecognitionStatuses { get; set; } = [];
 
-    public virtual ICollection<RecognitionResult> RecognitionResults { get; set; } = new List<RecognitionResult>();
+    public virtual ICollection<RecognitionResult> RecognitionResults { get; set; } = [];
 }
