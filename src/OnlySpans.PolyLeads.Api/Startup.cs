@@ -40,7 +40,7 @@ public static class Startup
 
         app.UseRouting();
 
-        app.MapGraphQL("api/graphql");
+        app.MapGraphQL("/api/graphql");
 
         await app.MigrateDatabaseAsync();
 
