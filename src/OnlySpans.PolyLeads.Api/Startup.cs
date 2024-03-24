@@ -3,7 +3,10 @@ using HotChocolate.Data;
 using Mapster;
 using MapsterMapper;
 using Marten;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql;
+using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
 using OnlySpans.PolyLeads.Api.Services.Logging;
 using OnlySpans.PolyLeads.Api.Services.Recognition;
@@ -22,6 +25,7 @@ public static class Startup
            .AddLogging()
            .AddMapper()
            .AddGraphQL()
+           .AddApplicationDbContext()
            .AddDocumentRecognition();
 
         return Task.FromResult(builder);
@@ -37,7 +41,52 @@ public static class Startup
         app.UseAuthorization();
         app.MapGraphQL("api/graphql");
 
+        await app.MigrateDatabaseAsync();
+
         return app;
+    }
+
+    #region WebApplicationBuilder | Use.*
+
+    private static async Task MigrateDatabaseAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var provider = scope.ServiceProvider;
+
+        await using var dbContext = provider.GetRequiredService<ApplicationDbContext>();
+
+        if (!dbContext.Database.IsRelational()) return;
+
+        await dbContext.Database.MigrateAsync();
+    }
+
+    #endregion
+    
+    #region WebApplicationBuilder | Add.*
+
+    private static WebApplicationBuilder AddApplicationDbContext(this WebApplicationBuilder builder)
+    {
+        builder
+           .Services
+           .AddDbContextFactory<ApplicationDbContext>(options =>
+            {
+                var connectionString = builder
+                   .Configuration
+                   .GetConnectionString("ApplicationDbContext")!;
+
+                var connectionStringBuilder = new NpgsqlConnectionStringBuilder(connectionString);
+                var username = connectionStringBuilder.Username;
+
+                options.UseNpgsql(connectionString, o =>
+                {
+                    if (username is null)
+                        return;
+
+                    o.MigrationsHistoryTable(HistoryRepository.DefaultTableName, username);
+                });
+            });
+
+        return builder;
     }
 
     private static WebApplicationBuilder AddMediatR(this WebApplicationBuilder builder)
@@ -135,7 +184,7 @@ public static class Startup
 
         return builder;
     }
-
+    
     private static WebApplicationBuilder AddDocumentRecognition(this WebApplicationBuilder builder)
     {
         builder
@@ -144,8 +193,11 @@ public static class Startup
 
         return builder;
     }
-
-
+    
+    #endregion
+    
+    #region WebApplicationBuilder | public deps
+    
     public static WebApplicationBuilder ConfigureStaticLogger(this WebApplicationBuilder builder)
     {
         // always log to console as default behaviour
@@ -158,4 +210,6 @@ public static class Startup
 
         return builder;
     }
+    
+    #endregion
 }
