@@ -1,5 +1,4 @@
-import { inject, injectable } from 'inversify';
-import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import { injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 
 export interface IAuthFormVM {}
@@ -9,7 +8,7 @@ class AuthFormVM implements IAuthFormVM {
   @observable
   public isLoading: boolean = false;
 
-  constructor(@inject(ServiceSymbols.IAuthFormVM) auth: IAuthFormVM) {
+  constructor() {
     makeObservable(this);
   }
 

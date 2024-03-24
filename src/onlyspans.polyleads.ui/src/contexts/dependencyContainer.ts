@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { Container } from 'inversify';
 import AuthFormVM, { IAuthFormVM } from '@/components/login/AuthForm.vm';
