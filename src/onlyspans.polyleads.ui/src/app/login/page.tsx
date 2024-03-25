@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import AuthForm from '@/components/login/AuthForm';
+import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
 
 const AuthenticationPage = () => {
   return (
@@ -16,6 +17,10 @@ const AuthenticationPage = () => {
         >
           Sign Up
         </Link>
+        <div className={'absolute right-4 bottom-4 md:right-6 md:bottom-6'}>
+          <ThemeSwitchButton />
+        </div>
+
         <div className='relative hidden h-screen flex-col p-12 text-white lg:flex'>
           <div className='absolute z-10 inset-0 bg-gradient-to-t from-zinc-900/75 to-80%'></div>
           <div
