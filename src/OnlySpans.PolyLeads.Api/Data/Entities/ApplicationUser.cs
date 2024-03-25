@@ -2,7 +2,4 @@
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class ApplicationUser : IdentityUser<Guid>
-{
-
-}
+public class ApplicationUser : IdentityUser<Guid>;
