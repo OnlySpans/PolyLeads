@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
+using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Services.Logging;
 using OnlySpans.PolyLeads.Api.Services.Recognition;
 using Serilog;
@@ -28,6 +29,7 @@ public static class Startup
            .AddGraphQL()
            .AddServiceDefaults()
            .AddApplicationDbContext()
+           .AddIdentity()
            .AddDocumentRecognition();
 
         return Task.FromResult(builder);
@@ -130,7 +132,7 @@ public static class Startup
         builder
            .Host
            .UseSerilog((_, configuration) =>
-                configuration.ReadFrom.Configuration(builder.Configuration),
+                    configuration.ReadFrom.Configuration(builder.Configuration),
                 writeToProviders: true);
 
         builder
@@ -202,6 +204,42 @@ public static class Startup
 
         services
            .AddAuthorization();
+
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+    {
+        var services = builder.Services;
+
+        services
+           .AddIdentity<ApplicationUser, ApplicationUserRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+            })
+           .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Events.OnRedirectToLogin = context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+                return Task.CompletedTask;
+            };
+
+            options.Events.OnRedirectToAccessDenied = context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+                return Task.CompletedTask;
+            };
+        });
 
         return builder;
     }
