@@ -195,8 +195,7 @@ public static class Startup
 
     private static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
     {
-        var services = builder
-           .Services;
+        var services = builder.Services;
 
         services
            .AddAuthentication();
