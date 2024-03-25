@@ -21,11 +21,13 @@ public static class Startup
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
         builder
+           .AddAuth()
            .AddMediatR()
            .AddMarten()
            .AddLogging()
            .AddMapper()
            .AddGraphQL()
+           .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
            .AddDocumentRecognition();
@@ -35,13 +37,12 @@ public static class Startup
 
     public static async Task<WebApplication> Configure(this WebApplication app)
     {
-        app.UseExceptionHandler();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.UseRouting();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.MapGraphQL("api/graphql");
+        app.MapGraphQL("/api/graphql");
 
         await app.MigrateDatabaseAsync();
 
@@ -63,14 +64,14 @@ public static class Startup
     }
 
     #endregion
-    
+
     #region WebApplicationBuilder | Add.*
 
     private static WebApplicationBuilder AddApplicationDbContext(this WebApplicationBuilder builder)
     {
         builder
            .Services
-           .AddDbContextFactory<ApplicationDbContext>(options =>
+           .AddDbContextPool<ApplicationDbContext>(options =>
             {
                 var connectionString = builder
                    .Configuration
@@ -131,9 +132,8 @@ public static class Startup
         builder
            .Host
            .UseSerilog((_, configuration) =>
-            {
-                configuration.ReadFrom.Configuration(builder.Configuration);
-            });
+                    configuration.ReadFrom.Configuration(builder.Configuration),
+                writeToProviders: true);
 
         builder
            .Services
@@ -175,7 +175,6 @@ public static class Startup
                 options.Connection(connectionString);
                 options.Logger(provider.GetRequiredService<IMartenLogger>());
                 options.AutoCreateSchemaObjects = AutoCreate.All;
-                options.DatabaseSchemaName = new NpgsqlConnectionStringBuilder(connectionString).Username!;
 
                 return options;
             })
@@ -186,7 +185,7 @@ public static class Startup
 
         return builder;
     }
-    
+
     private static WebApplicationBuilder AddDocumentRecognition(this WebApplicationBuilder builder)
     {
         builder
@@ -196,12 +195,25 @@ public static class Startup
         return builder;
     }
 
+    private static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
+    {
+        var services = builder.Services;
+
+        services
+           .AddAuthentication();
+
+        services
+           .AddAuthorization();
+
+        return builder;
+    }
+
     private static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 
         services
-            .AddIdentity<ApplicationUser, ApplicationUserRole>(options =>
+           .AddIdentity<ApplicationUser, ApplicationUserRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -210,30 +222,32 @@ public static class Startup
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+           .AddEntityFrameworkStores<ApplicationDbContext>();
 
         services.ConfigureApplicationCookie(options =>
         {
             options.Events.OnRedirectToLogin = context =>
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
                 return Task.CompletedTask;
             };
 
             options.Events.OnRedirectToAccessDenied = context =>
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
                 return Task.CompletedTask;
             };
         });
 
         return builder;
     }
-    
+
     #endregion
-    
+
     #region WebApplicationBuilder | public deps
-    
+
     public static WebApplicationBuilder ConfigureStaticLogger(this WebApplicationBuilder builder)
     {
         // always log to console as default behaviour
@@ -246,6 +260,6 @@ public static class Startup
 
         return builder;
     }
-    
+
     #endregion
 }

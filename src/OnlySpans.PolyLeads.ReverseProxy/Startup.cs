@@ -7,6 +7,7 @@ public static class Startup
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
         builder
+           .AddServiceDefaults()
            .AddReverseProxy()
            .AddLogging();
 
@@ -31,7 +32,8 @@ public static class Startup
            .LoadFromConfig(
                 builder
                    .Configuration
-                   .GetSection("ReverseProxy"));
+                   .GetSection("ReverseProxy"))
+           .AddServiceDiscoveryDestinationResolver();
 
         return builder;
     }
@@ -39,9 +41,8 @@ public static class Startup
     private static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
     {
         builder.Host.UseSerilog((_, configuration) =>
-        {
-            configuration.ReadFrom.Configuration(builder.Configuration);
-        });
+            configuration.ReadFrom.Configuration(builder.Configuration),
+            writeToProviders: true);
 
         return builder;
     }

@@ -32,4 +32,8 @@
       <Folder Include="Data\Migrations\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj" />
+    </ItemGroup>
+
 </Project>

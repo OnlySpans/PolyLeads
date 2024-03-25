@@ -1,14 +1,29 @@
-## Quick Start
+## Installation
+1. node_modules
+   ```shell
+   cd src/onlyspans.polyleads.ui/
+   npm i
+   ```
+2. dotnet aspire
+   ```shell
+   dotnet workload install aspire
+   ```
 
-Frontend
+## Launch
+1. Launch Aspire 
+    ```shell
+    cd src/OnlySpans.Aspire.AppHost/
+    dotnet watch run
+    ```
 
-```shell
-cd src/onlyspans.polyleads.ui/
-npm i
-npm run dev
-```
+## Urls
+1. UI - http://localhost:15001
+2. Aspire - http://localhost:15002
+3. Banana Cake Pop - http://localhost:15001/api/graphql
 
-Чтобы открыть запустить в локальной сети необходимо изменить файл package.json
+## Tips
+
+Чтобы запустить в локальной сети необходимо изменить файл package.json
 
 ```shell
 "dev": "next dev"
