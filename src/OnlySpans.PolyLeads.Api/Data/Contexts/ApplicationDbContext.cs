@@ -1,10 +1,11 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 
 namespace OnlySpans.PolyLeads.Api.Data.Contexts;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationUserRole, Guid>
 {
     public DbSet<StorageObject> StorageObjects { get; init; } = default!;
 
