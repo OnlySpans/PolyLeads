@@ -14,9 +14,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      DOTNET_INSTALL_DIR: ''
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
