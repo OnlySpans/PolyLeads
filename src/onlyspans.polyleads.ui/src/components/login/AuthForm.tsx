@@ -1,4 +1,5 @@
 'use client';
+
 import { LoaderCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,7 +23,7 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               id='email'
               minLength={4}
               required={true}
-              placeholder='Имя пользователя или email'
+              placeholder='Имя пользователя или почта'
               autoComplete='email'
               autoCorrect='off'
               disabled={vm.isLoading}

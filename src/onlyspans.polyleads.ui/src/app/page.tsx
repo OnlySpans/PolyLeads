@@ -7,10 +7,10 @@ const Home = () => {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       <Link
-        href='/login'
+        href={'/login'}
         className={cn(buttonVariants({ variant: 'default' }))}
       >
-        Login
+        Войти
       </Link>
       <ThemeSwitchButton />
     </main>
