@@ -1,15 +1,19 @@
-## Quick Start
+## Installation
+1. node_modules
+   ```shell
+   cd src/onlyspans.polyleads.ui/
+   npm i
+   ```
+2. dotnet aspire
+   ```shell
+   dotnet workload install aspire
+   ```
 
+## Launch
 1. Launch Aspire 
     ```shell
     cd src/OnlySpans.Aspire.AppHost/
     dotnet watch run
-    ```
-
-2. (Do once) Install deps
-    ```shell
-    cd src/onlyspans.polyleads.ui/
-    npm i
     ```
 
 ## Urls
@@ -19,7 +23,7 @@
 
 ## Tips
 
-Чтобы открыть запустить в локальной сети необходимо изменить файл package.json
+Чтобы запустить в локальной сети необходимо изменить файл package.json
 
 ```shell
 "dev": "next dev"
