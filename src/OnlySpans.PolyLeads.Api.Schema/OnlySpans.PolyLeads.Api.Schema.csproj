@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="HotChocolate.Data" Version="14.0.0-p.70" />
+      <PackageReference Include="HotChocolate.Data" Version="13.9.0" />
     </ItemGroup>
 
 </Project>

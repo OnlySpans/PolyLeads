@@ -107,7 +107,7 @@ public static class Startup
         builder
            .Services
            .AddGraphQLServer()
-            //.AddErrorFilter<GenericErrorFilter>()
+            .AddErrorFilter<GenericErrorFilter>()
             //.AddFluentValidation()
            .AddMartenFiltering()
            .AddMartenSorting()
@@ -119,10 +119,9 @@ public static class Startup
                 IncludeTotalCount = true
             })
            .AddInMemorySubscriptions()
-           .AddMutationConventions()
            .AddQueryType()
-           .AddMutationType();
-        //.AddApiTypes();
+           .AddMutationType()
+           .AddApiTypes();
 
         return builder;
     }
@@ -262,4 +261,10 @@ public static class Startup
     }
 
     #endregion
+}
+
+[QueryType]
+public sealed class Query
+{
+    public string NewQuery() => "ass";
 }
