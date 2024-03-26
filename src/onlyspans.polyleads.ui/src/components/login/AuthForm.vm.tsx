@@ -5,6 +5,8 @@ import React from 'react';
 export interface IAuthFormVM {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  isPasswordShown: boolean;
+  setPasswordShown: (isPasswordShown: boolean) => void;
   login: (event: React.SyntheticEvent) => void;
 }
 
@@ -13,9 +15,17 @@ class AuthFormVM implements IAuthFormVM {
   @observable
   public isLoading: boolean = false;
 
+  @observable
+  public isPasswordShown: boolean = false;
+
   constructor() {
     makeObservable(this);
   }
+
+  @action
+  public setPasswordShown = (isPasswordShown: boolean) => {
+    this.isPasswordShown = isPasswordShown;
+}
 
   @action
   public setIsLoading = (isLoading: boolean) => {

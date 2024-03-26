@@ -1,6 +1,6 @@
 'use client';
 
-import { LoaderCircle } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import React from 'react';
@@ -29,16 +29,29 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               disabled={vm.isLoading}
             />
           </div>
-          <div className='grid gap-1'>
+          <div className='relative'>
             <Input
               id='password'
+              type={vm.isPasswordShown ? 'text' : 'password'}
               minLength={6}
               required={true}
               placeholder='Пароль'
-              autoComplete='off'
+              autoComplete='new-password'
               autoCorrect='off'
               disabled={vm.isLoading}
             />
+            <Button
+              type='button'
+              variant='ghost'
+              className='absolute top-0 right-0 px-3 py-2 hover:bg-transparent'
+              onClick={() => vm.setPasswordShown(!vm.isPasswordShown)}
+            >
+              {vm.isPasswordShown ? (
+                <EyeOffIcon className='h-4 w-4' />
+              ) : (
+                <EyeIcon className='h-4 w-4' />
+              )}
+            </Button>
           </div>
           <Button disabled={vm.isLoading}>
             {vm.isLoading ? (
