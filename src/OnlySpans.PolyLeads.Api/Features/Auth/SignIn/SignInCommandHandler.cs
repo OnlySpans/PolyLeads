@@ -2,6 +2,7 @@
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Exceptions;
@@ -40,49 +41,28 @@ public sealed class SignInCommandHandler :
     {
         var input = request.Input;
 
-        if (input.Key is UserName userName)
-        {
-            var result = await SignInManager
-               .PasswordSignInAsync(
-                    userName.UserNameValue,
-                    input.Password,
-                    true,
-                    false);
+        var user = await SignInManager
+           .UserManager
+           .Users
+           .Where(x => x.UserName == input.Key || x.Email == input.Key)
+           .FirstOrDefaultAsync(cancellationToken);
 
-            if (!result.Succeeded)
-            {
-                throw new AuthorizationException("Authorization error");
-            }
+        if (user is null || user.UserName is null)
+            throw new AuthorizationException("User not found");
 
-            return Mapper
-               .Map<Schema.ApplicationUser>(
-                    Context
-                       .Users
-                       .First(x => x.UserName == userName.UserNameValue));
-        }
+        var userName = user.UserName;
+        
+        var result = await SignInManager
+           .PasswordSignInAsync(
+                userName,
+                input.Password,
+                true,
+                false);
 
-        else
-        {
-            var email = (Email) input.Key;
+        if (!result.Succeeded)
+            throw new AuthorizationException("Failed to login");
 
-            var user = Context
-               .Users
-               .First(x => x.Email == email.EmailValue);
-
-            var result = await SignInManager
-               .PasswordSignInAsync(
-                    user,
-                    input.Password,
-                    true,
-                    false);
-
-            if (!result.Succeeded)
-            {
-                throw new AuthorizationException("Authorization error");
-            }
-
-            return Mapper
-               .Map<Schema.ApplicationUser>(user);
-        }
+        return Mapper
+           .Map<Schema.ApplicationUser>(user);
     }
 }
