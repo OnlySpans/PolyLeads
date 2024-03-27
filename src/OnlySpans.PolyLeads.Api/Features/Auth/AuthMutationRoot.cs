@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using MediatR;
+using OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignUp;
 using OnlySpans.PolyLeads.Api.Schema.Inputs.Auth;
 
@@ -19,6 +20,19 @@ public sealed class AuthMutationRoot
     {
         var command = new SignUpCommand(input);
         var user = await mediator.Send(command, cancellationToken);
+
+        return user;
+    }
+
+    [PublicAPI]
+    public async Task<Schema.ApplicationUser> SignIn(
+        SignInInput input,
+        [Service] IMediator mediator,
+        CancellationToken cancellationToken)
+    {
+        var command = new SignInCommand(input);
+        var user = await mediator.Send(command, cancellationToken);
+
         return user;
     }
 }

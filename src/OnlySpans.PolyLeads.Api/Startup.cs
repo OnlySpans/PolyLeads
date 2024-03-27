@@ -107,7 +107,7 @@ public static class Startup
         builder
            .Services
            .AddGraphQLServer()
-            .AddErrorFilter<GenericErrorFilter>()
+           .AddErrorFilter<GenericErrorFilter>()
             //.AddFluentValidation()
            .AddMartenFiltering()
            .AddMartenSorting()

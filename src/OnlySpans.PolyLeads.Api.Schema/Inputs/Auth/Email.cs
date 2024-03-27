@@ -1,8 +1,8 @@
 ﻿namespace OnlySpans.PolyLeads.Api.Schema.Inputs.Auth;
 
 [GraphQLDescription("Почта")]
-public sealed record Email : ISignInKey
+public sealed record Email : IAuthKey
 {
     [GraphQLDescription("Значение")]
-    public string Value { get; init; } = string.Empty;
+    public string EmailValue { get; init; } = string.Empty;
 }
