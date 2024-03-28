@@ -19,7 +19,7 @@
 ## Urls
 1. UI - http://localhost:15001
 2. Aspire - http://localhost:15002
-3. Banana Cake Pop - http://localhost:15001/api/graphql
+3. Banana Cake Pop - http://localhost:15000/api/graphql
 
 ## Tips
 
