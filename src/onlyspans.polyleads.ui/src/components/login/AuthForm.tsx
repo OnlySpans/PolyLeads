@@ -24,17 +24,8 @@ interface IAuthFormProps {}
 const AuthForm: React.FC<IAuthFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
 
-  const formSchema = z.object({
-    email: z
-      .string({ required_error: 'Поле должно быть заполнено' })
-      .min(4, 'Имя должно содержать не менее 4 символов'),
-    password: z
-      .string({ required_error: 'Поле должно быть заполнено' })
-      .min(6, 'Пароль должен содержать не менее 6 символов'),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof vm.formSchema>>({
+    resolver: zodResolver(vm.formSchema),
   });
 
   return (
@@ -82,7 +73,7 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
                     type='button'
                     variant='ghost'
                     className='absolute top-0 right-0 px-3 py-2 hover:bg-transparent'
-                    onClick={() => vm.setPasswordShown(!vm.isPasswordShown)}
+                    onClick={vm.togglePasswordShown}
                   >
                     {vm.isPasswordShown ? (
                       <EyeOffIcon className='h-4 w-4' />
