@@ -6,15 +6,17 @@ public sealed class GenericErrorFilter : IErrorFilter
 {
     private ILogger<GenericErrorFilter> Logger { get; init; }
 
-    public GenericErrorFilter(
-        ILogger<GenericErrorFilter> logger)
+    public GenericErrorFilter(ILogger<GenericErrorFilter> logger)
     {
         Logger = logger;
     }
 
     public IError OnError(IError error)
     {
-        Logger.LogError(error.Exception, "{Message}", error.Message);
+        Logger.LogError(
+            error.Exception,
+            "{Message}",
+            error.Message);
 
         if (error.Exception is not ApiException exception)
             return error;
@@ -30,8 +32,7 @@ public sealed class GenericErrorFilter : IErrorFilter
     private static string ExceptionToStatusCode(ApiException ex) =>
         ex switch
         {
-            AuthenticationException         => "UNAUTHORIZED",
-            _                               => "INTERNAL_SERVER_ERROR",
+            AuthenticationException => "UNAUTHORIZED",
+            _                       => "INTERNAL_SERVER_ERROR",
         };
 }
-    

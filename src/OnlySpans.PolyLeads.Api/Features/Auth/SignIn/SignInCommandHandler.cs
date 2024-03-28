@@ -44,14 +44,16 @@ public sealed class SignInCommandHandler :
         var user = await SignInManager
            .UserManager
            .Users
-           .Where(x => x.UserName == input.Key || x.Email == input.Key)
+           .Where(x =>
+                x.UserName == input.Key ||
+                x.Email == input.Key)
            .FirstOrDefaultAsync(cancellationToken);
 
         if (user is null || user.UserName is null)
             throw new AuthorizationException("User not found");
 
         var userName = user.UserName;
-        
+
         var result = await SignInManager
            .PasswordSignInAsync(
                 userName,
