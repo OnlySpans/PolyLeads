@@ -34,14 +34,8 @@ public sealed class SignUpCommandHandler :
     {
         var input = request.Input;
 
-        var user = new ApplicationUser
-        {
-            FirstName = input.FirstName,
-            LastName = input.LastName,
-            Patronymic = input.Patronymic,
-            UserName = input.UserName,
-            Email = input.Email
-        };
+        var user = Mapper
+           .Map<ApplicationUser>(input);
 
         var result = await UserManager
            .CreateAsync(user, input.Password);
@@ -50,8 +44,7 @@ public sealed class SignUpCommandHandler :
             throw new AuthenticationException(string.Join("; ",
                 result
                    .Errors
-                   .Select(x => x.Description)
-            ));
+                   .Select(x => x.Description)));
 
         return Mapper
            .Map<Schema.ApplicationUser>(user);

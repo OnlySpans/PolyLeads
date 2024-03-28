@@ -45,26 +45,26 @@ public sealed class SignInCommandHandler :
            .UserManager
            .Users
            .Where(x =>
-                x.UserName == input.Key ||
-                x.Email == input.Key)
+                x.UserName == input.Key
+                || x.Email == input.Key)
            .FirstOrDefaultAsync(cancellationToken);
 
-        if (user is null || user.UserName is null)
-            throw new AuthorizationException("User not found");
-
-        var userName = user.UserName;
+        if (user?.UserName is null)
+            throw new AuthenticationException("Неправильный логин или пароль");
+        
+        var userName = user?.UserName;
 
         var result = await SignInManager
            .PasswordSignInAsync(
-                userName,
+                userName!,
                 input.Password,
-                true,
-                false);
+                isPersistent: true,
+                lockoutOnFailure: false);
 
         if (!result.Succeeded)
-            throw new AuthorizationException("Failed to login");
+            throw new AuthenticationException("Неправильный логин или пароль");
 
         return Mapper
-           .Map<Schema.ApplicationUser>(user);
+           .Map<Schema.ApplicationUser>(user!);
     }
 }

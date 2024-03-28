@@ -20,7 +20,6 @@ public sealed class AuthMutationRoot
     {
         var command = new SignUpCommand(input);
         var user = await mediator.Send(command, cancellationToken);
-
         return user;
     }
 
@@ -32,7 +31,6 @@ public sealed class AuthMutationRoot
     {
         var command = new SignInCommand(input);
         var user = await mediator.Send(command, cancellationToken);
-
         return user;
     }
 }
