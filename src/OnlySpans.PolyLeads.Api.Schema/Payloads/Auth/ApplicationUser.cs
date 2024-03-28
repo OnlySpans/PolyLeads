@@ -3,15 +3,15 @@
 [GraphQLDescription("Пользователь")]
 public sealed record ApplicationUser
 {
-    [GraphQLDescription("Имя пользователя")]
+    [GraphQLDescription("Имя")]
     public string FirstName { get; init; } = string.Empty;
 
-    [GraphQLDescription("Фамилия пользователя")]
+    [GraphQLDescription("Фамилия")]
     public string LastName { get; init; } = string.Empty;
 
     [GraphQLDescription("Отчество")]
     public string? Patronymic { get; init; }
     
-    [GraphQLDescription("Логин пользователя")]
+    [GraphQLDescription("Логин")]
     public string UserName { get; init; } = string.Empty;
 }
