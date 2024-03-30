@@ -2,7 +2,7 @@
 
 import React from 'react';
 import useGet from '@/hooks/useGet';
-import { IAuthFormVM } from '@/components/auth/login/AuthForm.vm';
+import { IAuthFormVM } from '@/components/auth/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

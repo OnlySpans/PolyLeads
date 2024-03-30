@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'inversify';
-import AuthFormVM, { IAuthFormVM } from '@/components/auth/login/AuthForm.vm';
+import AuthFormVM, { IAuthFormVM } from '@/components/auth/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
 export const createDependencyContainer = (): Container => {
