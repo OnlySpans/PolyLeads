@@ -4,7 +4,6 @@ import React from 'react';
 import useGet from '@/hooks/useGet';
 import { IAuthFormVM } from '@/components/auth/login/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -17,20 +16,21 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
+import { z } from 'zod';
 
 interface ISignUpFormProps {}
 
 const SignUpForm: React.FC<ISignUpFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
-
-  const form = useForm<z.infer<typeof vm.schemaForm>>({
-    resolver: zodResolver(vm.schemaForm),
+  
+  const form = useForm<z.infer<typeof vm.schemaSignUpForm>>({
+    resolver: zodResolver(vm.schemaSignUpForm),
   });
 
   return (
     <Form {...form}>
       <form
-        // onSubmit={form.handleSubmit(() => vm.login)}
+        onSubmit={form.handleSubmit(() => vm.login)}
         className='grid gap-2'
       >
         <FormField
@@ -40,9 +40,8 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
             <FormItem>
               <FormControl>
                 <Input
-                  id='email'
+                  id='username'
                   placeholder='Имя пользователя'
-                  autoComplete='email'
                   autoCorrect='off'
                   disabled={vm.isLoading}
                   {...field}
@@ -54,7 +53,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
         />
         <FormField
           control={form.control}
-          name='username'
+          name='email'
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -82,7 +81,6 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
                     id="password"
                     type={vm.isPasswordShown ? 'text' : 'password'}
                     placeholder='Пароль'
-                    autoComplete="new-password"
                     autoCorrect="off"
                     disabled={vm.isLoading}
                     {...field}
@@ -106,16 +104,15 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
           )}
         /><FormField
           control={form.control}
-          name='password'
+          name='confirmPassword'
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <div className='relative'>
                   <Input
-                    id="password"
+                    id="confirmPassword"
                     type={vm.isPasswordShown ? 'text' : 'password'}
                     placeholder='Пароль'
-                    autoComplete="new-password"
                     autoCorrect="off"
                     disabled={vm.isLoading}
                     {...field}
@@ -136,7 +133,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
               Подождите
             </>
           ) : (
-            'Войти'
+            'Далее'
           )}
         </Button>
         <Input

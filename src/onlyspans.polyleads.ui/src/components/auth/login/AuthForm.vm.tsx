@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { z } from 'zod';
+import { z, ZodEffects } from 'zod';
 
 export interface IAuthFormVM {
   isLoading: boolean;
@@ -9,7 +9,8 @@ export interface IAuthFormVM {
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
   login: (event: React.SyntheticEvent) => void;
-  schemaForm: z.ZodObject<any>;
+  schemaLoginForm: z.ZodObject<any>;
+  schemaSignUpForm: ZodEffects<z.ZodObject<any>>;
 }
 
 @injectable()
@@ -44,7 +45,7 @@ class AuthFormVM implements IAuthFormVM {
     }, 3000);
   }
 
-  get schemaForm(): z.ZodObject<any> {
+  get schemaLoginForm(): z.ZodObject<any> {
     return z.object({
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
@@ -52,6 +53,26 @@ class AuthFormVM implements IAuthFormVM {
       password: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(6, 'Пароль должен содержать не менее 6 символов'),
+    })
+  }
+
+  get schemaSignUpForm(): ZodEffects<z.ZodObject<any>> {
+    return z.object({
+      username: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(4, 'Имя должно содержать не менее 4 символов'),
+      email: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .email('Некорректный ввод почты'),
+      password: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(6, 'Пароль должен содержать не менее 6 символов'),
+      confirmPassword: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(6, 'Пароль должен содержать не менее 6 символов'),
+    }).refine(data => data.password === data.confirmPassword, {
+      message: 'Пароли должны совпадать',
+      path: ['confirmPassword']
     })
   }
 }

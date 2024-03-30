@@ -24,8 +24,8 @@ interface IAuthFormProps {}
 const AuthForm: React.FC<IAuthFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
 
-  const form = useForm<z.infer<typeof vm.schemaForm>>({
-    resolver: zodResolver(vm.schemaForm),
+  const form = useForm<z.infer<typeof vm.schemaLoginForm>>({
+    resolver: zodResolver(vm.schemaLoginForm),
   });
 
   return (
