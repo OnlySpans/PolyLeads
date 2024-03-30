@@ -9,7 +9,7 @@ export interface IAuthFormVM {
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
   login: (event: React.SyntheticEvent) => void;
-  formSchema: z.ZodObject<any>;
+  schemaForm: z.ZodObject<any>;
 }
 
 @injectable()
@@ -44,14 +44,16 @@ class AuthFormVM implements IAuthFormVM {
     }, 3000);
   }
 
-  public formSchema = z.object({
-    email: z
-      .string({ required_error: 'Поле должно быть заполнено' })
-      .min(4, 'Имя должно содержать не менее 4 символов'),
-    password: z
-      .string({ required_error: 'Поле должно быть заполнено' })
-      .min(6, 'Пароль должен содержать не менее 6 символов'),
-  });
+  get schemaForm(): z.ZodObject<any> {
+    return z.object({
+      email: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(4, 'Имя должно содержать не менее 4 символов'),
+      password: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(6, 'Пароль должен содержать не менее 6 символов'),
+    })
+  }
 }
 
 export default AuthFormVM;
