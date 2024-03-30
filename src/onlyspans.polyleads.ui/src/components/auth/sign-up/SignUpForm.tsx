@@ -1,10 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import React from 'react';
 import useGet from '@/hooks/useGet';
-import { observer } from 'mobx-react-lite';
 import { IAuthFormVM } from '@/components/auth/login/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { z } from 'zod';
@@ -17,11 +14,13 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 
-interface IAuthFormProps {}
+interface ISignUpFormProps {}
 
-const AuthForm: React.FC<IAuthFormProps> = () => {
+const SignUpForm: React.FC<ISignUpFormProps> = () => {
   const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
 
   const form = useForm<z.infer<typeof vm.schemaForm>>({
@@ -31,18 +30,37 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => vm.login)}
+        // onSubmit={form.handleSubmit(() => vm.login)}
         className='grid gap-2'
       >
         <FormField
           control={form.control}
-          name='email'
+          name='username'
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input
                   id='email'
-                  placeholder='Имя пользователя или почта'
+                  placeholder='Имя пользователя'
+                  autoComplete='email'
+                  autoCorrect='off'
+                  disabled={vm.isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  id='email'
+                  placeholder='Почта'
                   autoComplete='email'
                   autoCorrect='off'
                   disabled={vm.isLoading}
@@ -86,6 +104,27 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               <FormMessage />
             </FormItem>
           )}
+        /><FormField
+          control={form.control}
+          name='password'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <div className='relative'>
+                  <Input
+                    id="password"
+                    type={vm.isPasswordShown ? 'text' : 'password'}
+                    placeholder='Пароль'
+                    autoComplete="new-password"
+                    autoCorrect="off"
+                    disabled={vm.isLoading}
+                    {...field}
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button
           type='submit'
@@ -106,7 +145,7 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
         />
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default observer(AuthForm);
+export default SignUpForm;

@@ -3,7 +3,7 @@ import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
 import AuthBackgroundImage from '@/components/auth/AuthBackgroundImage';
-import AuthForm from '@/components/auth/login/AuthForm';
+import SignUpForm from '@/components/auth/sign-up/SignUpForm';
 
 const SignUpPage = () => {
   return (
@@ -30,7 +30,7 @@ const SignUpPage = () => {
             </h1>
             <p className='text-sm text-muted-foreground'>Заполните все поля</p>
           </div>
-          <AuthForm />
+          <SignUpForm />
         </div>
       </div>
     </div>
