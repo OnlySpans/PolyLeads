@@ -1,6 +1,5 @@
 import { injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
-import React from 'react';
 import { z, ZodEffects } from 'zod';
 
 export interface ISignUpFormVM {
@@ -8,7 +7,7 @@ export interface ISignUpFormVM {
   setIsLoading: (isLoading: boolean) => void;
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
-  signUp: (event: React.SyntheticEvent) => void;
+  signUp: (data: z.infer<any>) => void;
   schemaSignUpForm: ZodEffects<z.ZodObject<any>>;
 }
 
@@ -35,8 +34,7 @@ class SignUpFormVM implements ISignUpFormVM {
   };
 
   @action
-  public signUp = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  public signUp = async (data: z.infer<typeof this.schemaSignUpForm>) => {
     this.setIsLoading(true);
 
     setTimeout(() => {

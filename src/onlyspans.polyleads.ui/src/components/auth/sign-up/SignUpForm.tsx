@@ -31,7 +31,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => vm.signUp)}
+        onSubmit={form.handleSubmit(vm.signUp)}
         className='grid gap-2'
       >
         <FormField
