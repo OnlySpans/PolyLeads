@@ -74,6 +74,7 @@ const SignInForm: React.FC<ISignInProps> = () => {
                     variant='ghost'
                     className='absolute top-0 right-0 px-3 py-2 hover:bg-transparent'
                     onClick={vm.togglePasswordShown}
+                    disabled={vm.isLoading}
                   >
                     {vm.isPasswordShown ? (
                       <EyeOffIcon className='h-4 w-4' />
@@ -87,7 +88,10 @@ const SignInForm: React.FC<ISignInProps> = () => {
             </FormItem>
           )}
         />
-        <Button type='submit' disabled={vm.isLoading}>
+        <Button
+          type='submit'
+          disabled={vm.isLoading}
+        >
           {vm.isLoading ? (
             <>
               <LoaderCircle className='mr-2 h-4 w-4 animate-spin' />

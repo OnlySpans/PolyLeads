@@ -91,6 +91,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
                     variant='ghost'
                     className='absolute top-0 right-0 px-3 py-2 hover:bg-transparent'
                     onClick={vm.togglePasswordShown}
+                    disabled={vm.isLoading}
                   >
                     {vm.isPasswordShown ? (
                       <EyeOffIcon className='h-4 w-4' />
@@ -137,7 +138,10 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
             'Далее'
           )}
         </Button>
-
+        <Input
+          className='hidden'
+          type={vm.isPasswordShown ? 'text' : 'password'}
+        />
       </form>
     </Form>
   )

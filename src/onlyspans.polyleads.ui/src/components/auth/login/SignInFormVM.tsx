@@ -36,7 +36,6 @@ class SignInFormVM implements ISignInFormVM {
   @action
   public signIn = async (data: z.infer<typeof this.schemaSignInForm>) => {
     this.setIsLoading(true);
-    console.log(data)
 
     setTimeout(() => {
       this.setIsLoading(false);
