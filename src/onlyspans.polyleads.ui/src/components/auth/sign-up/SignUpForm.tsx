@@ -2,7 +2,6 @@
 
 import React from 'react';
 import useGet from '@/hooks/useGet';
-import { IAuthFormVM } from '@/components/auth/AuthForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,11 +16,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 import { z } from 'zod';
+import { ISignUpFormVM } from '@/components/auth/sign-up/SignUpForm.vm';
 
 interface ISignUpFormProps {}
 
 const SignUpForm: React.FC<ISignUpFormProps> = () => {
-  const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
+  const vm = useGet<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM);
   
   const form = useForm<z.infer<typeof vm.schemaSignUpForm>>({
     resolver: zodResolver(vm.schemaSignUpForm),
