@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import React from 'react';
 import useGet from '@/hooks/useGet';
 import { observer } from 'mobx-react-lite';
-import { IAuthFormVM } from '@/components/auth/AuthForm.vm';
+import { ISignInFormVM } from '@/components/auth/login/SignInFormVM';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -19,13 +19,13 @@ import {
 } from '@/components/ui/form';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 
-interface IAuthFormProps {}
+interface ISignInProps {}
 
-const LoginForm: React.FC<IAuthFormProps> = () => {
-  const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
+const SignInForm: React.FC<ISignInProps> = () => {
+  const vm = useGet<ISignInFormVM>(ServiceSymbols.ISignInFormVM);
 
-  const form = useForm<z.infer<typeof vm.schemaLoginForm>>({
-    resolver: zodResolver(vm.schemaLoginForm),
+  const form = useForm<z.infer<typeof vm.schemaSignInForm>>({
+    resolver: zodResolver(vm.schemaSignInForm),
   });
 
   return (
@@ -109,4 +109,4 @@ const LoginForm: React.FC<IAuthFormProps> = () => {
   );
 };
 
-export default observer(LoginForm);
+export default observer(SignInForm);

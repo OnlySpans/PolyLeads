@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from 'inversify';
-import AuthFormVM, { IAuthFormVM } from '@/components/auth/AuthForm.vm';
+import SignInFormVM, {
+  ISignInFormVM,
+} from '@/components/auth/login/SignInFormVM';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import SignUpFormVM, {
   ISignUpFormVM,
@@ -9,7 +11,7 @@ import SignUpFormVM, {
 export const createDependencyContainer = (): Container => {
   const container = new Container();
 
-  container.bind<IAuthFormVM>(ServiceSymbols.IAuthFormVM).to(AuthFormVM);
+  container.bind<ISignInFormVM>(ServiceSymbols.ISignInFormVM).to(SignInFormVM);
   container.bind<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM).to(SignUpFormVM);
 
   return container;

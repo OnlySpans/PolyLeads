@@ -3,17 +3,17 @@ import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { z } from 'zod';
 
-export interface IAuthFormVM {
+export interface ISignInFormVM {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
   login: (event: React.SyntheticEvent) => void;
-  schemaLoginForm: z.ZodObject<any>;
+  schemaSignInForm: z.ZodObject<any>;
 }
 
 @injectable()
-class AuthFormVM implements IAuthFormVM {
+class SignInFormVM implements ISignInFormVM {
   @observable
   public isLoading: boolean = false;
 
@@ -44,7 +44,7 @@ class AuthFormVM implements IAuthFormVM {
     }, 3000);
   }
 
-  get schemaLoginForm(): z.ZodObject<any> {
+  get schemaSignInForm(): z.ZodObject<any> {
     return z.object({
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
@@ -56,4 +56,4 @@ class AuthFormVM implements IAuthFormVM {
   }
 }
 
-export default AuthFormVM;
+export default SignInFormVM;

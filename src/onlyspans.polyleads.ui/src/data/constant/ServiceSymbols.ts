@@ -1,5 +1,5 @@
 const ServiceSymbols = {
-  IAuthFormVM: Symbol.for('IAuthFormVM'),
+  ISignInFormVM: Symbol.for('IAuthFormVM'),
   ISignUpFormVM: Symbol.for('ISignUpFormVM'),
 };
 
