@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'inversify';
 import SignInFormVM, {
   ISignInFormVM,
-} from '@/components/auth/login/SignInFormVM';
+} from '@/components/auth/sign-in/SignInFormVM';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import SignUpFormVM, {
   ISignUpFormVM,

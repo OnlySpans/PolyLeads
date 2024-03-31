@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import AuthForm from '@/components/auth/login/SignInForm';
+import AuthForm from '@/components/auth/sign-in/SignInForm';
 import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
 import AuthBackgroundImage from '@/components/auth/AuthBackgroundImage';
 

@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import React from 'react';
 import useGet from '@/hooks/useGet';
 import { observer } from 'mobx-react-lite';
-import { ISignInFormVM } from '@/components/auth/login/SignInFormVM';
+import { ISignInFormVM } from '@/components/auth/sign-in/SignInFormVM';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
