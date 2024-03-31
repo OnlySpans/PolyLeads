@@ -8,7 +8,7 @@ export interface ISignUpFormVM {
   setIsLoading: (isLoading: boolean) => void;
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
-  login: (event: React.SyntheticEvent) => void;
+  signUp: (event: React.SyntheticEvent) => void;
   schemaSignUpForm: ZodEffects<z.ZodObject<any>>;
 }
 
@@ -35,7 +35,7 @@ class SignUpFormVM implements ISignUpFormVM {
   };
 
   @action
-  public login = async (event: React.SyntheticEvent) => {
+  public signUp = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     this.setIsLoading(true);
 

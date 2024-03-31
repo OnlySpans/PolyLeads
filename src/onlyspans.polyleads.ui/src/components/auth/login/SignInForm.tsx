@@ -31,7 +31,7 @@ const SignInForm: React.FC<ISignInProps> = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => vm.login)}
+        onSubmit={form.handleSubmit(vm.signIn)}
         className='grid gap-2'
       >
         <FormField
@@ -61,11 +61,11 @@ const SignInForm: React.FC<ISignInProps> = () => {
               <FormControl>
                 <div className='relative'>
                   <Input
-                    id="password"
+                    id='password'
                     type={vm.isPasswordShown ? 'text' : 'password'}
                     placeholder='Пароль'
-                    autoComplete="new-password"
-                    autoCorrect="off"
+                    autoComplete='new-password'
+                    autoCorrect='off'
                     disabled={vm.isLoading}
                     {...field}
                   />
@@ -87,10 +87,7 @@ const SignInForm: React.FC<ISignInProps> = () => {
             </FormItem>
           )}
         />
-        <Button
-          type='submit'
-          disabled={vm.isLoading}
-        >
+        <Button type='submit' disabled={vm.isLoading}>
           {vm.isLoading ? (
             <>
               <LoaderCircle className='mr-2 h-4 w-4 animate-spin' />

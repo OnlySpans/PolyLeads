@@ -1,6 +1,5 @@
 import { injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
-import React from 'react';
 import { z } from 'zod';
 
 export interface ISignInFormVM {
@@ -8,7 +7,7 @@ export interface ISignInFormVM {
   setIsLoading: (isLoading: boolean) => void;
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
-  login: (event: React.SyntheticEvent) => void;
+  signIn: (data: z.infer<any>) => void;
   schemaSignInForm: z.ZodObject<any>;
 }
 
@@ -35,9 +34,9 @@ class SignInFormVM implements ISignInFormVM {
   };
 
   @action
-  public login = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  public signIn = async (data: z.infer<typeof this.schemaSignInForm>) => {
     this.setIsLoading(true);
+    console.log(data)
 
     setTimeout(() => {
       this.setIsLoading(false);

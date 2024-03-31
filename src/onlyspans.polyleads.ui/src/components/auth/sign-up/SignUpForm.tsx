@@ -31,7 +31,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => vm.login)}
+        onSubmit={form.handleSubmit(() => vm.signUp)}
         className='grid gap-2'
       >
         <FormField
@@ -137,10 +137,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
             'Далее'
           )}
         </Button>
-        <Input
-          className='hidden'
-          type={vm.isPasswordShown ? 'text' : 'password'}
-        />
+
       </form>
     </Form>
   )

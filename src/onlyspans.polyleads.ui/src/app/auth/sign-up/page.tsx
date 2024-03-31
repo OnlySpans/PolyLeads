@@ -9,7 +9,7 @@ const SignUpPage = () => {
   return (
     <div className='bg-fixed container relative hidden h-screen flex-col items-center justify-center min-[300px]:grid lg:max-w-none lg:grid-cols-2 lg:px-0'>
       <Link
-        href={'/auth/login'}
+        href={'/auth/sign-in'}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
           'absolute right-4 top-4 md:right-8 md:top-8',
@@ -28,7 +28,6 @@ const SignUpPage = () => {
             <h1 className='text-2xl font-semibold tracking-tight'>
               Регистрация
             </h1>
-            <p className='text-sm text-muted-foreground'>Заполните все поля</p>
           </div>
           <SignUpForm />
         </div>
