@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 import { z } from 'zod';
 import { ISignUpFormVM } from '@/components/auth/sign-up/SignUpForm.vm';
+import { observer } from 'mobx-react-lite';
 
 interface ISignUpFormProps {}
 
@@ -145,4 +146,4 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
   )
 }
 
-export default SignUpForm;
+export default observer(SignUpForm);
