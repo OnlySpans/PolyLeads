@@ -12,7 +12,7 @@ export interface ISignInFormVM {
 }
 
 @injectable()
-class SignInFormVM implements ISignInFormVM {
+class SignInFormVm implements ISignInFormVM {
   @observable
   public isLoading: boolean = false;
 
@@ -54,4 +54,4 @@ class SignInFormVM implements ISignInFormVM {
   }
 }
 
-export default SignInFormVM;
+export default SignInFormVm;
