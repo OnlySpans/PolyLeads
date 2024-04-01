@@ -42,8 +42,8 @@ class SignUpFormVM implements ISignUpFormVM {
     }, 3000);
   }
 
-  get schemaSignUpForm(): ZodEffects<z.ZodObject<any>> {
-    return z.object({
+  public readonly schemaSignUpForm: ZodEffects<z.ZodObject<any>> = z
+    .object({
       username: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(4, 'Имя должно содержать не менее 4 символов'),
@@ -60,7 +60,6 @@ class SignUpFormVM implements ISignUpFormVM {
       message: 'Пароли должны совпадать',
       path: ['confirmPassword']
     })
-  }
 }
 
 export default SignUpFormVM;

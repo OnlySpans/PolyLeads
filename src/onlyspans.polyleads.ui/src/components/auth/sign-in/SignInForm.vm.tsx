@@ -42,8 +42,8 @@ class SignInFormVm implements ISignInFormVM {
     }, 3000);
   }
 
-  get schemaSignInForm(): z.ZodObject<any> {
-    return z.object({
+  public readonly schemaSignInForm: z.ZodObject<any> = z
+    .object({
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(4, 'Имя должно содержать не менее 4 символов'),
@@ -51,7 +51,7 @@ class SignInFormVm implements ISignInFormVM {
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(6, 'Пароль должен содержать не менее 6 символов'),
     })
-  }
+
 }
 
 export default SignInFormVm;
