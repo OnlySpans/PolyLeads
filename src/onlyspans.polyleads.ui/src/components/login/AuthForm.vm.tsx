@@ -9,7 +9,7 @@ export interface IAuthFormVM {
   isPasswordShown: boolean;
   togglePasswordShown: () => void;
   login: (event: React.SyntheticEvent) => void;
-  schemaForm: z.ZodObject<any>;
+  schemaForm: () => z.ZodObject<any>;
 }
 
 @injectable()
@@ -44,7 +44,7 @@ class AuthFormVM implements IAuthFormVM {
     }, 3000);
   }
 
-  get schemaForm(): z.ZodObject<any> {
+  public readonly schemaForm = (): z.ZodObject<any> => {
     return z.object({
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
