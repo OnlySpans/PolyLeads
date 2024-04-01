@@ -62,7 +62,6 @@ const config: Config = {
           position: 'left',
           label: 'Разработка',
         },
-        {to: '/blog', label: 'Блог', position: 'left'},
         {
           href: 'https://github.com/OnlySpans/PolyLeads',
           label: 'GitHub',
@@ -85,10 +84,6 @@ const config: Config = {
         {
           title: 'Еще',
           items: [
-            {
-              label: 'Блог',
-              to: '/blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/OnlySpans/PolyLeads',

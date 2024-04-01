@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.AppHost", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{167A809B-3F1F-4C72-A691-99883673E447}"
 	ProjectSection(SolutionItems) = preProject
-		docs\.gitkeep = docs\.gitkeep
+		docs\PolyLeads\docs\release-notes.md = docs\PolyLeads\docs\release-notes.md
 	EndProjectSection
 EndProject
 Global
