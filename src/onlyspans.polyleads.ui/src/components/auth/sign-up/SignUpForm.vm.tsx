@@ -67,16 +67,18 @@ class SignUpFormVM implements ISignUpFormVM {
         .min(4, 'Никнейм должен содержать не менее 4 символов')
         .regex(/^[a-zA-Zа-яА-Я0-9]+$/, {
           message: 'Никнейм не может содержать спецсимволы'
-        }),
+        })
+        .toLowerCase(),
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .email('Некорректный ввод почты'),
       password: z
         .string({ required_error: 'Поле должно быть заполнено' })
-        .min(6, 'Пароль должен содержать не менее 6 символов'),
-      confirmPassword: z
-        .string({ required_error: 'Поле должно быть заполнено' })
-        .min(6, 'Пароль должен содержать не менее 6 символов'),
+        .min(6, 'Пароль должен содержать не менее 6 символов')
+        .regex(/^\S*$/, {
+          message: 'Пароль не может содержать пробелы'
+        }),
+      confirmPassword: z.string({ required_error: 'Поле должно быть заполнено' })
     }).refine(data => data.password === data.confirmPassword, {
       message: 'Пароли должны совпадать',
       path: ['confirmPassword']
