@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import AuthForm from '@/components/auth/sign-in/SignInForm';
+import SignInForm from '@/components/auth/sign-in/SignInForm';
 import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
 import AuthBackgroundImage from '@/components/auth/AuthBackgroundImage';
 
@@ -29,7 +29,7 @@ const AuthenticationPage = () => {
               Используйте почту или имя пользователя
             </p>
           </div>
-          <AuthForm />
+          <SignInForm />
         </div>
       </div>
     </div>

@@ -44,9 +44,30 @@ class SignUpFormVM implements ISignUpFormVM {
 
   public readonly schemaSignUpForm: ZodEffects<z.ZodObject<any>> = z
     .object({
+      firstName: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(2, 'Имя должно содержать не менее 2 символов')
+        .regex(/^[a-zA-Zа-яА-Я]+$/, {
+          message: 'Имя не может содержать цифры или спецсимволы'
+        }),
+      lastName: z
+        .string({ required_error: 'Поле должно быть заполнено' })
+        .min(2, 'Фамилия должна содержать не менее 2 символов')
+        .regex(/^[a-zA-Zа-яА-Я]+$/, {
+          message: 'Фамилия не может содержать цифры или спецсимволы'
+        }),
+      patronymic: z
+        .string()
+        .regex(/^[a-zA-Zа-яА-Я]+$/, {
+          message: 'Отчество не может содержать цифры или спецсимволы'
+        })
+        .optional(),
       username: z
         .string({ required_error: 'Поле должно быть заполнено' })
-        .min(4, 'Имя должно содержать не менее 4 символов'),
+        .min(4, 'Никнейм должен содержать не менее 4 символов')
+        .regex(/^[a-zA-Zа-яА-Я0-9]+$/, {
+          message: 'Никнейм не может содержать спецсимволы'
+        }),
       email: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .email('Некорректный ввод почты'),
