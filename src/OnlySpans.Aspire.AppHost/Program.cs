@@ -3,7 +3,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 var postgres = builder
     .AddPostgres(
         name: "postgres",
-        port: 5433,
+        port: 5432,
         password: "postgres")
     .WithVolumeMount(
         "onlyspans-pd-data",

@@ -27,7 +27,7 @@ public sealed class SignInCommandHandler :
     {
         var input = request.Input;
 
-        var username = input.Username;
+        var username = input.UserName;
 
         var result = await SignInManager
            .PasswordSignInAsync(

@@ -4,18 +4,16 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Exceptions;
-using OnlySpans.PolyLeads.Api.Schema.Inputs.Auth;
+using OnlySpans.PolyLeads.Dto.Data;
 
 namespace OnlySpans.PolyLeads.Api.Features.Auth.SignUp;
 
-using Schema = Schema.Payloads.Auth;
-
 public sealed record SignUpCommand(SignUpInput Input) :
-    IRequest<Schema.ApplicationUser>;
+    IRequest;
 
 [UsedImplicitly]
 public sealed class SignUpCommandHandler :
-    IRequestHandler<SignUpCommand, Schema.ApplicationUser>
+    IRequestHandler<SignUpCommand>
 {
     private IMapper Mapper { get; init; }
     private UserManager<ApplicationUser> UserManager { get; init; }
@@ -28,7 +26,7 @@ public sealed class SignUpCommandHandler :
         Mapper = mapper;
     }
 
-    public async Task<Schema.ApplicationUser> Handle(
+    public async Task Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
@@ -45,8 +43,5 @@ public sealed class SignUpCommandHandler :
                 result
                    .Errors
                    .Select(x => x.Description)));
-
-        return Mapper
-           .Map<Schema.ApplicationUser>(user);
     }
 }
