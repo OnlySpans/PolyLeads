@@ -1,7 +1,9 @@
-import { injectable } from 'inversify';
-import { action, makeObservable, observable } from 'mobx';
+import { inject, injectable } from 'inversify';
+import { action, flow, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { z } from 'zod';
+import type { IAuthApi } from '@/services/api/auth/authApi';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
 export interface IAuthFormVM {
   isLoading: boolean;
@@ -20,7 +22,10 @@ class AuthFormVM implements IAuthFormVM {
   @observable
   public isPasswordShown: boolean = false;
 
-  constructor() {
+  private readonly authApi: IAuthApi;
+
+  constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
+    this.authApi = authApi;
     makeObservable(this);
   }
 
@@ -33,16 +38,6 @@ class AuthFormVM implements IAuthFormVM {
   public setIsLoading = (isLoading: boolean) => {
     this.isLoading = isLoading;
   };
-
-  @action
-  public login = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    this.setIsLoading(true);
-
-    setTimeout(() => {
-      this.setIsLoading(false);
-    }, 3000);
-  }
 
   public readonly schemaForm = (): z.ZodObject<any> => {
     return z.object({

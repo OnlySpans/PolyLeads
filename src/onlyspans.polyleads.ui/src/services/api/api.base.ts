@@ -1,10 +1,13 @@
-import { AxiosInstance } from 'axios';
+import type { AxiosInstance } from 'axios';
 import { AsyncRunnerMethod } from './api.types';
+import { inject, injectable } from 'inversify';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
+@injectable()
 export default abstract class ApiClientBase {
   protected api: AxiosInstance;
 
-  constructor(api: AxiosInstance) {
+  constructor(@inject(ServiceSymbols.AxiosInstance) api: AxiosInstance) {
     this.api = api;
   }
 
