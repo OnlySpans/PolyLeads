@@ -19,19 +19,19 @@ import {
 } from '@/components/ui/form';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
 
-interface IAuthFormProps {}
+interface ISignInProps {}
 
-const AuthForm: React.FC<IAuthFormProps> = () => {
-  const vm = useGet<IAuthFormVM>(ServiceSymbols.IAuthFormVM);
+const SignInForm: React.FC<ISignInProps> = () => {
+  const vm = useGet<ISignInFormVM>(ServiceSymbols.ISignInFormVM);
 
-  const form = useForm<z.infer<typeof vm.schemaForm>>({
-    resolver: zodResolver(vm.schemaForm),
+  const form = useForm<z.infer<typeof vm.schemaSignInForm>>({
+    resolver: zodResolver(vm.schemaSignInForm),
   });
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => vm.login)}
+        onSubmit={form.handleSubmit(vm.signIn)}
         className='grid gap-2'
       >
         <FormField
@@ -61,11 +61,11 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
               <FormControl>
                 <div className='relative'>
                   <Input
-                    id="password"
+                    id='password'
                     type={vm.isPasswordShown ? 'text' : 'password'}
                     placeholder='Пароль'
-                    autoComplete="new-password"
-                    autoCorrect="off"
+                    autoComplete='new-password'
+                    autoCorrect='off'
                     disabled={vm.isLoading}
                     {...field}
                   />
@@ -74,6 +74,7 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
                     variant='ghost'
                     className='absolute top-0 right-0 px-3 py-2 hover:bg-transparent'
                     onClick={vm.togglePasswordShown}
+                    disabled={vm.isLoading}
                   >
                     {vm.isPasswordShown ? (
                       <EyeOffIcon className='h-4 w-4' />
@@ -109,4 +110,4 @@ const AuthForm: React.FC<IAuthFormProps> = () => {
   );
 };
 
-export default observer(AuthForm);
+export default observer(SignInForm);
