@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import { makeObservable } from 'mobx';
 import { IDocument } from '@/data/IDocument';
+import { ColumnDef } from '@tanstack/react-table';
 
 export interface IDocumentsTableVM {
   files: IDocument[];
@@ -8,13 +9,49 @@ export interface IDocumentsTableVM {
 
 @injectable()
 class DocumentsTableVM implements IDocumentsTableVM {
-
-
   constructor() {
     makeObservable(this);
   }
 
 
+
+  columns: ColumnDef<IDocument>[] = [
+    {
+      accessorKey: 'name',
+      header: 'Название',
+      cell: ({ row }) => (
+        <div>{row.getValue('name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Время добавления',
+      cell: ({ row }) => (
+        <div>{row.getValue('createdAt')}</div>
+      ),
+    },
+    {
+      accessorKey: 'RecognitionStatus',
+      header: 'Статус распознавания',
+      cell: ({ row }) => (
+        <div>{row.getValue('RecognitionStatus')}</div>
+      ),
+    },
+    {
+      accessorKey: 'resource',
+      header: 'Ресурс',
+      cell: ({ row }) => (
+        <div>{row.getValue('resource')}</div>
+      ),
+    },
+    {
+      accessorKey: 'createdBy',
+      header: 'Пользователь',
+      cell: ({ row }) => (
+        <div>{row.getValue('createdBy')}</div>
+      ),
+    },
+  ];
 
   files = [
     {
