@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <PackageReference Include="AppAny.HotChocolate.FluentValidation" Version="0.11.1" />
-      <PackageReference Include="HotChocolate.AspNetCore" Version="13.9.0" />
       <PackageReference Include="HotChocolate.Data.Marten" Version="13.9.0" />
       <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.0" />
       <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
@@ -31,11 +30,12 @@
 
     <ItemGroup>
       <Folder Include="Data\Migrations\" />
+      <Folder Include="Features\" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj" />
       <ProjectReference Include="..\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj" />
-      <ProjectReference Include="..\OnlySpans.PolyLeads.Api.Schema\OnlySpans.PolyLeads.Api.Schema.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using OnlySpans.PolyLeads.Api.Exceptions;
+﻿using HotChocolate;
+using OnlySpans.PolyLeads.Api.Exceptions;
 
 namespace OnlySpans.PolyLeads.Api.Services.Logging;
 
