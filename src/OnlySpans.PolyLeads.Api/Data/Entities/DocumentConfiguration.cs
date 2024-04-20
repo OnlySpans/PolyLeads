@@ -14,10 +14,5 @@ public sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
         builder
            .Property(x => x.Description)
            .HasMaxLength(512);
-
-        builder
-           .HasMany(x => x.Groups)
-           .WithMany(x => x.Documents)
-           .UsingEntity<DocumentInGroup>();
     }
 }
