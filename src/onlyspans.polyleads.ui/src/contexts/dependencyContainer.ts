@@ -9,7 +9,7 @@ import SignUpFormVM, {
 } from '@/components/auth/sign-up/SignUpForm.vm';
 import DocumentsTableVM, {
   IDocumentsTableVM,
-} from '@/components/DocumentsTable/DocumentsTableVM';
+} from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();

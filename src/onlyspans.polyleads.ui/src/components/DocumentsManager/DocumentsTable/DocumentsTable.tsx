@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
-import { IDocumentsTableVM } from '@/components/DocumentsTable/DocumentsTableVM';
+import { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 

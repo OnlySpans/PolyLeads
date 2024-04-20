@@ -3,8 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Header from '@/components/Header/Header';
-import DataTableViewOptions from '@/components/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
-import DocumentsTable from '@/components/DocumentsTable/DocumentsTable';
+import DocumentsTable from '@/components/DocumentsManager/DocumentsTable/DocumentsTable';
 
 const Home = () => {
   return (
@@ -31,7 +30,7 @@ const Home = () => {
               </Button>
             </div>
 
-            <DataTableViewOptions />
+            {/*<DataTableViewOptions />*/}
           </div>
         </div>
         {/*<DataTable data={tasks} columns={columns} />*/}
