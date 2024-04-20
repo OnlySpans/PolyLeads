@@ -39,15 +39,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ChevronsUpDown, Ellipsis } from 'lucide-react';
+import { ChevronsUpDown, Ellipsis, Settings2 } from 'lucide-react';
 import moment from 'moment';
 
-const data: Payment[] = [
+const data: Documents[] = [
   {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'ken99@yahoo.com',
     name: 'AAA Electronic Concrete Cheese',
     createdAt: '2006-10-13T14:46:05.818Z',
     fileRecognitionStatus: 2,
@@ -55,10 +51,6 @@ const data: Payment[] = [
     createdBy: 'Zoe',
   },
   {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'dddken99@yahoo.com',
     name: 'BBB Refined Plastic Pizza',
     createdAt: '2013-10-07T01:44:43.285Z',
     fileRecognitionStatus: 1,
@@ -66,10 +58,6 @@ const data: Payment[] = [
     createdBy: 'Ryley',
   },
   {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'aaaken99@yahoo.com',
     name: 'CCC Refined Cotton Gloves',
     createdAt: '1987-08-31T15:49:22.344Z',
     fileRecognitionStatus: 0,
@@ -77,10 +65,62 @@ const data: Payment[] = [
     createdBy: 'Lilian',
   },
   {
-    id: 'm5gr84i9',
-    amount: 316,
-    status: 'success',
-    email: 'aaaken99@yahoo.com',
+    name: 'DDD Luxurious Steel Chair',
+    createdAt: '1995-08-22T22:47:55.552Z',
+    fileRecognitionStatus: 4,
+    resource: 'Сайт Политеха',
+    createdBy: 'Alysha',
+  },
+  {
+    name: 'AAA Electronic Concrete Cheese',
+    createdAt: '2006-10-13T14:46:05.818Z',
+    fileRecognitionStatus: 2,
+    resource: 'Сайт Политеха',
+    createdBy: 'Zoe',
+  },
+  {
+    name: 'BBB Refined Plastic Pizza',
+    createdAt: '2013-10-07T01:44:43.285Z',
+    fileRecognitionStatus: 1,
+    resource: 'Сайт Политеха',
+    createdBy: 'Ryley',
+  },
+  {
+    name: 'CCC Refined Cotton Gloves',
+    createdAt: '1987-08-31T15:49:22.344Z',
+    fileRecognitionStatus: 0,
+    resource: 'Телеграм',
+    createdBy: 'Lilian',
+  },
+  {
+    name: 'DDD Luxurious Steel Chair',
+    createdAt: '1995-08-22T22:47:55.552Z',
+    fileRecognitionStatus: 4,
+    resource: 'Сайт Политеха',
+    createdBy: 'Alysha',
+  },
+  {
+    name: 'AAA Electronic Concrete Cheese',
+    createdAt: '2006-10-13T14:46:05.818Z',
+    fileRecognitionStatus: 2,
+    resource: 'Сайт Политеха',
+    createdBy: 'Zoe',
+  },
+  {
+    name: 'BBB Refined Plastic Pizza',
+    createdAt: '2013-10-07T01:44:43.285Z',
+    fileRecognitionStatus: 1,
+    resource: 'Сайт Политеха',
+    createdBy: 'Ryley',
+  },
+  {
+    name: 'CCC Refined Cotton Gloves',
+    createdAt: '1987-08-31T15:49:22.344Z',
+    fileRecognitionStatus: 0,
+    resource: 'Телеграм',
+    createdBy: 'Lilian',
+  },
+  {
     name: 'DDD Luxurious Steel Chair',
     createdAt: '1995-08-22T22:47:55.552Z',
     fileRecognitionStatus: 4,
@@ -90,11 +130,7 @@ const data: Payment[] = [
 ];
 
 
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+export type Documents = {
   name: string;
   createdAt: string;
   fileRecognitionStatus: number;
@@ -106,7 +142,7 @@ export type Payment = {
 
 
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Documents>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -147,22 +183,51 @@ export const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Время добавления",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Время добавления
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => (
       moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
-
     )
   },
   {
     accessorKey: "fileRecognitionStatus",
-    header: "Статус распознования",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Статус распознования
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => (
       row.getValue("fileRecognitionStatus")
     ),
   },
   {
     accessorKey: "resource",
-    header: "Ресурс",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Ресурс
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => (
       row.getValue("resource")
     ),
@@ -178,26 +243,25 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const document = row.original
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
               <Ellipsis className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Действия</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(document.name)}
             >
-              Copy payment ID
+              Копировать название документа
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Что-то еще</DropdownMenuItem>
+            <DropdownMenuItem>Что-то еще</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -212,29 +276,6 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   const vm = useGet<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM);
 
   const documents = vm.data;
-
-  // return (
-  //   <Table>
-  //     <TableRow>
-  //       <TableHead>Название</TableHead>
-  //       <TableHead>Время добавления</TableHead>
-  //       <TableHead>Статус распознавания</TableHead>
-  //       <TableHead>Ресурс</TableHead>
-  //       <TableHead>Пользователь</TableHead>
-  //     </TableRow>
-  //     <TableBody>
-  //       {documents.map((document) => (
-  //         <TableRow key={document.name}>
-  //           <TableCell>{document.name}</TableCell>
-  //           <TableCell>{moment(document.createdAt).format('hh:mm - DD.MM.YYYY')}</TableCell>
-  //           <TableCell>{document.fileRecognitionStatus}</TableCell>
-  //           <TableCell>{document.resource}</TableCell>
-  //           <TableCell>{document.createdBy}</TableCell>
-  //         </TableRow>
-  //       ))}
-  //     </TableBody>
-  //   </Table>
-  // );
 
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -264,23 +305,30 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   })
 
   return (
-    <div className="w-full">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+    <div className='w-full space-y-4'>
+      <div className='flex items-center justify-between'>
+        <div className='flex flex-1 items-center space-x-2'>
+          <Input
+            placeholder='Искать по названию'
+            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('name')?.setFilterValue(event.target.value)
+            }
+            className='h-8 w-[150px] lg:w-[250px]'
+          />
+          <Button variant='outline' className='h-8 px-4'>
+            Добавить файл
+          </Button>
+        </div>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Вид 
+            <Button variant='outline' className='h-8 px-4'>
+              <Settings2 className='mr-2 size-4' />
+              Вид
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
@@ -288,20 +336,21 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className='capitalize'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
+                      column.toggleVisibility(value)
                     }
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                )
+                );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -312,11 +361,11 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -326,13 +375,13 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -342,7 +391,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -351,32 +400,32 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='flex-1 text-sm text-muted-foreground'>
+          {table.getFilteredSelectedRowModel().rows.length} из{' '}
+          {table.getFilteredRowModel().rows.length} документов выбрано.
         </div>
-        <div className="space-x-2">
+        <div className='space-x-2'>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Назад
           </Button>
           <Button
-            variant="outline"
-            size="sm"
+            variant='outline'
+            size='sm'
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Вперед
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default observer(DocumentsTable);

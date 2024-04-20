@@ -1,7 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Header from '@/components/Header/Header';
 import DocumentsTable from '@/components/DocumentsManager/DocumentsTable/DocumentsTable';
 
@@ -18,23 +16,6 @@ const Home = () => {
           {/*</div>*/}
           <div className='flex items-center space-x-2'>{/*<UserNav />*/}</div>
         </div>
-        <div className={'space-y-4'}>
-          <div className='flex items-center justify-between'>
-            <div className='flex flex-1 items-center space-x-2'>
-              <Input
-                placeholder='Введите ключевые слова'
-                className='h-8 w-[150px] lg:w-[250px]'
-              />
-              <Button variant='outline' className='h-8 px-4'>
-                Добавить файл
-              </Button>
-            </div>
-
-            {/*<DataTableViewOptions />*/}
-          </div>
-        </div>
-        {/*<DataTable data={tasks} columns={columns} />*/}
-
         <div>
           <DocumentsTable />
         </div>
