@@ -23,7 +23,7 @@ interface ISignUpFormProps {}
 
 const SignUpForm: React.FC<ISignUpFormProps> = () => {
   const vm = useGet<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM);
-  
+
   const form = useForm<z.infer<typeof vm.schemaSignUpForm>>({
     resolver: zodResolver(vm.schemaSignUpForm),
   });
