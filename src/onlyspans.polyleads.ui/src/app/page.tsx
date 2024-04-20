@@ -35,7 +35,7 @@ const Home = () => {
         </div>
         {/*<DataTable data={tasks} columns={columns} />*/}
 
-        <div className='rounded-md border'>
+        <div>
           <DocumentsTable />
         </div>
       </div>

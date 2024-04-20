@@ -39,6 +39,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ChevronsUpDown, Ellipsis } from 'lucide-react';
+import moment from 'moment';
 
 const data: Payment[] = [
   {
@@ -46,41 +48,46 @@ const data: Payment[] = [
     amount: 316,
     status: 'success',
     email: 'ken99@yahoo.com',
+    name: 'AAA Electronic Concrete Cheese',
+    createdAt: '2006-10-13T14:46:05.818Z',
+    fileRecognitionStatus: 2,
+    resource: 'Сайт Политеха',
+    createdBy: 'Zoe',
   },
   {
-    id: '3u1reuv4',
-    amount: 242,
+    id: 'm5gr84i9',
+    amount: 316,
     status: 'success',
-    email: 'Abe45@gmail.com',
+    email: 'dddken99@yahoo.com',
+    name: 'BBB Refined Plastic Pizza',
+    createdAt: '2013-10-07T01:44:43.285Z',
+    fileRecognitionStatus: 1,
+    resource: 'Сайт Политеха',
+    createdBy: 'Ryley',
   },
   {
-    id: 'derv1ws0',
-    amount: 837,
-    status: 'processing',
-    email: 'Monserrat44@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    amount: 874,
+    id: 'm5gr84i9',
+    amount: 316,
     status: 'success',
-    email: 'Silas22@gmail.com',
+    email: 'aaaken99@yahoo.com',
+    name: 'CCC Refined Cotton Gloves',
+    createdAt: '1987-08-31T15:49:22.344Z',
+    fileRecognitionStatus: 0,
+    resource: 'Телеграм',
+    createdBy: 'Lilian',
   },
   {
-    id: 'bhqecj4p',
-    amount: 721,
-    status: 'failed',
-    email: 'carmella@hotmail.com',
+    id: 'm5gr84i9',
+    amount: 316,
+    status: 'success',
+    email: 'aaaken99@yahoo.com',
+    name: 'DDD Luxurious Steel Chair',
+    createdAt: '1995-08-22T22:47:55.552Z',
+    fileRecognitionStatus: 4,
+    resource: 'Сайт Политеха',
+    createdBy: 'Alysha',
   },
 ];
-
-
-
-
-
-
-
-
-
 
 
 export type Payment = {
@@ -88,12 +95,12 @@ export type Payment = {
   amount: number
   status: "pending" | "processing" | "success" | "failed"
   email: string
+  name: string;
+  createdAt: string;
+  fileRecognitionStatus: number;
+  resource: string;
+  createdBy: string;
 }
-
-
-
-
-
 
 
 
@@ -122,41 +129,50 @@ export const columns: ColumnDef<Payment>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Название
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+    cell: ({ row }) =>(row.getValue("name")),
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
+    accessorKey: "createdAt",
+    header: "Время добавления",
+    cell: ({ row }) => (
+      moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
 
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
+    )
+  },
+  {
+    accessorKey: "fileRecognitionStatus",
+    header: "Статус распознования",
+    cell: ({ row }) => (
+      row.getValue("fileRecognitionStatus")
+    ),
+  },
+  {
+    accessorKey: "resource",
+    header: "Ресурс",
+    cell: ({ row }) => (
+      row.getValue("resource")
+    ),
+  },
+  {
+    accessorKey: "createdBy",
+    header: "Пользователь",
+    cell: ({ row }) => (
+      row.getValue("createdBy")
+    ),
   },
   {
     id: "actions",
@@ -169,6 +185,7 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open menu</span>
+              <Ellipsis className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -194,7 +211,7 @@ interface IDocumentsTableProps {}
 const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   const vm = useGet<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM);
 
-  const documents = vm.files;
+  const documents = vm.data;
 
   // return (
   //   <Table>
@@ -251,15 +268,16 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
+              Вид 
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

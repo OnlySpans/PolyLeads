@@ -4,7 +4,7 @@ import { IDocument } from '@/data/IDocument';
 import { ColumnDef } from '@tanstack/react-table';
 
 export interface IDocumentsTableVM {
-  files: IDocument[];
+  data: IDocument[];
 }
 
 @injectable()
@@ -53,7 +53,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
     },
   ];
 
-  files = [
+  data = [
     {
       name: 'Luxurious Steel Chair',
       createdAt: '1995-08-22T22:47:55.552Z',
