@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using HotChocolate.Data;
 using Mapster;
 using MapsterMapper;
 using Marten;
@@ -26,7 +25,6 @@ public static class Startup
            .AddMarten()
            .AddLogging()
            .AddMapper()
-           .AddGraphQL()
            .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
@@ -41,8 +39,6 @@ public static class Startup
         app.UseAuthorization();
 
         app.UseRouting();
-
-        app.MapGraphQL("/api/graphql");
 
         await app.MigrateDatabaseAsync();
 
@@ -98,30 +94,6 @@ public static class Startup
            .Services
            .AddMediatR(config =>
                 config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-        return builder;
-    }
-
-    private static WebApplicationBuilder AddGraphQL(this WebApplicationBuilder builder)
-    {
-        builder
-           .Services
-           .AddGraphQLServer()
-           .AddErrorFilter<GenericErrorFilter>()
-            //.AddFluentValidation()
-           .AddMartenFiltering()
-           .AddMartenSorting()
-           .AddProjections()
-           .AddFiltering()
-           .AddQueryableCursorPagingProvider()
-           .SetPagingOptions(new()
-            {
-                IncludeTotalCount = true
-            })
-           .AddInMemorySubscriptions()
-           .AddQueryType()
-           .AddMutationType()
-           .AddApiTypes();
 
         return builder;
     }
@@ -261,10 +233,4 @@ public static class Startup
     }
 
     #endregion
-}
-
-[QueryType]
-public sealed class Query
-{
-    public string NewQuery() => "ass";
 }
