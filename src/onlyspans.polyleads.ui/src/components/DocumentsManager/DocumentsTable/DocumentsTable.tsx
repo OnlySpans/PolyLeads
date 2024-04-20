@@ -12,6 +12,7 @@ import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 
 interface IDocumentsTableProps {}
 const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
@@ -32,7 +33,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
         {documents.map((document) => (
           <TableRow key={document.name}>
             <TableCell>{document.name}</TableCell>
-            <TableCell>{document.createdAt}</TableCell>
+            <TableCell>{moment(document.createdAt).format('hh:mm - DD.MM.YYYY')}</TableCell>
             <TableCell>{document.fileRecognitionStatus}</TableCell>
             <TableCell>{document.resource}</TableCell>
             <TableCell>{document.createdBy}</TableCell>
