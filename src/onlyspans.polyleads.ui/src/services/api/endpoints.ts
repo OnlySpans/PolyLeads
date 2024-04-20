@@ -9,10 +9,10 @@ export default class Endpoints {
     public static readonly base = (): string =>
       `${Endpoints.suffix}/${Endpoints.v1}/auth`;
 
-    public static readonly signin = (): string =>
+    public static readonly signIn = (): string =>
       `${Endpoints.Auth.base()}/signin`;
 
-    public static readonly signup = (): string =>
+    public static readonly signUp = (): string =>
       `${Endpoints.Auth.base()}/signup`;
   }
 }
