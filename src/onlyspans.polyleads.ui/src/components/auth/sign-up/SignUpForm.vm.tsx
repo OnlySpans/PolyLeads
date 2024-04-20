@@ -22,7 +22,6 @@ class SignUpFormVM implements ISignUpFormVM {
   @observable
   public isPasswordShown: boolean = false;
 
-  @observable
   private formData: z.infer<typeof this.schemaSignUpForm> | null = null;
 
   private readonly authApi: IAuthApi;
