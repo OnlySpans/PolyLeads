@@ -164,7 +164,8 @@ public static class Startup
     {
         builder
            .Services
-           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>();
+           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>()
+           .AddScoped<IDocumentRecognition, SearchableDocxRecognition>();
 
         return builder;
     }
