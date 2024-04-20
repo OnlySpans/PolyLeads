@@ -7,8 +7,12 @@ using OnlySpans.PolyLeads.Dto.Data;
 
 namespace OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
 
-public sealed record SignInCommand(SignInInput Input) :
-    IRequest;
+public sealed record SignInCommand : IRequest
+{
+    public string UserName { get; init; } = string.Empty;
+
+    public string Password { get; init; } = string.Empty;
+}
 
 [UsedImplicitly]
 public sealed class SignInCommandHandler :
@@ -25,14 +29,12 @@ public sealed class SignInCommandHandler :
         SignInCommand request,
         CancellationToken cancellationToken)
     {
-        var input = request.Input;
-
-        var username = input.UserName;
+        var username = request.UserName;
 
         var result = await SignInManager
            .PasswordSignInAsync(
                 username,
-                input.Password,
+                request.Password,
                 isPersistent: true,
                 lockoutOnFailure: false);
 

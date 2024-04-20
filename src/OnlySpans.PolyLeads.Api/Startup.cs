@@ -41,6 +41,8 @@ public static class Startup
 
         app.UseRouting();
 
+        app.MapControllers();
+
         await app.MigrateDatabaseAsync();
 
         return app;
