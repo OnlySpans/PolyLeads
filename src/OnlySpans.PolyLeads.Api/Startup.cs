@@ -28,7 +28,8 @@ public static class Startup
            .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
-           .AddDocumentRecognition();
+           .AddDocumentRecognition()
+           .AddControllers();
 
         return Task.FromResult(builder);
     }
@@ -211,6 +212,15 @@ public static class Startup
                 return Task.CompletedTask;
             };
         });
+
+        return builder;
+    }
+
+    private static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+    {
+        builder
+           .Services
+           .AddControllers();
 
         return builder;
     }
