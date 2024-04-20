@@ -13,6 +13,8 @@ public class Document :
 
     public string Description { get; set; } = string.Empty;
 
+    public Uri Link { get; set; } = default!;
+
     public DateTime CreatedAt { get; init; } = default!;
 
     public Guid CreatedBy { get; init; } = Guid.Empty;
