@@ -34,8 +34,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj" />
       <ProjectReference Include="..\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj" />
     </ItemGroup>
 
 </Project>

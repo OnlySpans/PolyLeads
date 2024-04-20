@@ -54,10 +54,15 @@ public sealed class SignUpCommandHandler :
                    .Errors
                    .Select(x => x.Description)));
 
-        await Sender.Send(new SignInCommand
+        var command = new SignInCommand
         {
             UserName = request.UserName,
             Password = request.Password
-        }, cancellationToken);
+        };
+
+        await Sender
+           .Send(
+                command,
+                cancellationToken);
     }
 }

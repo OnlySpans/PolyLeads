@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Exceptions;
-using OnlySpans.PolyLeads.Dto.Data;
 
 namespace OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
 
