@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.Schema", "src\OnlySpans.PolyLeads.Api.Schema\OnlySpans.PolyLeads.Api.Schema.csproj", "{0FEC7030-9659-461D-93D6-C383EF0A88CE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.ServiceDefaults", "src\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj", "{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.Aspire.AppHost", "src\OnlySpans.Aspire.AppHost\OnlySpans.Aspire.AppHost.csproj", "{E6AFAB39-2F39-447F-9F38-A00DEB4F161F}"
@@ -29,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{167A809B-3
 	ProjectSection(SolutionItems) = preProject
 		docs\PolyLeads\docs\release-notes.md = docs\PolyLeads\docs\release-notes.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Dto", "src\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj", "{6FCF6103-27B3-498B-A327-7A5015DD3715}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{E94FD102-8374-410A-A77A-22F9AD3E2D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E94FD102-8374-410A-A77A-22F9AD3E2D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E94FD102-8374-410A-A77A-22F9AD3E2D31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FEC7030-9659-461D-93D6-C383EF0A88CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,13 +59,17 @@ Global
 		{E6AFAB39-2F39-447F-9F38-A00DEB4F161F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6AFAB39-2F39-447F-9F38-A00DEB4F161F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6AFAB39-2F39-447F-9F38-A00DEB4F161F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCF6103-27B3-498B-A327-7A5015DD3715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCF6103-27B3-498B-A327-7A5015DD3715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCF6103-27B3-498B-A327-7A5015DD3715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCF6103-27B3-498B-A327-7A5015DD3715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C5F91596-F110-4A16-9501-6CAD5ADF14AF} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{13C6DD91-5BAC-4D55-BA6E-757586B30210} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{E94FD102-8374-410A-A77A-22F9AD3E2D31} = {74E986A5-C8C9-45E6-9F74-88B98BBE308D}
-		{0FEC7030-9659-461D-93D6-C383EF0A88CE} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{C6627B8D-5C25-4D54-8A5C-126763BEA4A0} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 		{E6AFAB39-2F39-447F-9F38-A00DEB4F161F} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
+		{6FCF6103-27B3-498B-A327-7A5015DD3715} = {48A0FAEB-B9F5-4061-B062-85F25266FE46}
 	EndGlobalSection
 EndGlobal
