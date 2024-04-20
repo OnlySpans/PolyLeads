@@ -1,4 +1,4 @@
-namespace OnlySpans.PolyLeads.Api.Data.Entities;
+namespace OnlySpans.PolyLeads.Api.Data.Enums;
 
 public enum RecognitionStatus
 {
