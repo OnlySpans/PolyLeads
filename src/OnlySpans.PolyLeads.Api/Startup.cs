@@ -25,6 +25,7 @@ public static class Startup
            .AddMarten()
            .AddLogging()
            .AddMapper()
+           .AddSwagger()
            .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
@@ -66,6 +67,15 @@ public static class Startup
 
     #region WebApplicationBuilder | Add.*
 
+    private static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
+    {
+        builder
+            .Services
+            .AddSwaggerGen();
+
+        return builder;
+    }
+    
     private static WebApplicationBuilder AddApplicationDbContext(this WebApplicationBuilder builder)
     {
         builder
