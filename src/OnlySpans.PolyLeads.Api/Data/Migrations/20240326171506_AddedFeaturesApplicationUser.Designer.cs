@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
@@ -11,9 +12,11 @@ using OnlySpans.PolyLeads.Api.Data.Contexts;
 namespace OnlySpans.PolyLeads.Api.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240326171506_AddedFeaturesApplicationUser")]
+    partial class AddedFeaturesApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,13 +150,11 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -173,8 +174,7 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
@@ -214,6 +214,14 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -221,6 +229,9 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -256,6 +267,9 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)");
 
+                    b.Property<long?>("FileEntryId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -269,7 +283,145 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileEntryId")
+                        .IsUnique();
+
                     b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<long?>("ParentGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentGroupId");
+
+                    b.ToTable("DocumentGroups");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentInGroup", b =>
+                {
+                    b.Property<long>("DocumentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("DocumentGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("DocumentId", "DocumentGroupId");
+
+                    b.HasIndex("DocumentGroupId");
+
+                    b.ToTable("DocumentInGroups");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Extension")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("character varying(8)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StorageObjectId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageObjectId")
+                        .IsUnique();
+
+                    b.ToTable("FileEntries");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileRecognitionStatus", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("FileEntryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileEntryId");
+
+                    b.ToTable("FileRecognitionStatuses");
                 });
 
             modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.RecognitionResult", b =>
@@ -285,15 +437,20 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .HasMaxLength(65536)
                         .HasColumnType("character varying(65536)");
 
+                    b.Property<long>("FileEntryId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("RecognizedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileEntryId");
+
                     b.ToTable("RecognitionResults");
                 });
 
-            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.RecognitionStatus", b =>
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.StorageObject", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,15 +458,19 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("AssignedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("StorageAlias")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("integer");
+                    b.Property<string>("StorageId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileRecognitionStatuses");
+                    b.ToTable("StorageObjects");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -360,6 +521,102 @@ namespace OnlySpans.PolyLeads.Api.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.Document", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", "FileEntry")
+                        .WithOne("Document")
+                        .HasForeignKey("OnlySpans.PolyLeads.Api.Data.Entities.Document", "FileEntryId");
+
+                    b.Navigation("FileEntry");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", "ParentGroup")
+                        .WithMany("ChildGroups")
+                        .HasForeignKey("ParentGroupId");
+
+                    b.Navigation("ParentGroup");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentInGroup", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", "DocumentGroup")
+                        .WithMany()
+                        .HasForeignKey("DocumentGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.Document", "Document")
+                        .WithMany("DocumentsInGroups")
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+
+                    b.Navigation("DocumentGroup");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.StorageObject", "StorageObject")
+                        .WithOne("FileEntry")
+                        .HasForeignKey("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", "StorageObjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StorageObject");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileRecognitionStatus", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", "FileEntry")
+                        .WithMany("RecognitionStatuses")
+                        .HasForeignKey("FileEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileEntry");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.RecognitionResult", b =>
+                {
+                    b.HasOne("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", "FileEntry")
+                        .WithMany("RecognitionResults")
+                        .HasForeignKey("FileEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileEntry");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.Document", b =>
+                {
+                    b.Navigation("DocumentsInGroups");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.DocumentGroup", b =>
+                {
+                    b.Navigation("ChildGroups");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.FileEntry", b =>
+                {
+                    b.Navigation("Document")
+                        .IsRequired();
+
+                    b.Navigation("RecognitionResults");
+
+                    b.Navigation("RecognitionStatuses");
+                });
+
+            modelBuilder.Entity("OnlySpans.PolyLeads.Api.Data.Entities.StorageObject", b =>
+                {
+                    b.Navigation("FileEntry")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
