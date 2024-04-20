@@ -5,9 +5,4 @@ export type ErrorResponse = {
   trace: string;
 };
 
-export type Props = {
-  onError: (error: unknown) => void;
-  api: AxiosInstance;
-};
-
 export type AsyncRunnerMethod = (promise: () => Promise<AxiosResponse>) => Promise<AxiosResponse>;
