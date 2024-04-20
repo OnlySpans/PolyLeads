@@ -1,6 +1,8 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 import { z, ZodEffects } from 'zod';
+import type { IAuthApi } from '@/services/api/auth/authApi';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
 export interface ISignUpFormVM {
   isLoading: boolean;
@@ -19,7 +21,10 @@ class SignUpFormVM implements ISignUpFormVM {
   @observable
   public isPasswordShown: boolean = false;
 
-  constructor() {
+  private readonly authApi: IAuthApi;
+
+  constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
+    this.authApi = authApi;
     makeObservable(this);
   }
 
