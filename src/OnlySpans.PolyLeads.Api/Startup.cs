@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using HotChocolate.Data;
 using Mapster;
 using MapsterMapper;
 using Marten;
@@ -26,11 +25,11 @@ public static class Startup
            .AddMarten()
            .AddLogging()
            .AddMapper()
-           .AddGraphQL()
            .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
-           .AddDocumentRecognition();
+           .AddDocumentRecognition()
+           .AddControllers();
 
         return Task.FromResult(builder);
     }
@@ -42,7 +41,7 @@ public static class Startup
 
         app.UseRouting();
 
-        app.MapGraphQL("/api/graphql");
+        app.MapControllers();
 
         await app.MigrateDatabaseAsync();
 
@@ -98,30 +97,6 @@ public static class Startup
            .Services
            .AddMediatR(config =>
                 config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-        return builder;
-    }
-
-    private static WebApplicationBuilder AddGraphQL(this WebApplicationBuilder builder)
-    {
-        builder
-           .Services
-           .AddGraphQLServer()
-           .AddErrorFilter<GenericErrorFilter>()
-            //.AddFluentValidation()
-           .AddMartenFiltering()
-           .AddMartenSorting()
-           .AddProjections()
-           .AddFiltering()
-           .AddQueryableCursorPagingProvider()
-           .SetPagingOptions(new()
-            {
-                IncludeTotalCount = true
-            })
-           .AddInMemorySubscriptions()
-           .AddQueryType()
-           .AddMutationType()
-           .AddApiTypes();
 
         return builder;
     }
@@ -189,7 +164,8 @@ public static class Startup
     {
         builder
            .Services
-           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>();
+           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>()
+           .AddScoped<IDocumentRecognition, SearchableDocxRecognition>();
 
         return builder;
     }
@@ -243,6 +219,15 @@ public static class Startup
         return builder;
     }
 
+    private static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+    {
+        builder
+           .Services
+           .AddControllers();
+
+        return builder;
+    }
+
     #endregion
 
     #region WebApplicationBuilder | public deps
@@ -261,10 +246,4 @@ public static class Startup
     }
 
     #endregion
-}
-
-[QueryType]
-public sealed class Query
-{
-    public string NewQuery() => "ass";
 }
