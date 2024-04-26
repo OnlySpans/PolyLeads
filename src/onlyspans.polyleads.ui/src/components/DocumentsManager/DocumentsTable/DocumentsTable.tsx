@@ -41,6 +41,7 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronsUpDown, Ellipsis, Settings2 } from 'lucide-react';
 import moment from 'moment';
+import { RowData } from '@tanstack/table-core';
 
 const data: Documents[] = [
   {
@@ -138,7 +139,11 @@ export type Documents = {
   createdBy: string;
 }
 
-
+declare module '@tanstack/react-table' {
+  interface ColumnMeta<TData extends RowData, TValue> {
+    name: string
+  }
+}
 
 export const columns: ColumnDef<Documents>[] = [
   {
@@ -178,9 +183,13 @@ export const columns: ColumnDef<Documents>[] = [
       )
     },
     cell: ({ row }) =>(row.getValue("name")),
+    enableHiding: false,
   },
   {
     accessorKey: "createdAt",
+    meta: {
+      name: 'Время добавления'
+    },
     header: ({ column }) => {
       return (
         <Button
@@ -192,12 +201,16 @@ export const columns: ColumnDef<Documents>[] = [
         </Button>
       )
     },
+
     cell: ({ row }) => (
       moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
     )
   },
   {
     accessorKey: "fileRecognitionStatus",
+    meta: {
+      name: 'Статус распознования'
+    },
     header: ({ column }) => {
       return (
         <Button
@@ -215,6 +228,9 @@ export const columns: ColumnDef<Documents>[] = [
   },
   {
     accessorKey: "resource",
+    meta: {
+      name: 'Ресурс'
+    },
     header: ({ column }) => {
       return (
         <Button
@@ -232,6 +248,9 @@ export const columns: ColumnDef<Documents>[] = [
   },
   {
     accessorKey: "createdBy",
+    meta: {
+      name: 'Пользователь'
+    },
     header: "Пользователь",
     cell: ({ row }) => (
       row.getValue("createdBy")
@@ -266,6 +285,9 @@ export const columns: ColumnDef<Documents>[] = [
     },
   },
 ]
+
+
+
 
 
 
@@ -334,13 +356,12 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className='capitalize'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(value)
                     }
                   >
-                    {column.id}
+                    {column.columnDef.meta!.name}
                   </DropdownMenuCheckboxItem>
                 );
               })}
