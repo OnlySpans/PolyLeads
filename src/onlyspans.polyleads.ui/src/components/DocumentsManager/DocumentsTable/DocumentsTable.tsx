@@ -140,8 +140,6 @@ export type Documents = {
 
 
 
-
-
 export const columns: ColumnDef<Documents>[] = [
   {
     id: "select",
