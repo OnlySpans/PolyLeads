@@ -3,7 +3,7 @@
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -42,12 +42,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronsUpDown, Ellipsis, Settings2 } from 'lucide-react';
 import moment from 'moment';
 import { RowData } from '@tanstack/table-core';
+import { Badge } from '@/components/ui/badge';
 
 const data: Documents[] = [
   {
     name: 'AAA Electronic Concrete Cheese',
     createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 2,
+    fileRecognitionStatus: 3,
     resource: 'Сайт Политеха',
     createdBy: 'Zoe',
   },
@@ -68,7 +69,7 @@ const data: Documents[] = [
   {
     name: 'DDD Luxurious Steel Chair',
     createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 4,
+    fileRecognitionStatus: 3,
     resource: 'Сайт Политеха',
     createdBy: 'Alysha',
   },
@@ -145,131 +146,165 @@ declare module '@tanstack/react-table' {
   }
 }
 
+
+
+enum RecognitionStatus
+{
+  Unknown = 0,
+  Queued = 1,
+  Processing = 2,
+  Success = 3,
+  Error = 4
+}
+
+enum fileRecognitionStatus {
+  Unknown = 0,
+  Queued = 1,
+  Processing = 2,
+  Success = 3,
+  Error = 4
+}
+
+function getFileRecognitionStatusBage(number: number): ReactElement {
+  switch (number) {
+    case fileRecognitionStatus.Queued:
+      return <Badge variant='queued'>В очереди</Badge>;
+    case fileRecognitionStatus.Processing:
+      return <Badge variant='processing'>Выполняется</Badge>;
+    case fileRecognitionStatus.Success:
+      return <Badge variant='success'>Текст распознан</Badge>;
+    case fileRecognitionStatus.Error:
+      return <Badge variant='error'>Ошибка распознования</Badge>;
+    default:
+      return <Badge variant='unknown'>Неизвестен</Badge>;
+  }
+}
+
+
 export const columns: ColumnDef<Documents>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
-  
+
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Название
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown className='ml-2 h-4 w-4' />
         </Button>
-      )
+      );
     },
-    cell: ({ row }) =>(row.getValue("name")),
+    cell: ({ row }) => row.getValue('name'),
     enableHiding: false,
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: 'createdAt',
     meta: {
-      name: 'Время добавления'
+      name: 'Время добавления',
     },
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Время добавления
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown className='ml-2 h-4 w-4' />
         </Button>
-      )
+      );
     },
 
     cell: ({ row }) => (
-      moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
-    )
+      // moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
+      <>
+        <Badge variant='secondary' className='mr-2'>{moment(row.getValue('createdAt')).format('hh:mm')}</Badge>
+        <Badge variant='secondary'>{moment(row.getValue('createdAt')).format('DD.MM.YYYY')}</Badge>
+      </>
+    ),
   },
   {
-    accessorKey: "fileRecognitionStatus",
+    accessorKey: 'fileRecognitionStatus',
     meta: {
-      name: 'Статус распознования'
+      name: 'Статус распознования',
     },
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Статус распознования
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown className='ml-2 h-4 w-4' />
         </Button>
-      )
+      );
     },
-    cell: ({ row }) => (
-      row.getValue("fileRecognitionStatus")
-    ),
+    cell: ({ row }) =>
+      getFileRecognitionStatusBage(row.getValue('fileRecognitionStatus')),
   },
   {
-    accessorKey: "resource",
+    accessorKey: 'resource',
     meta: {
-      name: 'Ресурс'
+      name: 'Ресурс',
     },
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Ресурс
-          <ChevronsUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown className='ml-2 h-4 w-4' />
         </Button>
-      )
+      );
     },
-    cell: ({ row }) => (
-      row.getValue("resource")
-    ),
+    cell: ({ row }) => row.getValue('resource'),
   },
   {
-    accessorKey: "createdBy",
+    accessorKey: 'createdBy',
     meta: {
-      name: 'Пользователь'
+      name: 'Пользователь',
     },
-    header: "Пользователь",
-    cell: ({ row }) => (
-      row.getValue("createdBy")
-    ),
+    header: 'Пользователь',
+    cell: ({ row }) => row.getValue('createdBy'),
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const document = row.original
+      const document = row.original;
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <Ellipsis className="h-4 w-4" />
+            <Button variant='ghost' className='h-8 w-8 p-0'>
+              <Ellipsis className='h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Действия</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(document.name)}
@@ -281,14 +316,10 @@ export const columns: ColumnDef<Documents>[] = [
             <DropdownMenuItem>Что-то еще</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
-
-
-
-
+];
 
 
 interface IDocumentsTableProps {}
@@ -412,7 +443,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  Не найдено
                 </TableCell>
               </TableRow>
             )}
