@@ -43,6 +43,7 @@ import { ChevronsUpDown, Ellipsis, Settings2 } from 'lucide-react';
 import moment from 'moment';
 import { RowData } from '@tanstack/table-core';
 import { Badge } from '@/components/ui/badge';
+import { fileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 
 const data: Documents[] = [
   {
@@ -147,25 +148,7 @@ declare module '@tanstack/react-table' {
 }
 
 
-
-enum RecognitionStatus
-{
-  Unknown = 0,
-  Queued = 1,
-  Processing = 2,
-  Success = 3,
-  Error = 4
-}
-
-enum fileRecognitionStatus {
-  Unknown = 0,
-  Queued = 1,
-  Processing = 2,
-  Success = 3,
-  Error = 4
-}
-
-function getFileRecognitionStatusBage(number: number): ReactElement {
+function getFileRecognitionStatusBadge(number: number): ReactElement {
   switch (number) {
     case fileRecognitionStatus.Queued:
       return <Badge variant='queued'>В очереди</Badge>;
@@ -263,7 +246,7 @@ export const columns: ColumnDef<Documents>[] = [
       );
     },
     cell: ({ row }) =>
-      getFileRecognitionStatusBage(row.getValue('fileRecognitionStatus')),
+      getFileRecognitionStatusBadge(row.getValue('fileRecognitionStatus')),
   },
   {
     accessorKey: 'resource',
