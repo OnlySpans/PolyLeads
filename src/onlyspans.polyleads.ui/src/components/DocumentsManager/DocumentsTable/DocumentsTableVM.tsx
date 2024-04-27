@@ -174,6 +174,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
           return (
             <Button
               variant='ghost'
+              className='m-[-1rem]'
               onClick={() =>
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
@@ -195,6 +196,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
           return (
             <Button
               variant='ghost'
+              className='m-[-1rem]'
               onClick={() =>
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
@@ -226,6 +228,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
           return (
             <Button
               variant='ghost'
+              className='m-[-1rem]'
               onClick={() =>
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
@@ -249,6 +252,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
           return (
             <Button
               variant='ghost'
+              className='m-[-1rem]'
               onClick={() =>
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
@@ -277,7 +281,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className='h-8 w-8 p-0'>
+                <Button variant='ghost' className='h-6 w-6 p-0 m-0'>
                   <Ellipsis className='h-4 w-4' />
                 </Button>
               </DropdownMenuTrigger>
@@ -288,8 +292,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
                   Копировать название документа
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Что-то еще</DropdownMenuItem>
-                <DropdownMenuItem>Что-то еще</DropdownMenuItem>
+                <DropdownMenuItem>Еще какие нибудь приколы</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           );

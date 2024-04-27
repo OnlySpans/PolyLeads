@@ -17,7 +17,7 @@ const badgeVariants = cva(
         outline: 'text-foreground',
 
         unknown: 'border-transparent bg-secondary text-secondary-foreground',
-        queued: 'border-transparent bg-sky-500/80 text-primary-foreground',
+        queued: 'border-transparent bg-sky-500/80 text-destructive-foreground',
         processing:
           'border-transparent bg-amber-500/90 text-primary-foreground',
         success: 'border-transparent bg-primary text-primary-foreground',
