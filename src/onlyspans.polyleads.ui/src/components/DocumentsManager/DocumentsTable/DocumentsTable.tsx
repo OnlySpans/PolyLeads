@@ -44,8 +44,9 @@ import moment from 'moment';
 import { RowData } from '@tanstack/table-core';
 import { Badge } from '@/components/ui/badge';
 import { fileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
+import { IDocument } from '@/data/abstractions/IDocument';
 
-const data: Documents[] = [
+const data: IDocument[] = [
   {
     name: 'AAA Electronic Concrete Cheese',
     createdAt: '2006-10-13T14:46:05.818Z',
@@ -133,14 +134,6 @@ const data: Documents[] = [
 ];
 
 
-export type Documents = {
-  name: string;
-  createdAt: string;
-  fileRecognitionStatus: number;
-  resource: string;
-  createdBy: string;
-}
-
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
     name: string
@@ -164,7 +157,7 @@ function getFileRecognitionStatusBadge(number: number): ReactElement {
 }
 
 
-export const columns: ColumnDef<Documents>[] = [
+export const columns: ColumnDef<IDocument>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -308,8 +301,6 @@ export const columns: ColumnDef<Documents>[] = [
 interface IDocumentsTableProps {}
 const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   const vm = useGet<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM);
-
-  const documents = vm.data;
 
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
