@@ -19,7 +19,7 @@ const Home = () => {
         {/*    </p>*/}
         {/*  </div>*/}
         {/*</div>*/}
-        <div className={'container px-4 flex max-w-screen-2xl items-center'}>
+        <div className='container md:px-8 px-4 flex max-w-screen-2xl items-center'>
           <DocumentsTable />
         </div>
       </div>
