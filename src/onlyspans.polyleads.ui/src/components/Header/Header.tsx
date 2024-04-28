@@ -9,7 +9,7 @@ interface IHeaderProps {}
 const Header: React.FC<IHeaderProps> = () => {
   return (
     <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95'>
-      <div className='container flex h-16 max-w-screen-2xl items-center'>
+      <div className='container flex h-14 max-w-screen-2xl items-center'>
         <div className='flex gap-4'>
           <img src={'/logoPolytech.svg'} className='ml-1 w-9' alt={''} />
           <p className='flex items-center text-xl font-medium transition-colors mr-4'>PolyLeads</p>
@@ -34,6 +34,7 @@ const Header: React.FC<IHeaderProps> = () => {
             className={cn(
               buttonVariants({
                 variant: 'default',
+                size: 'sm'
               }),
             )}
           >
