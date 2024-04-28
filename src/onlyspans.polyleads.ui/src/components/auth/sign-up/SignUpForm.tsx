@@ -23,7 +23,7 @@ interface ISignUpFormProps {}
 
 const SignUpForm: React.FC<ISignUpFormProps> = () => {
   const vm = useGet<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM);
-  
+
   const form = useForm<z.infer<typeof vm.schemaSignUpForm>>({
     resolver: zodResolver(vm.schemaSignUpForm),
   });
@@ -36,13 +36,67 @@ const SignUpForm: React.FC<ISignUpFormProps> = () => {
       >
         <FormField
           control={form.control}
+          name='firstName'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  id='firstName'
+                  placeholder='Имя'
+                  autoCorrect='off'
+                  disabled={vm.isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='lastName'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  id='lastName'
+                  placeholder='Фамилия'
+                  autoCorrect='off'
+                  disabled={vm.isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='patronymic'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  id='patronymic'
+                  placeholder='Отчество'
+                  autoCorrect='off'
+                  disabled={vm.isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name='username'
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input
                   id='username'
-                  placeholder='Имя пользователя'
+                  placeholder='Никнейм'
                   autoCorrect='off'
                   disabled={vm.isLoading}
                   {...field}

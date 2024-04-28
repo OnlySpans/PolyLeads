@@ -4,6 +4,8 @@ import SignInFormVm, {
   ISignInFormVM,
 } from '@/components/auth/sign-in/SignInForm.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import axios, { AxiosInstance } from 'axios';
+import { AuthApi, IAuthApi } from '@/services/api/auth/authApi';
 import SignUpFormVM, {
   ISignUpFormVM,
 } from '@/components/auth/sign-up/SignUpForm.vm';
@@ -19,6 +21,8 @@ export const createDependencyContainer = (): Container => {
   container
     .bind<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM)
     .to(DocumentsTableVM);
+  container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
+  container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
 
   return container;
 };
