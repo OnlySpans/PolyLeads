@@ -4,9 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Table } from '@tanstack/react-table';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
@@ -26,27 +25,23 @@ const DataTableViewOptions: React.FC<any> = <TData extends any>({
             Вид
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[150px]'>
-          <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          {/*{table*/}
-          {/*  .getAllColumns()*/}
-          {/*  .filter(*/}
-          {/*    (column) =>*/}
-          {/*      typeof column.accessorFn !== 'undefined' && column.getCanHide(),*/}
-          {/*  )*/}
-          {/*  .map((column) => {*/}
-          {/*    return (*/}
-          {/*      <DropdownMenuCheckboxItem*/}
-          {/*        key={column.id}*/}
-          {/*        className='capitalize'*/}
-          {/*        checked={column.getIsVisible()}*/}
-          {/*        onCheckedChange={(value) => column.toggleVisibility(!!value)}*/}
-          {/*      >*/}
-          {/*        {column.id}*/}
-          {/*      </DropdownMenuCheckboxItem>*/}
-          {/*    );*/}
-          {/*  })}*/}
+        <DropdownMenuContent align='end'>
+          {table
+            .getAllColumns()
+            .filter((column) => column.getCanHide())
+            .map((column) => {
+              return (
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) =>
+                    column.toggleVisibility(value)
+                  }
+                >
+                  {column.columnDef.meta!.name}
+                </DropdownMenuCheckboxItem>
+              );
+            })}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

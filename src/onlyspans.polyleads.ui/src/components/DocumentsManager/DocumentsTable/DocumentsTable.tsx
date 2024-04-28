@@ -19,12 +19,6 @@ import {
 } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import {
   Table,
@@ -34,8 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Settings2 } from 'lucide-react';
 import { RowData } from '@tanstack/table-core';
+import DataTableViewOptions from '@/components/DocumentsManager/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -51,7 +45,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   const [columnFilters, setColumnFilters] = React
     .useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React
-      .useState<VisibilityState>({})
+    .useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
@@ -89,33 +83,8 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
             Добавить файл
           </Button>
         </div>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='outline' className='h-8 px-4'>
-              <Settings2 className='mr-2 size-4' />
-              Вид
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(value)
-                    }
-                  >
-                    {column.columnDef.meta!.name}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        
+        <DataTableViewOptions table={table}/>
       </div>
 
       <div className='rounded-md border'>
@@ -170,7 +139,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
       </div>
       <div className='flex items-center justify-end space-x-2'>
         <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} из{' '}
+          {table.getFilteredSelectedRowModel().rows.length} из {' '}
           {table.getFilteredRowModel().rows.length} документов выбрано.
         </div>
         <div className='space-x-2'>
