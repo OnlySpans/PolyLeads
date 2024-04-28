@@ -21,8 +21,8 @@ const DataTableViewOptions: React.FC<any> = <TData extends any>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='outline' className='h-8 px-4'>
-            <Settings2 className='mr-2 size-4' />
-            Вид
+            <Settings2 className='sm:mr-2 m-0 size-4' />
+            <div className={'hidden sm:flex'}>Вид</div>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>

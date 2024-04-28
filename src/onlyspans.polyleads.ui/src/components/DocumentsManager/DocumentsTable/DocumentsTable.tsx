@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
 import DataTableViewOptions from '@/components/DocumentsManager/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
+import { Upload } from 'lucide-react';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -77,14 +78,15 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
             onChange={(event) =>
               table.getColumn('name')?.setFilterValue(event.target.value)
             }
-            className='h-8 w-[150px] lg:w-[250px]'
+            className='h-8 w-[200px] lg:w-[250px]'
           />
           <Button variant='outline' className='h-8 px-4'>
-            Добавить файл
+            <Upload className={'sm:hidden flex size-4'} />
+            <div className={'hidden sm:flex'}>Добавить файл</div>
           </Button>
         </div>
-        
-        <DataTableViewOptions table={table}/>
+
+        <DataTableViewOptions table={table} />
       </div>
 
       <div className='rounded-md border'>
@@ -139,7 +141,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
       </div>
       <div className='flex items-center justify-end space-x-2'>
         <div className='flex-1 text-sm text-muted-foreground'>
-          {table.getFilteredSelectedRowModel().rows.length} из {' '}
+          {table.getFilteredSelectedRowModel().rows.length} из{' '}
           {table.getFilteredRowModel().rows.length} документов выбрано.
         </div>
         <div className='space-x-2'>

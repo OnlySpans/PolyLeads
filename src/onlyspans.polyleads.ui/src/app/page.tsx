@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className='hidden h-full flex-1 flex-col space-y-8 p-6 md:flex'>
+      <div className='h-full flex-1 flex-col sm:p-6 px-0 py-4 flex '>
         {/*<div className='container flex max-w-screen-2xl items-center'>*/}
         {/*  <div>*/}
         {/*    <h2 className='text-2xl font-bold tracking-tight'>*/}
@@ -19,7 +19,7 @@ const Home = () => {
         {/*    </p>*/}
         {/*  </div>*/}
         {/*</div>*/}
-        <div className={'container flex max-w-screen-2xl items-center'}>
+        <div className={'container px-4 flex max-w-screen-2xl items-center'}>
           <DocumentsTable />
         </div>
       </div>
