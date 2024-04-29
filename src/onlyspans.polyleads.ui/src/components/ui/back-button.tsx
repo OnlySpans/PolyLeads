@@ -13,7 +13,7 @@ export const BackButton = () => {
   return (
     <button onClick={goBack}>
       <div
-        className='hidden absolute lg:flex justify-center z-10 hover:bg-accent h-svh w-[6rem] top-0
+        className='hidden fixed lg:flex justify-center z-10 hover:bg-accent h-svh w-[6rem] top-0
           hover:text-accent-foreground text-muted-foreground'
       >
         <div className='mt-28'>
