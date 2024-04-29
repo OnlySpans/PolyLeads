@@ -8,7 +8,9 @@ interface IHeaderProps {}
 
 const Header: React.FC<IHeaderProps> = () => {
   return (
-    <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95'>
+    <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95
+      backdrop-blur supports-[backdrop-filter]:bg-background/60'
+    >
       <div className='container sm:px-8 px-4 flex h-14 max-w-screen-2xl items-center'>
         <div className='flex gap-4'>
           <img src={'/logoPolytech.svg'} className='ml-1 w-9' alt={''} />
