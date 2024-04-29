@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header/Header';
 
@@ -42,8 +41,10 @@ const Guides = () => {
             <Link href={'/guides/prof'}>
               <Card className='w-full shadow hover:bg-accent hover:text-primary'>
                 <CardContent className='pt-6'>
-                  <Image
-                    src={'/guides/prof.jpg'}
+                  <img
+                    src={
+                      'https://sun9-35.userapi.com/impf/hwAPw5DrmVWtd859C7hmzx6zWhdhLP3Eiwo9qA/RydYFTEdV0c.jpg?size=1920x768&quality=95&crop=0,0,1920,767&sign=5bb602ec6c8c6d1afab33e916915a80a&type=cover_group'
+                    }
                     alt={'/'}
                     width='512'
                     height='512'

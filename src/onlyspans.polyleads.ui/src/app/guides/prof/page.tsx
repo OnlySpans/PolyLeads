@@ -8,7 +8,7 @@ const Article = () => {
       <Header />
       <BackButton />
 
-      <div className='container md:px-8 px-6 py-4 max-w-screen-md '>
+      <div className='container md:px-8 px-6 pt-4 pb-12 max-w-screen-md '>
         <h1 className='text-4xl font-bold'>ПРОФ</h1>
         <div className='break-words  hyphens-auto mt-4 text-justify space-y-4'>
           <blockquote className='border-l-2 pl-6 py-2'>

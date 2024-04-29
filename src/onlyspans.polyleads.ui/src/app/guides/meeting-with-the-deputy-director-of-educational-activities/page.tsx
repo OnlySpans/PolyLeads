@@ -8,7 +8,7 @@ const Article = () => {
       <Header />
       <BackButton />
 
-      <div className='container md:px-8 px-6 py-4 max-w-screen-md '>
+      <div className='container md:px-8 px-6 pt-4 pb-12 max-w-screen-md '>
         <h1 className='text-4xl font-bold'>
           Что делать, если нужна встреча с заместителем директора института по
           образовательной деятельности?

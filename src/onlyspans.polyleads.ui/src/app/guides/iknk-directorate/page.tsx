@@ -8,7 +8,7 @@ const Article = () => {
       <Header />
       <BackButton />
 
-      <div className='container md:px-8 px-6 py-4 max-w-screen-md '>
+      <div className='container md:px-8 px-6 pt-4 pb-12 max-w-screen-md '>
         <h1 className='text-4xl font-bold'>Дирекция ИКНК</h1>
         <p className='break-words  hyphens-auto  text-justify mt-4'>
           Сейчас дирекцию нашего института можно найти на 3 этаже 3 учебного

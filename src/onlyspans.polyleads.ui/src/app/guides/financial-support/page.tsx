@@ -8,7 +8,7 @@ const Article = () => {
       <Header />
       <BackButton />
 
-      <div className='container md:px-8 px-6 py-4 max-w-screen-md pb-16'>
+      <div className='container md:px-8 px-6 pt-4 pb-12 max-w-screen-md'>
         <h1 className='text-4xl font-bold'>МАТЕРИАЛЬНАЯ ПОДДЕРЖКА</h1>
         <div className='break-words  hyphens-auto  text-justify space-y-4'>
           <p className='pt-8'>
