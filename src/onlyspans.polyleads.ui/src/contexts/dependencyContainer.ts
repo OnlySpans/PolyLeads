@@ -12,6 +12,7 @@ import SignUpFormVM, {
 import DocumentsTableVM, {
   IDocumentsTableVM,
 } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+import UploadDocumentModalVM, { IUploadDocumentModalVM } from '@/components/documents/UploadDocumentModal.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -23,6 +24,7 @@ export const createDependencyContainer = (): Container => {
     .to(DocumentsTableVM);
   container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
+  container.bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM).to(UploadDocumentModalVM);
 
   return container;
 };
