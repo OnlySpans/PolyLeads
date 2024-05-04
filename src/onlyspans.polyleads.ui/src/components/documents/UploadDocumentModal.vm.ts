@@ -1,9 +1,10 @@
 import { injectable } from 'inversify';
-import { makeObservable } from 'mobx';
+import { action, makeObservable } from 'mobx';
 import { z } from 'zod';
 
 export interface IUploadDocumentModalVM {
   uploadFormSchema: z.ZodObject<any>;
+  upload: () => void;
 }
 
 @injectable()
@@ -22,6 +23,11 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
         .string({ required_error: "Ссылка должна быть заполнена" })
         .url('Ссылка должна быть представлена в виде URL')
     });
+
+  @action
+  public upload = (): void => {
+    // ... send request
+  }
 }
 
 export default UploadDocumentModalVM;

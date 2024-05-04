@@ -1,8 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import {
-  Dialog, DialogClose,
-  DialogContent, DialogDescription, DialogFooter,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -23,7 +26,7 @@ const UploadDocumentModal: React.FC = () => {
     ServiceSymbols.IUploadDocumentModalVM);
 
   const form = useForm<z.infer<typeof vm.uploadFormSchema>>({
-    resolver: zodResolver(vm.uploadFormSchema),
+    resolver: zodResolver(vm.uploadFormSchema)
   });
 
   return (
@@ -39,20 +42,20 @@ const UploadDocumentModal: React.FC = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form>
+          <form onSubmit={vm.upload}>
             <div className="grid w-full items-center gap-4">
               <FormField
                 control={form.control}
-                name='documentName'
+                name="documentName"
                 render={({ field }) => (
                   <FormItem className="flex flex-col space-y-3">
                     <Label htmlFor="documentName">Название документа</Label>
                     <FormControl>
                       <Input
-                        id='documentName'
-                        placeholder='Название документа'
-                        autoComplete='off'
-                        autoCorrect='off'
+                        id="documentName"
+                        placeholder="Название документа"
+                        autoComplete="off"
+                        autoCorrect="off"
                         // disabled={vm.isLoading}
                         {...field}
                       />
@@ -63,16 +66,16 @@ const UploadDocumentModal: React.FC = () => {
               />
               <FormField
                 control={form.control}
-                name='url'
+                name="url"
                 render={({ field }) => (
                   <FormItem className="flex flex-col space-y-3">
                     <Label htmlFor="source-link">Ссылка на файл</Label>
                     <FormControl>
                       <Input
-                        id='url'
-                        placeholder='Ссылка'
-                        autoComplete='off'
-                        autoCorrect='off'
+                        id="url"
+                        placeholder="Ссылка"
+                        autoComplete="off"
+                        autoCorrect="off"
                         // disabled={vm.isLoading}
                         {...field}
                       />
@@ -81,20 +84,20 @@ const UploadDocumentModal: React.FC = () => {
                   </FormItem>
                 )}
               />
+              <DialogFooter>
+                <DialogClose asChild className="m-1">
+                  <Button type="button" variant="secondary">
+                    Отмена
+                  </Button>
+                </DialogClose>
+                <Button type="submit" className="m-1">Загрузить</Button>
+              </DialogFooter>
             </div>
           </form>
         </Form>
-        <DialogFooter>
-          <DialogClose asChild className="m-1">
-            <Button type="button" variant="secondary">
-              Отмена
-            </Button>
-          </DialogClose>
-          <Button type="submit" className="m-1">Загрузить</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
 export default observer(UploadDocumentModal);
