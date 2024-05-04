@@ -42,7 +42,7 @@ const UploadDocumentModal: React.FC = () => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={vm.upload}>
+          <form onSubmit={form.handleSubmit(vm.upload)}>
             <div className="grid w-full items-center gap-4">
               <FormField
                 control={form.control}
@@ -69,7 +69,7 @@ const UploadDocumentModal: React.FC = () => {
                 name="url"
                 render={({ field }) => (
                   <FormItem className="flex flex-col space-y-3">
-                    <Label htmlFor="source-link">Ссылка на файл</Label>
+                    <Label htmlFor="url">Ссылка на файл</Label>
                     <FormControl>
                       <Input
                         id="url"
