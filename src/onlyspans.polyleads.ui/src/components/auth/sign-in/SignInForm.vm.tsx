@@ -1,6 +1,9 @@
-import { injectable } from 'inversify';
-import { action, makeObservable, observable } from 'mobx';
+import { inject, injectable } from 'inversify';
+import { action, flow, makeObservable, observable } from 'mobx';
 import { z } from 'zod';
+import type { IAuthApi } from '@/services/api/auth/authApi';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import { ISignInPayload } from '@/data/abstractions/ISignInPayload';
 
 export interface ISignInFormVM {
   isLoading: boolean;
@@ -19,7 +22,13 @@ class SignInFormVm implements ISignInFormVM {
   @observable
   public isPasswordShown: boolean = false;
 
-  constructor() {
+  private formData: z.infer<typeof this.schemaSignInForm> | null = null;
+
+  private readonly authApi: IAuthApi;
+
+  constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
+    this.authApi = authApi;
+
     makeObservable(this);
   }
 
@@ -35,12 +44,28 @@ class SignInFormVm implements ISignInFormVM {
 
   @action
   public signIn = async (data: z.infer<typeof this.schemaSignInForm>) => {
-    this.setIsLoading(true);
-
-    setTimeout(() => {
-      this.setIsLoading(false);
-    }, 3000);
+    this.formData = data;
+    this.sendSignInRequest();
   }
+
+  @action.bound
+  public sendSignInRequest = flow(function *(this: SignInFormVm) {
+    if (this.formData === null)
+      return;
+
+    const payload: ISignInPayload = {
+      username: this.formData.username,
+      password: this.formData.password
+    }
+
+    try {
+      this.formData = null;
+      this.setIsLoading(true);
+      yield this.authApi.signIn(payload);
+    } finally {
+      this.setIsLoading(false);
+    }
+  });
 
   public readonly schemaSignInForm: z.ZodObject<any> = z
     .object({
