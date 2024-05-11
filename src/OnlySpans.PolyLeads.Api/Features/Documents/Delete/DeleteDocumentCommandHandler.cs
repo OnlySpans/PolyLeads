@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
 
-namespace OnlySpans.PolyLeads.Api.Features.Documents;
+namespace OnlySpans.PolyLeads.Api.Features.Documents.Delete;
 
-public sealed record DeleteDocumentCommand(long DocumentId) : IRequest;
+public sealed record DeleteDocumentCommand(
+    long DocumentId,
+    Guid UserId) : IRequest;
 
 public sealed class DeleteDocumentCommandHandler : IRequestHandler<DeleteDocumentCommand>
 {
@@ -30,9 +32,8 @@ public sealed class DeleteDocumentCommandHandler : IRequestHandler<DeleteDocumen
             documentToDelete, 
             $"Документ с id {request.DocumentId} не найден");
 
-        Context
-            .Documents
-            .Remove(documentToDelete);
+        documentToDelete.DeletedAt = DateTime.UtcNow;
+        documentToDelete.DeletedById = request.UserId;
 
         await Context
             .SaveChangesAsync(cancellationToken);

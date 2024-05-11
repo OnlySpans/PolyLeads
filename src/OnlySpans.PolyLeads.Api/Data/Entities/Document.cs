@@ -1,15 +1,10 @@
-using OnlySpans.PolyLeads.Api.Data.Abstractions;
-
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
-public class Document :
-    IHasCreationInfo,
-    IHasUpdateInfo,
-    ISoftDeletable
+public class Document
 {
     public long Id { get; set; } = 0;
 
-     public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
 
@@ -17,15 +12,21 @@ public class Document :
 
     public DateTime CreatedAt { get; init; } = default!;
 
-    public Guid CreatedBy { get; init; } = Guid.Empty;
+    public Guid CreatedById { get; init; } = Guid.Empty;
 
 
-    public DateTime UpdatedAt { get; init; } = default!;
+    public DateTime UpdatedAt { get; set; } = default!;
 
-    public Guid UpdatedBy { get; init; } = Guid.Empty;
+    public Guid UpdatedById { get; set; } = Guid.Empty;
 
 
-    public DateTime? DeletedAt { get; init; }
+    public DateTime? DeletedAt { get; set; }
 
-    public Guid? DeletedBy { get; init; }
+    public Guid? DeletedById { get; set; }
+
+    public virtual ApplicationUser CreatedBy { get; init; } = default!;
+
+    public virtual ApplicationUser UpdatedBy { get; set; } = default!;
+
+    public virtual ApplicationUser? DeletedBy { get; set; } = default!;
 }

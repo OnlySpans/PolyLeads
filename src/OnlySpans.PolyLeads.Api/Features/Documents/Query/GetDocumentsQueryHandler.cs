@@ -4,14 +4,14 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 
-namespace OnlySpans.PolyLeads.Api.Features.Documents;
+namespace OnlySpans.PolyLeads.Api.Features.Documents.Query;
 
 using Dto = Dto.Data;
 
-public sealed record GetDocumentsQuery : IRequest<IReadOnlyList<Dto.Document>>;
+public sealed record GetDocumentsQuery : IRequest<IReadOnlyList<Dto.DetailedDocument>>;
 
 public sealed class GetDocumentsQueryHandler
-    : IRequestHandler<GetDocumentsQuery, IReadOnlyList<Dto.Document>>
+    : IRequestHandler<GetDocumentsQuery, IReadOnlyList<Dto.DetailedDocument>>
 {
     private ApplicationDbContext Context { get; init; }
 
@@ -25,13 +25,13 @@ public sealed class GetDocumentsQueryHandler
         Context = context;
     }
 
-    public async Task<IReadOnlyList<Dto.Document>> Handle(
+    public async Task<IReadOnlyList<Dto.DetailedDocument>> Handle(
         GetDocumentsQuery request,
         CancellationToken cancellationToken)
     {
         var query = Context
             .Documents
-            .ProjectToType<Dto.Document>(Mapper.Config);
+            .ProjectToType<Dto.DetailedDocument>(Mapper.Config);
 
         return await query
             .ToListAsync(cancellationToken);

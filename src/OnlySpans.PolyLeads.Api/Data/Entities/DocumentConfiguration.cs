@@ -14,5 +14,20 @@ public sealed class DocumentConfiguration : IEntityTypeConfiguration<Document>
         builder
            .Property(x => x.Description)
            .HasMaxLength(512);
+
+        builder
+            .HasOne(x => x.CreatedBy)
+            .WithMany()
+            .HasForeignKey(x => x.CreatedById);
+        
+        builder
+            .HasOne(x => x.UpdatedBy)
+            .WithMany()
+            .HasForeignKey(x => x.UpdatedById);
+        
+        builder
+            .HasOne(x => x.DeletedBy)
+            .WithMany()
+            .HasForeignKey(x => x.DeletedById);
     }
 }
