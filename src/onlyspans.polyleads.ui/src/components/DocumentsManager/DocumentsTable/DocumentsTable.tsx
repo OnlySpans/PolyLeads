@@ -2,7 +2,7 @@
 
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
-import { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+import { IDocumentsTableVM } from './DocumentsTableVM';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
@@ -29,7 +29,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
-import DataTableViewOptions from '@/components/DocumentsManager/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
+import DataTableViewOptions from './DataTableViewOptions/DataTableViewOptions';
 import { Upload } from 'lucide-react';
 
 declare module '@tanstack/react-table' {
@@ -38,8 +38,7 @@ declare module '@tanstack/react-table' {
   }
 }
 
-interface IDocumentsTableProps {}
-const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
+const DocumentsTable: React.FC = () => {
   const vm = useGet<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM);
 
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -50,7 +49,7 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: vm.getData(),
+    data: vm.loadDocuments(),
     columns: vm.columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -129,7 +128,6 @@ const DocumentsTable: React.FC<IDocumentsTableProps>  = () => {
             ) : (
               <TableRow>
                 <TableCell
-                  // colSpan={columns.length}
                   className='h-24 text-center'
                 >
                   Не найдено
