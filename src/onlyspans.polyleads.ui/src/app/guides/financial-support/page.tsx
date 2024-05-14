@@ -2,7 +2,7 @@ import Header from '@/components/Header/Header';
 import React from 'react';
 import { BackButton } from '@/components/ui/back-button';
 
-const Article = () => {
+const FinancialSupportArticle: React.FC = () => {
   return (
     <>
       <Header />
@@ -108,4 +108,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default FinancialSupportArticle;
