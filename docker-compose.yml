@@ -21,6 +21,7 @@ services:
 
   onlyspans-polyleads-reverse-proxy:
     container_name: OnlySpans.PolyLeads.ReverseProxy
+    image: ${PROJECT_NAME}.reverse-proxy:${UI_VERSION}
     volumes:
       - ./src/OnlySpans.PolyLeads.ReverseProxy/appsettings.Development.json:/app/appsettings.Development.json
     build:
