@@ -11,7 +11,6 @@ public static class Startup
            .AddLogging()
            .AddMapper()
            .AddSwagger()
-           .AddServiceDefaults()
            .AddApplicationDbContext()
            .AddIdentity()
            .AddDocumentRecognition()
