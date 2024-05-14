@@ -1,0 +1,3 @@
+[install.scopes]
+
+"@npm" = "https://registry.npmjs.org"
