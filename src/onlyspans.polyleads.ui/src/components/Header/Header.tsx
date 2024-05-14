@@ -8,11 +8,15 @@ interface IHeaderProps {}
 
 const Header: React.FC<IHeaderProps> = () => {
   return (
-    <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95'>
+    <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95
+      backdrop-blur supports-[backdrop-filter]:bg-background/60'
+    >
       <div className='container sm:px-8 px-4 flex h-14 max-w-screen-2xl items-center'>
         <div className='flex gap-4'>
           <img src={'/logoPolytech.svg'} className='ml-1 w-9' alt={''} />
-          <p className='sm:flex items-center hidden text-xl font-medium transition-colors mr-4 '>PolyLeads</p>
+          <p className='sm:flex items-center hidden text-xl font-medium transition-colors mr-4 '>
+            PolyLeads
+          </p>
           <nav className='flex items-center gap-4 text-sm'>
             <Link
               href='/'
@@ -21,7 +25,7 @@ const Header: React.FC<IHeaderProps> = () => {
               Документы
             </Link>
             <Link
-              href='/'
+              href={'/guides'}
               className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
             >
               Гайды
@@ -34,7 +38,7 @@ const Header: React.FC<IHeaderProps> = () => {
             className={cn(
               buttonVariants({
                 variant: 'default',
-                size: 'sm'
+                size: 'sm',
               }),
             )}
           >

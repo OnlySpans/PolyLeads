@@ -28,13 +28,13 @@ const DataTableViewOptions: React.FC<any> = <TData extends any>({
         <DropdownMenuContent align='end'>
           {table
             .getAllColumns()
-            .filter((column) => column.getCanHide())
-            .map((column) => {
+            .filter(column => column.getCanHide())
+            .map(column => {
               return (
                 <DropdownMenuCheckboxItem
                   key={column.id}
                   checked={column.getIsVisible()}
-                  onCheckedChange={(value) =>
+                  onCheckedChange={value =>
                     column.toggleVisibility(value)
                   }
                 >
