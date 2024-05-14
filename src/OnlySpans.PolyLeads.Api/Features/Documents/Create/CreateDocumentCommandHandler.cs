@@ -1,43 +1,50 @@
-using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
+
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
+using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
 
-using Dto = Dto.Data;
+public sealed record CreateDocumentCommand :
+    IRequest<Document>
+{
+    public required string Name { get; init; }
 
-public sealed record CreateDocumentCommand(Dto.Document Document, Guid UserId) :
-    IRequest<Dto.DetailedDocument>;
+    public required string Description { get; init; }
+
+    public required Uri DownloadUrl { get; init; }
+
+    public required Guid UserId { get; init; }
+}
 
 public sealed class CreateDocumentCommandHandler :
-    IRequestHandler<CreateDocumentCommand, Dto.DetailedDocument>
+    IRequestHandler<CreateDocumentCommand, Document>
 {
     private ApplicationDbContext Context { get; init; }
-
-    private IMapper Mapper { get; init; }
+    private TimeProvider TimeProvider { get; init; }
 
     public CreateDocumentCommandHandler(
         ApplicationDbContext context,
-        IMapper mapper)
+        TimeProvider timeProvider)
     {
         Context = context;
-        Mapper = mapper;
+        TimeProvider = timeProvider;
     }
 
-    public async Task<Dto.DetailedDocument> Handle(
+    public async Task<Document> Handle(
         CreateDocumentCommand request,
         CancellationToken cancellationToken)
     {
-        // fuck it
+        var now = TimeProvider.GetUtcNow().DateTime;
+
         var document = new Document
         {
-            Name = request.Document.Name,
-            Description = request.Document.Description,
-            Link = request.Document.Link,
+            Name = request.Name,
+            Description = request.Description,
+            DownloadUrl = request.DownloadUrl,
             CreatedById = request.UserId,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedById = request.UserId,
-            UpdatedAt = DateTime.UtcNow
+            CreatedAt = now
         };
 
         await Context
@@ -47,17 +54,9 @@ public sealed class CreateDocumentCommandHandler :
         await Context
             .SaveChangesAsync(cancellationToken);
 
-        // fuck it again
-        await Context
-            .Entry(document)
-            .Reference(x => x.CreatedBy)
-            .LoadAsync(cancellationToken);
-
-        await Context
-            .Entry(document)
-            .Reference(x => x.UpdatedBy)
-            .LoadAsync(cancellationToken);
-
-        return Mapper.Map<Dto.DetailedDocument>(document);
+        return await Context
+           .Documents
+           .IncludeAuditProperties()
+           .FirstAsync(x => x.Id == document.Id, cancellationToken);
     }
 }

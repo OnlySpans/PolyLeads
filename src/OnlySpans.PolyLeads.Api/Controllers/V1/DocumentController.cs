@@ -44,7 +44,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
-        var command = new CreateDocumentCommand(dto, userId);
+        var command = Mapper.Map<CreateDocumentCommand>(dto) with {UserId = userId};
         var document = await Mediator.Send(command, cancellationToken);
         return StatusCode(StatusCodes.Status201Created, document);
     }

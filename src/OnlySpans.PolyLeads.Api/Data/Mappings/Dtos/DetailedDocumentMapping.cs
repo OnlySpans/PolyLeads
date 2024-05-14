@@ -15,7 +15,7 @@ public class DetailedDocumentMapping : IRegister
             .ForType<Document, Dto.DetailedDocument>()
             .IgnoreNullValues(true)
             .Map(x => x.CreatedByUser, x => $"{x.CreatedBy.FirstName} {x.CreatedBy.LastName}")
-            .Map(x => x.UpdatedByUser, x => $"{x.UpdatedBy.FirstName} {x.UpdatedBy.LastName}")
+            .Map(x => x.UpdatedByUser, x => GetFullName(x.UpdatedBy))
             .Map(x => x.DeletedByUser, x => GetFullName(x.DeletedBy));
     }
 

@@ -6,5 +6,5 @@ public sealed record Document
 
     public required string Description { get; init; }
 
-    public required Uri Link { get; init; }
+    public required Uri DownloadUrl { get; init; }
 }
