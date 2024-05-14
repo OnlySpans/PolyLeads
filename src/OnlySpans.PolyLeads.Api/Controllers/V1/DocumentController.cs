@@ -1,3 +1,4 @@
+using Mapster;
 using MapsterMapper;
 
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,8 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     {
         var query = new GetDocumentsQuery();
         var documents = await Mediator.Send(query, cancellationToken);
-        return Ok(documents);
+        var result = documents.ProjectToType<Dto.Document>(Mapper.Config);
+        return Ok(result);
     }
 
     [HttpGet("{documentId:long}")]
@@ -34,7 +36,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     {
         var query = new GetDetailedDocumentQuery(documentId);
         var detailedDocument = await Mediator.Send(query, cancellationToken);
-        return Ok(detailedDocument);
+        return Ok(Mapper.Map<Dto.DetailedDocument>(detailedDocument));
     }
 
     [Authorize]
@@ -46,7 +48,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         var userId = User.GetUserId();
         var command = Mapper.Map<CreateDocumentCommand>(dto) with {UserId = userId};
         var document = await Mediator.Send(command, cancellationToken);
-        return StatusCode(StatusCodes.Status201Created, document);
+        return Created(Mapper.Map<Dto.DetailedDocument>(document));
     }
 
     [Authorize]
@@ -57,9 +59,9 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
-        var command = new EditDocumentCommand(documentId, dto, userId);
+        var command = Mapper.Map<EditDocumentCommand>(dto) with { DocumentId = documentId, UserId = userId };
         var document = await Mediator.Send(command, cancellationToken);
-        return Ok(document);
+        return Ok(Mapper.Map<Dto.DetailedDocument>(document));
     }
 
     [Authorize]

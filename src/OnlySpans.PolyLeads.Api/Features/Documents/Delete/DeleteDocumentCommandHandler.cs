@@ -1,4 +1,6 @@
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
 
@@ -8,13 +10,19 @@ public sealed record DeleteDocumentCommand(
     long DocumentId,
     Guid UserId) : IRequest;
 
-public sealed class DeleteDocumentCommandHandler : IRequestHandler<DeleteDocumentCommand>
+[UsedImplicitly]
+public sealed class DeleteDocumentCommandHandler :
+    IRequestHandler<DeleteDocumentCommand>
 {
     private ApplicationDbContext Context { get; init; }
+    private TimeProvider TimeProvider { get; init; }
 
-    public DeleteDocumentCommandHandler(ApplicationDbContext context)
+    public DeleteDocumentCommandHandler(
+        ApplicationDbContext context,
+        TimeProvider timeProvider)
     {
         Context = context;
+        TimeProvider = timeProvider;
     }
 
     public async Task Handle(
@@ -26,12 +34,12 @@ public sealed class DeleteDocumentCommandHandler : IRequestHandler<DeleteDocumen
             .FirstOrDefaultAsync(
                 x => x.Id == request.DocumentId,
                 cancellationToken);
-        
+
         ResourceNotFoundException.ThrowIfNull(
-            documentToDelete, 
+            documentToDelete,
             $"Документ с id {request.DocumentId} не найден");
 
-        documentToDelete.DeletedAt = DateTime.UtcNow;
+        documentToDelete.DeletedAt = TimeProvider.GetUtcNow().DateTime;
         documentToDelete.DeletedById = request.UserId;
 
         await Context

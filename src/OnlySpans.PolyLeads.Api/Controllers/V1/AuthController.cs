@@ -8,7 +8,6 @@ using OnlySpans.PolyLeads.Dto.Data;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
-[ApiController]
 [Route("api/v1/auth")]
 public sealed class AuthController(IMediator mediator, IMapper mapper) :
     ApplicationController(mediator, mapper)

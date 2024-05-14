@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
 using OnlySpans.PolyLeads.Api.Data.Contexts;
@@ -6,6 +7,7 @@ using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
 
+[UsedImplicitly]
 public sealed record CreateDocumentCommand :
     IRequest<Document>
 {
@@ -18,6 +20,7 @@ public sealed record CreateDocumentCommand :
     public required Guid UserId { get; init; }
 }
 
+[UsedImplicitly]
 public sealed class CreateDocumentCommandHandler :
     IRequestHandler<CreateDocumentCommand, Document>
 {

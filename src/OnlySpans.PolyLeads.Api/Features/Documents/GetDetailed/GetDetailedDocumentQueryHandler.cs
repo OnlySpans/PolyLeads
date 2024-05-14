@@ -2,16 +2,15 @@ using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.GetDetailed;
 
-using Dto = Dto.Data;
-
 public sealed record GetDetailedDocumentQuery(long DocumentId)
-    : IRequest<Dto.DetailedDocument>;
+    : IRequest<Entities.Document>;
 
 public sealed class GetDetailedDocumentQueryHandler
-    : IRequestHandler<GetDetailedDocumentQuery, Dto.DetailedDocument>
+    : IRequestHandler<GetDetailedDocumentQuery, Entities.Document>
 {
     private ApplicationDbContext Context { get; init; }
 
@@ -25,15 +24,13 @@ public sealed class GetDetailedDocumentQueryHandler
         Mapper = mapper;
     }
 
-    public async Task<Dto.DetailedDocument> Handle(
+    public async Task<Entities.Document> Handle(
         GetDetailedDocumentQuery request,
         CancellationToken cancellationToken)
     {
         var document = await Context
             .Documents
-            .Include(x => x.CreatedBy)
-            .Include(x => x.UpdatedBy)
-            .Include(x => x.DeletedBy)
+            .IncludeAuditProperties()
             .FirstOrDefaultAsync(
                 x => x.Id == request.DocumentId,
                 cancellationToken);
@@ -42,6 +39,6 @@ public sealed class GetDetailedDocumentQueryHandler
             document,
             $"Документ с id {request.DocumentId} не найден");
 
-        return Mapper.Map<Dto.DetailedDocument>(document);
+        return document;
     }
 }

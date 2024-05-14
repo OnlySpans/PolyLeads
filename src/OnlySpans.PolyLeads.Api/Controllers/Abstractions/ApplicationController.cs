@@ -9,4 +9,7 @@ public abstract class ApplicationController(IMediator mediator, IMapper mapper) 
     protected IMediator Mediator { get; init; } = mediator;
 
     protected IMapper Mapper { get; init; } = mapper;
+
+    protected IActionResult Created<TPayload>(TPayload payload) =>
+        StatusCode(StatusCodes.Status201Created, payload);
 }
