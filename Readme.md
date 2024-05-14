@@ -1,32 +1,30 @@
+# OnlySpans.PolyLeads
+
 ## Installation
-1. node_modules
-   ```shell
-   cd src/onlyspans.polyleads.ui/
-   npm i
-   ```
-2. dotnet aspire
-   ```shell
-   dotnet workload install aspire
-   ```
 
-## Launch
-1. Launch Aspire 
-    ```shell
-    cd src/OnlySpans.Aspire.AppHost/
-    dotnet watch run
-    ```
+#### node_modules
+```sh
+cd ./src/OnlySpans.PolyLeads.UI/
+npm i
+```
 
-## Urls
-1. UI - http://localhost:15001
-2. Aspire - http://localhost:15002
-3. Banana Cake Pop - http://localhost:15000/api/graphql
+## Запуск
 
-## Tips
+#### Local UI + docker compose API
+```sh
+docker compose --profile api-only --env-file .env --env-file .env.api-only up
+cd ./src/onlyspans.polyleads.ui/
+npm run start
+```
 
-Чтобы запустить в локальной сети необходимо изменить файл package.json
+#### Local API + docker compose UI
+```sh
+docker compose --profile ui-only --env-file .env --env-file .env.ui-only up
+cd ./src/OnlySpans.PolyLeads.Api/
+dontet run
+```
 
-```shell
-"dev": "next dev"
-//в эту строку добавляем -H pc-ip, где pc-ip - локальный ip-адрес
-"dev": "next dev -H pc-ip"
+#### docker compose *
+```sh
+docker compose --profile "*" --env-file .env up
 ```

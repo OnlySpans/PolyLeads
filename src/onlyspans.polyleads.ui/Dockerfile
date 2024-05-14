@@ -19,8 +19,8 @@ FROM node:current-alpine3.19 AS build
 WORKDIR /app
 COPY --from=deps /app .
 COPY ./src/onlyspans.polyleads.ui/ .
-RUN ["npx", "webpack"]
+RUN npm run build
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/build /usr/local/apache2/htdocs/
+COPY --from=build /app/out /usr/local/apache2/htdocs/

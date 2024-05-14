@@ -23,6 +23,9 @@ public static class DatabaseExtensions
 
                 options.Connection(connectionString);
                 options.Logger(provider.GetRequiredService<IMartenLogger>());
+
+                // Otherwise Schema Objects will be created in `public` schema
+                options.DatabaseSchemaName = new NpgsqlConnectionStringBuilder(connectionString).Username!;
                 options.AutoCreateSchemaObjects = AutoCreate.All;
 
                 return options;

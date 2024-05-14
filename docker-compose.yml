@@ -14,7 +14,7 @@ services:
       - api-only
       - ui-only
     healthcheck:
-      test: pg_isready --quiet -U p4t_timesheet -d postgres
+      test: pg_isready --quiet -U polyleads -d postgres
       interval: 1s
       timeout: 5s
       retries: 10
@@ -28,7 +28,7 @@ services:
       args:
         BUILD_CONFIGURATION: Debug
     ports:
-      - "19000:8080"
+      - "20000:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ReverseProxy__Clusters__Frontend__Destinations__Destination1__Address: ${FRONTEND}
@@ -51,7 +51,7 @@ services:
       ConnectionStrings__ApplicationDbContext: ${DB}
       ConnectionStrings__DocumentStore: ${DB}
     ports:
-      - "19001:8080"
+      - "20001:8080"
     depends_on:
       onlyspans-polyleads-postgres:
         condition: service_healthy
@@ -65,6 +65,6 @@ services:
     build:
       dockerfile: "./src/onlyspans.polyleads.ui/Dockerfile"
     ports:
-      - "19002:80"
+      - "20002:80"
     profiles:
       - ui-only

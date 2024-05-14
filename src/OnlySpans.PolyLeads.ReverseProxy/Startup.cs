@@ -31,8 +31,7 @@ public static class Startup
            .LoadFromConfig(
                 builder
                    .Configuration
-                   .GetSection("ReverseProxy"))
-           .AddServiceDiscoveryDestinationResolver();
+                   .GetSection("ReverseProxy"));
 
         return builder;
     }

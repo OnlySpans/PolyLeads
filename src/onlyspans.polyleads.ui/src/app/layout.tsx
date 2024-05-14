@@ -13,8 +13,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html>
-      <App children={children}/>
-    </html> 
+      <App>
+        {children}
+      </App>
+    </html>
   );
 };
 
