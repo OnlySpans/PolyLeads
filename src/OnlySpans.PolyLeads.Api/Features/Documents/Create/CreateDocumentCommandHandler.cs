@@ -1,5 +1,4 @@
 using MapsterMapper;
-using MediatR;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 

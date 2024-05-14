@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Exceptions;

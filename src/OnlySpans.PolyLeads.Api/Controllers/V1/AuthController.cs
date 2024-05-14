@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignUp;
 using OnlySpans.PolyLeads.Dto.Data;
@@ -9,18 +10,9 @@ namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
 [ApiController]
 [Route("api/v1/auth")]
-public sealed class AuthController : ControllerBase
+public sealed class AuthController(IMediator mediator, IMapper mapper) :
+    ApplicationController(mediator, mapper)
 {
-    private IMediator Mediator { get; init; }
-
-    private IMapper Mapper { get; init; }
-
-    public AuthController(IMediator mediator, IMapper mapper)
-    {
-        Mediator = mediator;
-        Mapper = mapper;
-    }
-
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn(
         [FromBody] SignInInput input,
