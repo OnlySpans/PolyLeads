@@ -1,17 +1,26 @@
-using OnlySpans.PolyLeads.Api;
+using OnlySpans.PolyLeads.Api.Startup;
+using Serilog;
 
 var builder = WebApplication
    .CreateBuilder(args)
    .ConfigureStaticLogger();
 
-await builder.ConfigureServices();
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+try
 {
-   app.UseSwagger();
-   app.UseSwaggerUI();
+   await builder.ConfigureServices();
+   var app = builder.Build();
+   await app.Configure();
+   await app.RunAsync();
 }
+catch (Exception ex) when (ex is not HostAbortedException)
+{
+   Log.Fatal(ex, "Got exception during startup sequence");
 
-await app.Configure();
-await app.RunAsync();
+#if DEBUG
+   throw;
+#endif
+}
+finally
+{
+   Log.CloseAndFlush();
+}

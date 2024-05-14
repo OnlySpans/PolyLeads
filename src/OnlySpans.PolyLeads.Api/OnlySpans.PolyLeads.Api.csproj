@@ -28,6 +28,7 @@
       <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
       <PackageReference Include="Spire.Doc" Version="12.3.12" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.1" />
     </ItemGroup>
 
     <ItemGroup>
