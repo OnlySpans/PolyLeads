@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,17 +27,23 @@
       <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
       <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
       <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
       <PackageReference Include="Spire.Doc" Version="12.3.12" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Data\Migrations\" />
-      <Folder Include="Features\" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OnlySpans.Aspire.ServiceDefaults\OnlySpans.Aspire.ServiceDefaults.csproj" />
       <ProjectReference Include="..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

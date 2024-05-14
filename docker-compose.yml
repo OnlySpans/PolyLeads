@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+  onlyspans-polyleads-postgres:
+    image: postgres
+    container_name: OnlySpans.PolyLeads.Postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    environment:
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    profiles:
+      - api-only
+      - ui-only
+    healthcheck:
+      test: pg_isready --quiet -U polyleads -d postgres
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+  onlyspans-polyleads-reverse-proxy:
+    container_name: OnlySpans.PolyLeads.ReverseProxy
+    image: ${PROJECT_NAME}.reverse-proxy:${UI_VERSION}
+    volumes:
+      - ./src/OnlySpans.PolyLeads.ReverseProxy/appsettings.Development.json:/app/appsettings.Development.json
+    build:
+      dockerfile: "./src/OnlySpans.PolyLeads.ReverseProxy/Dockerfile"
+      args:
+        BUILD_CONFIGURATION: Debug
+    ports:
+      - "20000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ReverseProxy__Clusters__Frontend__Destinations__Destination1__Address: ${FRONTEND}
+      ReverseProxy__Clusters__Backend__Destinations__Destination1__Address: ${BACKEND}
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  onlyspans-polyleads-api:
+    container_name: OnlySpans.PolyLeads.Api
+    image: ${PROJECT_NAME}.api:${API_VERSION}
+    volumes:
+      - ./src/OnlySpans.PolyLeads.Api/appsettings.Development.json:/app/appsettings.Development.json
+    build:
+      dockerfile: "./src/OnlySpans.PolyLeads.Api/Dockerfile"
+      args:
+        BUILD_CONFIGURATION: Debug
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__ApplicationDbContext: ${DB}
+      ConnectionStrings__DocumentStore: ${DB}
+    ports:
+      - "20001:8080"
+    depends_on:
+      onlyspans-polyleads-postgres:
+        condition: service_healthy
+    restart: always
+    profiles:
+      - api-only
+
+  onlyspans-polyleads-ui:
+    container_name: OnlySpans.PolyLeads.UI
+    image: ${PROJECT_NAME}.ui:${UI_VERSION}
+    build:
+      dockerfile: "./src/onlyspans.polyleads.ui/Dockerfile"
+    ports:
+      - "20002:80"
+    profiles:
+      - ui-only
