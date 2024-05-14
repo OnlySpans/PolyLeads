@@ -9,12 +9,16 @@ import { AuthApi, IAuthApi } from '@/services/api/auth/authApi';
 import SignUpFormVM, {
   ISignUpFormVM,
 } from '@/components/auth/sign-up/SignUpForm.vm';
+import DocumentsTableVM, {
+  IDocumentsTableVM,
+} from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
 
   container.bind<ISignInFormVM>(ServiceSymbols.ISignInFormVM).to(SignInFormVm);
   container.bind<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM).to(SignUpFormVM);
+  container.bind<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM).to(DocumentsTableVM);
   container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
 

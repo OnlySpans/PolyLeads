@@ -1,19 +1,18 @@
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
+'use client';
+
+import Header from '@/components/Header/Header';
+import DocumentsTable from '@/components/DocumentsManager/DocumentsTable/DocumentsTable';
 
 const Home = () => {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      <Link
-        href={'/sign-in'}
-        className={cn(buttonVariants({ variant: 'default' }))}
-      >
-        Войти
-      </Link>
-      <ThemeSwitchButton />
-    </main>
+    <>
+      <Header />
+      <div className='h-full flex-1 flex-col sm:p-6 px-0 py-4 flex '>
+        <div className='container md:px-8 px-4 flex max-w-screen-2xl items-center'>
+          <DocumentsTable />
+        </div>
+      </div>
+    </>
   );
 };
 
