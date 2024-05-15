@@ -66,20 +66,17 @@ public sealed class RecognitionWorker
 
     public async Task RecognizeDocumentsAsync(CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested)
-        {
-            await using var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
+        await using var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
 
-            try
-            {
-                await RecognizeDocumentsAsyncInternal(cancellationToken);
-                await transaction.CommitAsync(cancellationToken);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
-                await transaction.RollbackAsync(cancellationToken);
-            }
+        try
+        {
+            await RecognizeDocumentsAsyncInternal(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
+            await transaction.RollbackAsync(cancellationToken);
         }
     }
 
