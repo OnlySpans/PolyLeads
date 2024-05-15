@@ -1,4 +1,6 @@
-﻿namespace OnlySpans.PolyLeads.Api.Startup;
+﻿using OnlySpans.PolyLeads.Api.Extensions;
+
+namespace OnlySpans.PolyLeads.Api.Startup;
 
 public static partial class Startup
 {
@@ -6,6 +8,7 @@ public static partial class Startup
     {
         builder
            .AddAuth()
+           .AddOptions()
            .AddMediatR()
            .AddMarten()
            .AddLogging()
