@@ -9,8 +9,7 @@ public static class RecognitionExtensions
     {
         builder
            .Services
-           .AddScoped<IDocumentRecognition, SearchablePdfRecognition>()
-           .AddScoped<IDocumentRecognition, SearchableDocxRecognition>();
+           .AddSingleton<IDocumentRecognitionFactory, SearchableDocumentRecognitionFactory>();
 
         return builder;
     }
