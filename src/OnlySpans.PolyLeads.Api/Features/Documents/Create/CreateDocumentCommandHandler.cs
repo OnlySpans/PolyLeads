@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
+using OnlySpans.PolyLeads.Api.Data.Enums;
 using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
@@ -47,7 +48,8 @@ public sealed class CreateDocumentCommandHandler :
             Description = request.Description,
             DownloadUrl = request.DownloadUrl,
             CreatedById = request.UserId,
-            CreatedAt = now
+            CreatedAt = now,
+            RecognitionStatus = RecognitionStatus.Queued
         };
 
         await Context
