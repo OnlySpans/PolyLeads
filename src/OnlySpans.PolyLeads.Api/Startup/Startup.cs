@@ -9,6 +9,8 @@ public static partial class Startup
         builder
            .AddAuth()
            .AddOptions()
+           .AddHttpClient()
+           .AddWorkers()
            .AddMediatR()
            .AddMarten()
            .AddLogging()
