@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -9,64 +10,82 @@ using OnlySpans.PolyLeads.Api.Exceptions;
 
 namespace OnlySpans.PolyLeads.Api.Workers;
 
-public sealed class RecognitionWorker : BackgroundService
+public sealed class RecognitionWorkerRunner : IHostedService
 {
-    private IServiceScopeFactory ScopeFactory { get; init; }
+    private static string JobId { get; } = "document-recognition";
+
+    private IRecurringJobManager RecurringJobs { get; init; }
+    private IOptions<RecognitionOptions> Options { get; init; }
+
+    public RecognitionWorkerRunner(
+        IRecurringJobManager recurringJobs,
+        IOptions<RecognitionOptions> options)
+    {
+        RecurringJobs = recurringJobs;
+        Options = options;
+    }
+
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        RecurringJobs.AddOrUpdate<RecognitionWorker>(
+            JobId,
+            w => w.RecognizeDocumentsAsync(CancellationToken.None),
+            Options.Value.Cron);
+
+        return Task.CompletedTask;
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken) =>
+        Task.CompletedTask;
+}
+
+public sealed class RecognitionWorker
+{
+    private ApplicationDbContext Context { get; init; }
+    private Marten.IDocumentSession Session { get; init; }
     private ILogger<RecognitionWorker> Logger { get; init; }
     private IOptions<RecognitionOptions> Options { get; init; }
     private IHttpClientFactory HttpClientFactory { get; init; }
     private IDocumentRecognitionFactory RecognitionFactory { get; init; }
 
     public RecognitionWorker(
-        IServiceScopeFactory scopeFactory,
+        ApplicationDbContext context,
+        Marten.IDocumentSession session,
+        ILogger<RecognitionWorker> logger,
         IOptions<RecognitionOptions> options,
         IHttpClientFactory httpClientFactory,
-        IDocumentRecognitionFactory recognitionFactory,
-        ILogger<RecognitionWorker> logger)
+        IDocumentRecognitionFactory recognitionFactory)
     {
-        ScopeFactory = scopeFactory;
+        Context = context;
+        Session = session;
+        Logger = logger;
         Options = options;
         HttpClientFactory = httpClientFactory;
         RecognitionFactory = recognitionFactory;
-        Logger = logger;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    public async Task RecognizeDocumentsAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
-            await using var scope = ScopeFactory.CreateAsyncScope();
-
-            var serviceProvider = scope.ServiceProvider;
-            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-
-            await using var transaction = await context.Database.BeginTransactionAsync(stoppingToken);
+            await using var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
 
             try
             {
-                await RecognizeDocumentsAsync(
-                    HttpClientFactory.CreateClient(),
-                    context,
-                    serviceProvider.GetRequiredService<Marten.IDocumentSession>(),
-                    stoppingToken);
-
-                await transaction.CommitAsync(stoppingToken);
+                await RecognizeDocumentsAsyncInternal(cancellationToken);
+                await transaction.CommitAsync(cancellationToken);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
-                await transaction.RollbackAsync(stoppingToken);
+                await transaction.RollbackAsync(cancellationToken);
             }
         }
     }
 
-    private async Task RecognizeDocumentsAsync(
-        HttpClient httpClient,
-        ApplicationDbContext context,
-        Marten.IDocumentSession session,
-        CancellationToken cancellationToken)
+    private async Task RecognizeDocumentsAsyncInternal(CancellationToken cancellationToken)
     {
-        var queuedDocuments = await context
+        var queuedDocuments = await Context
            .Documents
            .Where(x => x.RecognitionStatus == RecognitionStatus.Queued)
            .Take(Options.Value.FilesBatchSize)
@@ -75,12 +94,14 @@ public sealed class RecognitionWorker : BackgroundService
         foreach (var document in queuedDocuments)
             document.RecognitionStatus = RecognitionStatus.Processing;
 
-        await context.SaveChangesAsync(cancellationToken);
+        await Context.SaveChangesAsync(cancellationToken);
 
         foreach (var document in queuedDocuments)
         {
             try
             {
+                using var httpClient = HttpClientFactory.CreateClient();
+
                 using var httpResponse = await httpClient
                    .GetAsync(document.DownloadUrl, cancellationToken);
 
@@ -102,17 +123,17 @@ public sealed class RecognitionWorker : BackgroundService
                     Content = string.Join('\n', recognizedContent.Pages.Select(x => x.Text))
                 };
 
-                session.Store(recognitionResult);
-                await session.SaveChangesAsync(cancellationToken);
+                Session.Store(recognitionResult);
+                await Session.SaveChangesAsync(cancellationToken);
 
                 document.RecognitionStatus = RecognitionStatus.Success;
-                await context.SaveChangesAsync(cancellationToken);
+                await Context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex, "Возникла ошибка при распозновании документа с id {Id}", document.Id);
                 document.RecognitionStatus = RecognitionStatus.Error;
-                await context.SaveChangesAsync(cancellationToken);
+                await Context.SaveChangesAsync(cancellationToken);
                 throw;
             }
         }

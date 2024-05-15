@@ -8,7 +8,7 @@ public static partial class Startup
     {
         builder
            .Services
-           .AddHostedService<RecognitionWorker>();
+           .AddHostedService<RecognitionWorkerRunner>();
 
         return builder;
     }
