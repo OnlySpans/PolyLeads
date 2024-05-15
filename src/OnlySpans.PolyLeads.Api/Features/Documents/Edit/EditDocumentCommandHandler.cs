@@ -61,7 +61,7 @@ public sealed class EditDocumentCommandHandler
             .AdaptTo(@ref);
 
         @ref.UpdatedById = request.UserId;
-        @ref.UpdatedAt = TimeProvider.GetUtcNow().DateTime;
+        @ref.UpdatedAt = TimeProvider.GetUtcNow().UtcDateTime;
 
         await Context
             .SaveChangesAsync(cancellationToken);

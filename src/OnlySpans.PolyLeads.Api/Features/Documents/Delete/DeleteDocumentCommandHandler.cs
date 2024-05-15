@@ -39,7 +39,7 @@ public sealed class DeleteDocumentCommandHandler :
             documentToDelete,
             $"Документ с id {request.DocumentId} не найден");
 
-        documentToDelete.DeletedAt = TimeProvider.GetUtcNow().DateTime;
+        documentToDelete.DeletedAt = TimeProvider.GetUtcNow().UtcDateTime;
         documentToDelete.DeletedById = request.UserId;
 
         await Context

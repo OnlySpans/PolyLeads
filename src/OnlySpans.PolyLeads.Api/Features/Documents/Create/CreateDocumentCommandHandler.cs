@@ -40,7 +40,7 @@ public sealed class CreateDocumentCommandHandler :
         CreateDocumentCommand request,
         CancellationToken cancellationToken)
     {
-        var now = TimeProvider.GetUtcNow().DateTime;
+        var now = TimeProvider.GetUtcNow().UtcDateTime;
 
         var document = new Document
         {
