@@ -6,6 +6,7 @@ using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Enums;
 using OnlySpans.PolyLeads.Api.Data.Options;
+using OnlySpans.PolyLeads.Api.Data.Records.Recognition;
 using OnlySpans.PolyLeads.Api.Exceptions;
 
 namespace OnlySpans.PolyLeads.Api.Workers;
@@ -117,7 +118,7 @@ public sealed class RecognitionWorker
                 var recognitionResult = new Entities.RecognitionResult
                 {
                     DocumentId = document.Id,
-                    Content = string.Join('\n', recognizedContent.Pages.Select(x => x.Text))
+                    Content = PreprocessText(recognizedContent)
                 };
 
                 Session.Store(recognitionResult);
@@ -134,5 +135,11 @@ public sealed class RecognitionWorker
                 throw;
             }
         }
+    }
+
+    private static string PreprocessText(RecognitionResult recognizedContent)
+    {
+        var joinedText = string.Join(' ', recognizedContent.Pages.Select(x => x.Text));
+        return joinedText.Replace("\u0000", "");
     }
 }
