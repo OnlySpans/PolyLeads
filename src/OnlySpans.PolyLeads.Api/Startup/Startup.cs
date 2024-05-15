@@ -10,6 +10,7 @@ public static partial class Startup
            .AddAuth()
            .AddOptions()
            .AddHttpClient()
+           .AddScheduler()
            .AddWorkers()
            .AddMediatR()
            .AddMarten()
@@ -33,6 +34,8 @@ public static partial class Startup
 
         app.UseDevelopmentConfiguration();
         app.MapControllers();
+
+        app.UseSchedulerDashboard();
 
         await app.MigrateDatabaseAsync();
 
