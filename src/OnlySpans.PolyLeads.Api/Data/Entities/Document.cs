@@ -26,7 +26,7 @@ public class Document :
 
     public DateTime? UpdatedAt { get; set; }
 
-    public Guid? UpdatedById { get; set; } = Guid.Empty;
+    public Guid? UpdatedById { get; set; }
 
 
     public DateTime? DeletedAt { get; set; }
