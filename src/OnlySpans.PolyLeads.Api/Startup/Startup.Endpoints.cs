@@ -1,8 +1,8 @@
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class EndpointsExtensions
+public static partial class Startup
 {
-    public static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
     {
         builder
            .Services

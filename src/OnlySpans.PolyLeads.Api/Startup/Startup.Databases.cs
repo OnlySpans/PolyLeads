@@ -7,9 +7,9 @@ using Weasel.Core;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class DatabaseExtensions
+public static partial class Startup
 {
-    public static WebApplicationBuilder AddMarten(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddMarten(this WebApplicationBuilder builder)
     {
         builder
            .Services
@@ -61,7 +61,7 @@ public static class DatabaseExtensions
         return builder;
     }
 
-    public static async Task MigrateDatabaseAsync(this WebApplication app)
+    private static async Task MigrateDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;

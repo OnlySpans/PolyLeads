@@ -3,9 +3,9 @@ using MapsterMapper;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class MapperExtensions
+public static partial class Startup
 {
-    public static WebApplicationBuilder AddMapper(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddMapper(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 

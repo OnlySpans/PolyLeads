@@ -1,6 +1,6 @@
 ﻿namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class Startup
+public static partial class Startup
 {
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
