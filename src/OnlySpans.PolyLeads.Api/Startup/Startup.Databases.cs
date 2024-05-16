@@ -28,6 +28,12 @@ public static partial class Startup
                 options.DatabaseSchemaName = new NpgsqlConnectionStringBuilder(connectionString).Username!;
                 options.AutoCreateSchemaObjects = AutoCreate.All;
 
+                options
+                   .Schema
+                   .For<Entities.RecognitionResult>()
+                   .FullTextIndex("russian", x => x.Content)
+                   .NgramIndex(x => x.Content);
+
                 return options;
             })
            .ApplyAllDatabaseChangesOnStartup()

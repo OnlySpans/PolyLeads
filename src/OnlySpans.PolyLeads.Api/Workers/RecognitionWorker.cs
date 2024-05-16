@@ -87,6 +87,7 @@ public sealed class RecognitionWorker
            .Documents
            .Where(x => x.RecognitionStatus == RecognitionStatus.Queued)
            .Take(Options.Value.FilesBatchSize)
+           .OrderBy(x => x.Id)
            .ToListAsync(cancellationToken);
 
         foreach (var document in queuedDocuments)
