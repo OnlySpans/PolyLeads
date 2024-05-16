@@ -9,47 +9,41 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AppAny.HotChocolate.FluentValidation" Version="0.11.1" />
-      <PackageReference Include="HotChocolate.Data.Marten" Version="13.9.0" />
-      <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.0" />
-      <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
-      <PackageReference Include="Mapster" Version="7.4.0" />
-      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-      <PackageReference Include="Marten" Version="6.4.1" />
-      <PackageReference Include="MediatR" Version="12.2.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
-      <PackageReference Include="PdfPig" Version="0.1.8" />
-      <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-      <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
-      <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-      <PackageReference Include="Spire.Doc" Version="12.3.12" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.1" />
+        <PackageReference Include="AppAny.HotChocolate.FluentValidation" Version="0.11.1"/>
+        <PackageReference Include="HotChocolate.Data.Marten" Version="13.9.0"/>
+        <PackageReference Include="HotChocolate.Types.Analyzers" Version="13.9.0"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <PackageReference Include="Mapster" Version="7.4.0"/>
+        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1"/>
+        <PackageReference Include="Marten" Version="6.4.1"/>
+        <PackageReference Include="MediatR" Version="12.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2"/>
+        <PackageReference Include="PdfPig" Version="0.1.8"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1"/>
+        <PackageReference Include="Serilog.Exceptions" Version="8.4.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Spire.Doc" Version="12.3.12"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Migrations\" />
+        <Folder Include="Data\Migrations\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj" />
+        <ProjectReference Include="..\OnlySpans.PolyLeads.Dto\OnlySpans.PolyLeads.Dto.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Data\Entities\PermittedSource.configuration.cs">
-        <DependentUpon>PermittedSource.cs</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
+    
 </Project>
