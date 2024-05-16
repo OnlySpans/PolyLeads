@@ -1,9 +1,11 @@
 using Marten;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using Weasel.Core;
+using StoreOptions = Marten.StoreOptions;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
@@ -84,5 +86,32 @@ public static partial class Startup
         if (!dbContext.Database.IsRelational()) return;
 
         await dbContext.Database.MigrateAsync();
+    }
+    
+    private static async Task SeedUserRoles(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var provider = scope.ServiceProvider;
+
+        var roleManager = provider.GetRequiredService<RoleManager<Entities.ApplicationUserRole>>();
+        
+        var roles = new List<Entities.ApplicationUserRole>
+        {
+            new() { Name = "Admin" },
+            new() { Name = "Trade_union" },
+            new() { Name = "Headman" },
+            new() { Name = "Student" }
+        };
+        
+        foreach (var role in roles)
+        {
+            if (!roleManager.RoleExistsAsync(role.Name!).Result)
+            {
+                var result = roleManager.CreateAsync(role).Result;
+                
+                if (!result.Succeeded)
+                    throw new Exception($"Ошибка при создании роли {role.Name}.");
+            }
+        }
     }
 }

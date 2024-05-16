@@ -38,6 +38,7 @@ public static partial class Startup
         app.UseSchedulerDashboard();
 
         await app.MigrateDatabaseAsync();
+        await app.SeedUserRoles();
 
         return app;
     }
