@@ -1,11 +1,17 @@
-﻿namespace OnlySpans.PolyLeads.Api.Startup;
+﻿using OnlySpans.PolyLeads.Api.Extensions;
 
-public static class Startup
+namespace OnlySpans.PolyLeads.Api.Startup;
+
+public static partial class Startup
 {
     public static Task<WebApplicationBuilder> ConfigureServices(this WebApplicationBuilder builder)
     {
         builder
            .AddAuth()
+           .AddOptions()
+           .AddHttpClient()
+           .AddScheduler()
+           .AddWorkers()
            .AddMediatR()
            .AddMarten()
            .AddLogging()
@@ -21,13 +27,15 @@ public static class Startup
 
     public static async Task<WebApplication> Configure(this WebApplication app)
     {
+        app.UseRouting();
+
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseRouting();
-
         app.UseDevelopmentConfiguration();
         app.MapControllers();
+
+        app.UseSchedulerDashboard();
 
         await app.MigrateDatabaseAsync();
 

@@ -3,9 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace OnlySpans.PolyLeads.Api.Exceptions;
 
-public sealed class AuthorizationException : ApiException
+public sealed class RecognitionException : ApiException
 {
-    public AuthorizationException(string message) : base(message) { }
+    public RecognitionException(string? message, Exception? innerException = null) :
+        base(message, innerException) { }
 
     [StackTraceHidden]
     public static void ThrowIfNull<T>([NotNull] T? value, string message)

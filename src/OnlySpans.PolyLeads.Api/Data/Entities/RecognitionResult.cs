@@ -4,8 +4,7 @@ public class RecognitionResult
 {
     public long Id { get; set; } = 0;
 
-    public string AllText { get; set; } = string.Empty;
+    public long DocumentId { get; set; } = 0;
 
-    public DateTime RecognizedAt { get; set; } = default!;
-
+    public string Content { get; set; } = string.Empty;
 }

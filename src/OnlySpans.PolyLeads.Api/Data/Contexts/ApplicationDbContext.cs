@@ -5,16 +5,12 @@ using OnlySpans.PolyLeads.Api.Data.Entities;
 
 namespace OnlySpans.PolyLeads.Api.Data.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationUserRole, Guid>
+public class ApplicationDbContext :
+    IdentityDbContext<ApplicationUser, ApplicationUserRole, Guid>
 {
-    public DbSet<RecognitionStatus> FileRecognitionStatuses { get; init; } = default!;
-
-    public DbSet<RecognitionResult> RecognitionResults { get; init; } = default!;
-
     public DbSet<Document> Documents { get; init; } = default!;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

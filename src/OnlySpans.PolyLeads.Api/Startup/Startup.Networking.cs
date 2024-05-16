@@ -2,12 +2,13 @@ namespace OnlySpans.PolyLeads.Api.Startup;
 
 public static partial class Startup
 {
-    private static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddHttpClient(this WebApplicationBuilder builder)
     {
         builder
            .Services
-           .AddControllers();
+           .AddHttpClient();
 
         return builder;
     }
+
 }

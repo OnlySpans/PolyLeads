@@ -5,9 +5,9 @@ using OnlySpans.PolyLeads.Api.Swagger.Filters;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class SwaggerExtensions
+public static partial class Startup
 {
-    public static WebApplication UseDevelopmentConfiguration(this WebApplication app)
+    private static WebApplication UseDevelopmentConfiguration(this WebApplication app)
     {
         if (!app.Environment.IsDevelopment())
             return app;
@@ -32,7 +32,7 @@ public static class SwaggerExtensions
         return app;
     }
 
-    public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder)
     {
         builder.Services.AddEndpointsApiExplorer();
 

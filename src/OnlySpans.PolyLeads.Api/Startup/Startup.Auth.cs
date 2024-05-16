@@ -2,9 +2,9 @@ using OnlySpans.PolyLeads.Api.Data.Contexts;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class AuthExtensions
+public static partial class Startup
 {
-    public static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 
@@ -14,7 +14,7 @@ public static class AuthExtensions
         return builder;
     }
 
-    public static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
 

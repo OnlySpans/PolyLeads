@@ -4,9 +4,9 @@ using Serilog;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
-public static class LoggingExtensions
+public static partial class Startup
 {
-    public static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddLogging(this WebApplicationBuilder builder)
     {
         builder
            .Host

@@ -1,4 +1,5 @@
 using OnlySpans.PolyLeads.Api.Data.Abstractions.Entities;
+using OnlySpans.PolyLeads.Api.Data.Enums;
 
 namespace OnlySpans.PolyLeads.Api.Data.Entities;
 
@@ -16,6 +17,8 @@ public class Document :
 
     public Uri DownloadUrl { get; set; } = default!;
 
+    public RecognitionStatus RecognitionStatus { get; set; } = RecognitionStatus.Unknown;
+
     public DateTime CreatedAt { get; set; } = default!;
 
     public Guid CreatedById { get; set; } = Guid.Empty;
@@ -23,7 +26,7 @@ public class Document :
 
     public DateTime? UpdatedAt { get; set; }
 
-    public Guid? UpdatedById { get; set; } = Guid.Empty;
+    public Guid? UpdatedById { get; set; }
 
 
     public DateTime? DeletedAt { get; set; }
