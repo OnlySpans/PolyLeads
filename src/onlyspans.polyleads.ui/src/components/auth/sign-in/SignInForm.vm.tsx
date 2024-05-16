@@ -54,7 +54,7 @@ class SignInFormVm implements ISignInFormVM {
       return;
 
     const payload: ISignInPayload = {
-      username: this.formData.username,
+      username: this.formData.email,
       password: this.formData.password
     }
 
