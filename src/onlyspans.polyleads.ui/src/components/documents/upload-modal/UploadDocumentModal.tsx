@@ -56,7 +56,7 @@ const UploadDocumentModal: React.FC = () => {
                         placeholder="Название документа"
                         autoComplete="off"
                         autoCorrect="off"
-                        // disabled={vm.isLoading}
+                        disabled={vm.isLoading}
                         {...field}
                       />
                     </FormControl>
@@ -76,7 +76,7 @@ const UploadDocumentModal: React.FC = () => {
                         placeholder="Ссылка"
                         autoComplete="off"
                         autoCorrect="off"
-                        // disabled={vm.isLoading}
+                        disabled={vm.isLoading}
                         {...field}
                       />
                     </FormControl>
