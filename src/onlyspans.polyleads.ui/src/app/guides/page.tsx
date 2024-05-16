@@ -5,18 +5,10 @@ import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import Header from '@/components/Header/Header';
 
-const Guides = () => {
+const Guides: React.FC = () => {
   return (
     <>
       <Header />
-      {/*<div className='container py-8 flex max-w-screen-2xl '>*/}
-      {/*  <Input*/}
-      {/*    placeholder='Искать по названию'*/}
-      {/*    onChange={(event) => {}}*/}
-      {/*    className='h-8 w-[200px] lg:w-[250px]'*/}
-      {/*  />*/}
-      {/*</div>*/}
-
       <div className='container space-y-8 w-full md:grids-col-2 grid md:gap-4'>
         <div className='items-start justify-center gap-6 px-0 md:px-8 py-8 md:grid lg:grid-cols-2 xl:grid-cols-3'>
           <div className='col-span-2 grid items-start gap-6 lg:col-span-1 mb-6'>

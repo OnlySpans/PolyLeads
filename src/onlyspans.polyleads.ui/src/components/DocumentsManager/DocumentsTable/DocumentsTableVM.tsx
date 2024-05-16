@@ -15,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { fileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
+import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 
 const data: IDocument[] = [
   {
@@ -105,7 +105,7 @@ const data: IDocument[] = [
 ];
 
 export interface IDocumentsTableVM {
-  getData: () => IDocument[];
+  loadDocuments: () => IDocument[];
 
   get columns(): ColumnDef<IDocument>[];
 }
@@ -121,19 +121,19 @@ class DocumentsTableVM implements IDocumentsTableVM {
     makeObservable(this);
   }
 
-  public getData(): IDocument[] {
+  public loadDocuments(): IDocument[] {
     return this.data;
   }
 
-  private getFileRecognitionStatusBadge = (number: number): ReactElement => {
-    switch (number) {
-      case fileRecognitionStatus.Queued:
+  private getFileRecognitionStatusBadge = (recognitionStatus: number): ReactElement => {
+    switch (recognitionStatus) {
+      case FileRecognitionStatus.Queued:
         return <Badge variant='queued'>В очереди</Badge>;
-      case fileRecognitionStatus.Processing:
+      case FileRecognitionStatus.Processing:
         return <Badge variant='processing'>Выполняется</Badge>;
-      case fileRecognitionStatus.Success:
+      case FileRecognitionStatus.Success:
         return <Badge variant='success'>Текст распознан</Badge>;
-      case fileRecognitionStatus.Error:
+      case FileRecognitionStatus.Error:
         return <Badge variant='error'>Ошибка распознования</Badge>;
       default:
         return <Badge variant='unknown'>Неизвестен</Badge>;

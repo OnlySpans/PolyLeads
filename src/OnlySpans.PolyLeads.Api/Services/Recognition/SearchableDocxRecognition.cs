@@ -4,14 +4,14 @@ using Spire.Doc;
 
 namespace OnlySpans.PolyLeads.Api.Services.Recognition;
 
-public sealed class SearchableDocxRecognition : 
+public sealed class SearchableDocxRecognition :
     IDocumentRecognition
 {
     public Task<RecognitionResult> RecognizeAsync(
         Stream document,
         CancellationToken cancellationToken = new())
     {
-        using var docxDocument = new Document(document, FileFormat.Docx);
+        using var docxDocument = new Document(document, FileFormat.Auto);
 
         var page = new RecognitionPage(1, docxDocument.GetText());
 
