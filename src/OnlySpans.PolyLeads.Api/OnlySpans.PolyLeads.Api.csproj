@@ -46,4 +46,10 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Data\Entities\PermittedSource.configuration.cs">
+        <DependentUpon>PermittedSource.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
