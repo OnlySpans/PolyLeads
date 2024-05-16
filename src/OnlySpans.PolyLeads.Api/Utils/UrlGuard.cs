@@ -6,7 +6,7 @@ namespace OnlySpans.PolyLeads.Api.Utils;
 
 public static class UrlGuard
 {
-    public static async Task EnsureSourceIsPermitted(
+    public static async Task EnsureSourceIsPermittedAsync(
         ApplicationDbContext context,
         Uri sourceUrl,
         CancellationToken cancellationToken)

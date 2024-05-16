@@ -41,7 +41,7 @@ public sealed class CreateDocumentCommandHandler :
         CreateDocumentCommand request,
         CancellationToken cancellationToken)
     {
-        await UrlGuard.EnsureSourceIsPermitted(Context, request.DownloadUrl, cancellationToken);
+        await UrlGuard.EnsureSourceIsPermittedAsync(Context, request.DownloadUrl, cancellationToken);
 
         var now = TimeProvider.GetUtcNow().UtcDateTime;
 

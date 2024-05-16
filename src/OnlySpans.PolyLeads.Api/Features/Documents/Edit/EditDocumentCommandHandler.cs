@@ -45,7 +45,7 @@ public sealed class EditDocumentCommandHandler
         EditDocumentCommand request,
         CancellationToken cancellationToken)
     {
-        await UrlGuard.EnsureSourceIsPermitted(Context, request.DownloadUrl, cancellationToken);
+        await UrlGuard.EnsureSourceIsPermittedAsync(Context, request.DownloadUrl, cancellationToken);
 
         var documentId = request.DocumentId;
 

@@ -12,8 +12,7 @@ public class ApplicationDbContext :
 
     public DbSet<PermittedSource> PermittedSources { get; init; } = default!;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
