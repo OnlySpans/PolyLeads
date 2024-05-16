@@ -7,14 +7,19 @@ import { INewDocument } from '@/data/abstractions/INewDocument';
 
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
+  isOpened: boolean;
   uploadFormSchema: z.ZodObject<any>;
   upload: (formData: z.infer<any>) => void;
+  setIsOpened: (isOpened: boolean) => void;
 }
 
 @injectable()
 class UploadDocumentModalVM implements IUploadDocumentModalVM {
   @observable
   public isLoading: boolean = false;
+
+  @observable
+  public isOpened: boolean = false;
 
   private readonly api: IDocumentApi;
 
@@ -42,6 +47,10 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     this.isLoading = isLoading;
   };
 
+  public setIsOpened = (isOpened: boolean) => {
+    this.isOpened = isOpened;
+  }
+
   @action
   public upload = (formData: z.infer<typeof this.uploadFormSchema>): void => {
     this.formData = formData;
@@ -65,6 +74,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
       yield this.api.create(payload);
     } finally {
       this.setIsLoading(false);
+      this.setIsOpened(false);
     }
   });
 }

@@ -30,7 +30,7 @@ const UploadDocumentModal: React.FC = () => {
   });
 
   return (
-    <Dialog>
+    <Dialog open={vm.isOpened} onOpenChange={vm.setIsOpened}>
       <DialogTrigger asChild>
         <Button variant="default" className='h-8'>Добавить файл</Button>
       </DialogTrigger>
