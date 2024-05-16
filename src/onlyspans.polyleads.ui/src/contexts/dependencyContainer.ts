@@ -12,7 +12,7 @@ import SignUpFormVM, {
 import DocumentsTableVM, {
   IDocumentsTableVM,
 } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
-import UploadDocumentModalVM, { IUploadDocumentModalVM } from '@/components/documents/UploadDocumentModal.vm';
+import UploadDocumentModalVM, { IUploadDocumentModalVM } from '@/components/documents/upload-modal/UploadDocumentModal.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();

@@ -14,12 +14,12 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import useGet from '@/hooks/useGet';
-import { IUploadDocumentModalVM } from '@/components/documents/UploadDocumentModal.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
 
 const UploadDocumentModal: React.FC = () => {
   const vm = useGet<IUploadDocumentModalVM>(
@@ -32,7 +32,7 @@ const UploadDocumentModal: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">Добавить файл</Button>
+        <Button variant="default" className='h-8'>Добавить файл</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

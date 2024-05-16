@@ -30,8 +30,7 @@ import {
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
 import DataTableViewOptions from './DataTableViewOptions/DataTableViewOptions';
-import { Upload } from 'lucide-react';
-import UploadDocumentModal from '@/components/documents/UploadDocumentModal';
+import UploadDocumentModal from '@/components/documents/upload-modal/UploadDocumentModal';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {

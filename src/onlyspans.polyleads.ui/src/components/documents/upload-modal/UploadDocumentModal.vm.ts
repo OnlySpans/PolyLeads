@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { action, makeObservable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { z } from 'zod';
 
 export interface IUploadDocumentModalVM {
@@ -9,6 +9,9 @@ export interface IUploadDocumentModalVM {
 
 @injectable()
 class UploadDocumentModalVM implements IUploadDocumentModalVM {
+  @observable
+  public isLoading: boolean = false;
+
   constructor() {
     makeObservable(this);
   }
