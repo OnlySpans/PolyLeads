@@ -11,6 +11,7 @@ using OnlySpans.PolyLeads.Api.Features.Documents.Delete;
 using OnlySpans.PolyLeads.Api.Features.Documents.Edit;
 using OnlySpans.PolyLeads.Api.Features.Documents.GetDetailed;
 using OnlySpans.PolyLeads.Api.Features.Documents.Query;
+using OnlySpans.PolyLeads.Api.Features.Documents.Search;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
@@ -21,11 +22,17 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     ApplicationController(mediator, mapper)
 {
     [HttpGet]
-    public async Task<IActionResult> Query(CancellationToken cancellationToken)
+    public async Task<IActionResult> Query(
+        [FromQuery(Name = "q")] string? searchTerm,
+        CancellationToken cancellationToken)
     {
-        var query = new GetDocumentsQuery();
+        IRequest<IQueryable<Entities.Document>> query = searchTerm is null
+            ? new GetDocumentsQuery()
+            : new SearchDocumentsQuery(searchTerm);
+
         var documents = await Mediator.Send(query, cancellationToken);
         var result = documents.ProjectToType<Dto.Document>(Mapper.Config);
+
         return Ok(result);
     }
 
