@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Extensions;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Edit;
 
@@ -44,6 +45,8 @@ public sealed class EditDocumentCommandHandler
         EditDocumentCommand request,
         CancellationToken cancellationToken)
     {
+        await UrlGuard.EnsureSourceIsPermittedAsync(Context, request.DownloadUrl, cancellationToken);
+
         var documentId = request.DocumentId;
 
         var @ref = await Context
