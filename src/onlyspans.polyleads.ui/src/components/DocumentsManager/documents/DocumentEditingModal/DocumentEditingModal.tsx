@@ -31,8 +31,8 @@ const DocumentEditingModal: React.FC = () => {
     ServiceSymbols.IDocumentEditingModalVM,
   );
 
-  const form = useForm<z.infer<typeof vm.uploadFormSchema>>({
-    resolver: zodResolver(vm.uploadFormSchema),
+  const form = useForm<z.infer<typeof vm.editFormSchema>>({
+    resolver: zodResolver(vm.editFormSchema),
   });
 
   return (
