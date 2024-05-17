@@ -5,7 +5,7 @@ import { z } from 'zod';
 export interface IDocumentEditingModalVM {
   isLoading: boolean;
   isOpened: boolean;
-  uploadFormSchema: z.ZodObject<any>;
+  editFormSchema: z.ZodObject<any>;
   upload: (formData: z.infer<any>) => void;
   setIsOpened: (isOpened: boolean) => void;
 }
@@ -18,23 +18,18 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   @observable
   public isOpened: boolean = false;
 
-
-  private formData: z.infer<typeof this.uploadFormSchema> | null = null;
+  private formData: z.infer<typeof this.editFormSchema> | null = null;
 
   constructor() {
-
     makeObservable(this);
   }
 
-  public readonly uploadFormSchema: z.ZodObject<any> = z
+  public readonly editFormSchema: z.ZodObject<any> = z
     .object({
       documentName: z
         .string({ required_error: 'Название должно быть заполнено' })
         .min(6, 'Название должно содержать не менее 6 символов')
         .max(100, 'Название не должно быть более 100 символов'),
-      url: z
-        .string({ required_error: "Ссылка должна быть заполнена" })
-        .url('Ссылка должна быть представлена в виде URL')
     });
 
   @action
@@ -42,12 +37,13 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
     this.isLoading = isLoading;
   };
 
+  @action
   public setIsOpened = (isOpened: boolean) => {
     this.isOpened = isOpened;
   }
 
   @action
-  public upload = (formData: z.infer<typeof this.uploadFormSchema>): void => {
+  public upload = (formData: z.infer<typeof this.editFormSchema>): void => {
     this.formData = formData;
     // this.sengUploadRequest();
   }
