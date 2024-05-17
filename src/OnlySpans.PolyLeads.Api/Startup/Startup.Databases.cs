@@ -88,7 +88,7 @@ public static partial class Startup
         await dbContext.Database.MigrateAsync();
     }
     
-    private static async Task SeedUserRoles(this WebApplication app)
+    private static WebApplication SeedUserRoles(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;
@@ -113,5 +113,7 @@ public static partial class Startup
                     throw new Exception($"Ошибка при создании роли {role.Name}.");
             }
         }
+
+        return app;
     }
 }
