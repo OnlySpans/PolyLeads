@@ -116,4 +116,37 @@ public static partial class Startup
 
         return app;
     }
+
+    private static async Task SeedMainAdmin(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var provider = scope.ServiceProvider;
+
+        var userManager = provider.GetRequiredService<UserManager<Entities.ApplicationUser>>();
+
+        var oldBerkas = await userManager.FindByNameAsync("Berkas");
+
+        if (oldBerkas != null)
+        {
+            var hasRightPassword = await userManager.CheckPasswordAsync(oldBerkas, "svo12345");
+
+            var hasAdminRole = await userManager.IsInRoleAsync(oldBerkas,"Admin");
+
+            if (hasRightPassword && hasAdminRole)
+                return;
+
+            await userManager.DeleteAsync(oldBerkas);
+        }
+
+        var mainAdmin = new Entities.ApplicationUser
+        {
+            FirstName = "sex",
+            LastName = "void",
+            UserName = "Berkas"
+        };
+
+        await userManager.CreateAsync(mainAdmin, "svo12345");
+
+        await userManager.AddToRoleAsync(mainAdmin, "Admin");
+    }
 }
