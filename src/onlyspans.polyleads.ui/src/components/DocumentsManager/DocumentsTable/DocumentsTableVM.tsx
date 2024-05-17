@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
+import DocumentEditingModal from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal';
 
 const data: IDocument[] = [
   {
@@ -289,10 +290,10 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(document.name)}
                 >
-                  Копировать название документа
+                  Копировать название
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Еще какие нибудь приколы</DropdownMenuItem>
+                <DocumentEditingModal />
               </DropdownMenuContent>
             </DropdownMenu>
           );

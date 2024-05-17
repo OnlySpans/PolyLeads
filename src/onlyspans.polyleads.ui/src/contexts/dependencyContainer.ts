@@ -12,6 +12,9 @@ import SignUpFormVM, {
 import DocumentsTableVM, {
   IDocumentsTableVM,
 } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+import DocumentEditingModalVM, {
+  IDocumentEditingModalVM,
+} from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -21,6 +24,7 @@ export const createDependencyContainer = (): Container => {
   container.bind<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM).to(DocumentsTableVM);
   container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
+  container.bind<IDocumentEditingModalVM>(ServiceSymbols.IDocumentEditingModalVM).to(DocumentEditingModalVM);
 
   return container;
 };
