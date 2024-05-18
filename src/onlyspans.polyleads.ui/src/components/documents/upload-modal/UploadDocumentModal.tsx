@@ -36,13 +36,11 @@ const UploadDocumentModal: React.FC = () => {
   const form = useForm<z.infer<typeof vm.uploadFormSchema>>({
     resolver: zodResolver(vm.uploadFormSchema),
   });
-
-  const isButtonHidden = vm.isEnabled ? '' : 'hidden';
-
+  
   return (
     <Dialog open={vm.isOpened} onOpenChange={vm.setIsOpened}>
       <DialogTrigger asChild>
-        <Button variant='default' className={'h-8 px-4 ' + isButtonHidden}>
+        <Button variant='default' className={`h-8 px-4 ${vm.isEnabled ? '' : 'hidden'}`}>
           <Upload className={'sm:hidden flex size-4'} />
           <div className={'hidden sm:flex'}>Добавить файл</div>
         </Button>

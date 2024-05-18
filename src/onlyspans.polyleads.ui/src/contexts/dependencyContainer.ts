@@ -14,6 +14,7 @@ import DocumentsTableVM, {
 } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 import UploadDocumentModalVM, { IUploadDocumentModalVM } from '@/components/documents/upload-modal/UploadDocumentModal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
+import { IRoleApi, RoleApi } from '@/services/api/role/roleApi';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -24,6 +25,7 @@ export const createDependencyContainer = (): Container => {
   container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
+  container.bind<IRoleApi>(ServiceSymbols.IRoleApi).to(RoleApi);
   container.bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM).to(UploadDocumentModalVM);
 
   return container;

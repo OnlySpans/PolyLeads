@@ -5,6 +5,7 @@ import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
 import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+import type { IRoleApi } from '@/services/api/role/roleApi';
 
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
@@ -25,20 +26,25 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
 
   @observable
   public isEnabled: boolean = false;
-
-  private readonly api: IDocumentApi;
+  
+  private readonly documentApi: IDocumentApi;
+  
+  private readonly roleApi: IRoleApi;
 
   private formData: z.infer<typeof this.uploadFormSchema> | null = null;
 
   private readonly documentsTableVM: IDocumentsTableVM;
 
   constructor(
-    @inject(ServiceSymbols.IDocumentApi) api: IDocumentApi,
+    @inject(ServiceSymbols.IDocumentApi) documentApi: IDocumentApi,
+    @inject(ServiceSymbols.IRoleApi) roleApi: IRoleApi,
     @inject(ServiceSymbols.IDocumentsTableVM) documentsTableVM: IDocumentsTableVM
   ) {
-    this.api = api;
+    this.documentApi = documentApi;
+    this.roleApi = roleApi;
     this.documentsTableVM = documentsTableVM;
 
+    this.getRole();
     makeObservable(this);
   }
 
@@ -83,7 +89,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     try {
       this.formData = null;
       this.setIsLoading(true);
-      yield this.api.create(payload);
+      yield this.documentApi.create(payload);
       this.documentsTableVM.loadDocuments();
     } finally {
       this.setIsLoading(false);
@@ -94,8 +100,18 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
   @action.bound
   public getRole = flow(function *(this: UploadDocumentModalVM) {
     try {
-      // yield this.api.create(payload);
-    } finally {
+      const response = yield this.roleApi.getRole()
+      const role = response.role;
+      
+      if (
+          role === 'Admin' 
+          || role === 'StudentUnionOrganizer' 
+          || role === 'Headman'
+      ){
+        this.isEnabled = true;
+      }
+    } catch (e) {
+      this.isEnabled = false;
     }
   });
 }

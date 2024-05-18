@@ -4,6 +4,7 @@ const ServiceSymbols = {
   AxiosInstance: Symbol.for('AxiosInstance'),
   AuthApi: Symbol.for("AuthApi"),
   IDocumentApi: Symbol.for('IDocumentApi'),
+  IRoleApi: Symbol.for('IRoleApi'),
   ISignInFormVM: Symbol.for('IAuthFormVM'),
   ISignUpFormVM: Symbol.for('ISignUpFormVM'),
   IDocumentsTableVM: Symbol.for('IDocumentsTableVM'),
