@@ -32,7 +32,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
 
         var documents = await Mediator.Send(query, cancellationToken);
 
-        var result = documents
+        var result = await documents
            .ProjectToType<Dto.Document>(Mapper.Config)
            .ToListAsync(cancellationToken);
 
@@ -52,7 +52,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(
-        [FromBody] Dto.Document dto,
+        [FromBody] Dto.CreateDocumentInput dto,
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
@@ -65,7 +65,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     [HttpPut("{documentId:long}")]
     public async Task<IActionResult> Edit(
         [FromRoute] long documentId,
-        [FromBody] Dto.DocumentEditInfo dto,
+        [FromBody] Dto.EditDocumentInput dto,
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
