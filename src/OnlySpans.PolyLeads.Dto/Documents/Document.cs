@@ -1,10 +1,6 @@
 namespace OnlySpans.PolyLeads.Dto.Documents;
 
-public sealed record Document
+public sealed record Document : DocumentBase
 {
-    public required string Name { get; init; }
-
-    public required string Description { get; init; }
-
-    public required Uri DownloadUrl { get; init; }
+    public required string CreatedByUser { get; init; }
 }
