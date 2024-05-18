@@ -17,6 +17,7 @@ public class DetailedDocumentMapping : IRegister
             .Map(x => x.CreatedByUser, x => x.CreatedBy.GetFullNameOrDefault())
             .Map(x => x.UpdatedByUser, x => x.UpdatedBy.GetFullNameOrDefault())
             .Map(x => x.DeletedByUser, x => x.DeletedBy.GetFullNameOrDefault())
-            .Map(x => x.Source, x => x.Source.Description);
+            .Map(x => x.Resource, x => x.Source.Description)
+            .Map(x => x.FileRecognitionStatus, x => x.RecognitionStatus);
     }
 }
