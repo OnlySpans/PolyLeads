@@ -54,7 +54,7 @@ const DocumentEditingModal: React.FC<IDocumentEditingModal> = ({document}) => {
           <DialogTitle>Редактирование документа</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(vm.updateDocument)}>
+          <form onSubmit={form.handleSubmit(vm.editDocument)}>
             <div className='grid w-full items-center gap-6'>
               <FormField
                 control={form.control}

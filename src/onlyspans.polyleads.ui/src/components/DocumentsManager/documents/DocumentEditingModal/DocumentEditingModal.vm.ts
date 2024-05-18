@@ -11,7 +11,7 @@ export interface IDocumentEditingModalVM {
   isOpened: boolean;
   document: IDocument | null;
   editFormSchema: z.ZodObject<any>;
-  updateDocument: (formData: z.infer<any>) => void;
+  editDocument: (formData: z.infer<any>) => void;
   setIsOpened: (isOpened: boolean) => void;
 }
 
@@ -61,13 +61,13 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   }
 
   @action
-  public updateDocument = (formData: z.infer<typeof this.editFormSchema>): void => {
+  public editDocument = (formData: z.infer<typeof this.editFormSchema>): void => {
     this.formData = formData;
-    this.sengUpdateDocumentRequest();
+    this.sendEditedDocumentRequest();
   }
 
   @action.bound
-  public sengUpdateDocumentRequest = flow(function *(this: DocumentEditingModalVM) {
+  public sendEditedDocumentRequest = flow(function *(this: DocumentEditingModalVM) {
     if (this.formData === null || this.document === null)
       return;
 
