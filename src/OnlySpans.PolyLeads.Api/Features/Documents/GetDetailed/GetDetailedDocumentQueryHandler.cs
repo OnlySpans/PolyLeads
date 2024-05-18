@@ -1,4 +1,3 @@
-using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
@@ -14,14 +13,10 @@ public sealed class GetDetailedDocumentQueryHandler
 {
     private ApplicationDbContext Context { get; init; }
 
-    private IMapper Mapper { get; init; }
-
     public GetDetailedDocumentQueryHandler(
-        ApplicationDbContext context,
-        IMapper mapper)
+        ApplicationDbContext context)
     {
         Context = context;
-        Mapper = mapper;
     }
 
     public async Task<Entities.Document> Handle(

@@ -8,7 +8,7 @@ public sealed record DetailedDocument
 
     public required string Description { get; init; }
 
-    public required Uri Link { get; init; }
+    public required Uri DownloadUrl { get; init; }
 
 
     public required DateTime CreatedAt { get; init; }
