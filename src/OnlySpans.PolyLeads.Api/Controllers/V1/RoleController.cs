@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
-using OnlySpans.PolyLeads.Dto.Data;
+using OnlySpans.PolyLeads.Dto.Roles;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 

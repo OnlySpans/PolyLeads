@@ -1,6 +1,6 @@
-namespace OnlySpans.PolyLeads.Dto.Data;
+namespace OnlySpans.PolyLeads.Dto.Documents;
 
-public sealed record Document
+public sealed record CreateDocumentInput
 {
     public required string Name { get; init; }
 

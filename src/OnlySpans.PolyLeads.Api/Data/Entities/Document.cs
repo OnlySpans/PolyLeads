@@ -17,6 +17,8 @@ public class Document :
 
     public Uri DownloadUrl { get; set; } = default!;
 
+    public long SourceId { get; set; } = 0;
+
     public RecognitionStatus RecognitionStatus { get; set; } = RecognitionStatus.Unknown;
 
     public DateTime CreatedAt { get; set; } = default!;
@@ -38,4 +40,6 @@ public class Document :
     public virtual ApplicationUser? UpdatedBy { get; set; }
 
     public virtual ApplicationUser? DeletedBy { get; set; }
+
+    public virtual PermittedSource Source { get; set; } = default!;
 }

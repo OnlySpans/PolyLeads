@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignUp;
-using OnlySpans.PolyLeads.Dto.Data;
+using OnlySpans.PolyLeads.Dto.Auth;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
