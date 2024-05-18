@@ -51,6 +51,7 @@ services:
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__ApplicationDbContext: ${DB}
       ConnectionStrings__DocumentStore: ${DB}
+      ConnectionStrings__Scheduler: ${DB}
     ports:
       - "20001:8080"
     depends_on:

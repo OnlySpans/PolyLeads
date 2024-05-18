@@ -8,6 +8,7 @@ import DependencyContainer, {
 } from '@/contexts/dependencyContainer';
 import { Container } from 'inversify';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
@@ -23,7 +24,8 @@ export const App = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main>{children}</main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </DependencyContainer.Provider>
