@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using Weasel.Core;
-using StoreOptions = Marten.StoreOptions;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
