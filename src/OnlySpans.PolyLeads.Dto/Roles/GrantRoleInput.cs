@@ -1,4 +1,4 @@
-﻿namespace OnlySpans.PolyLeads.Dto.Data;
+﻿namespace OnlySpans.PolyLeads.Dto.Roles;
 
 public sealed record GrantRoleInput
 {

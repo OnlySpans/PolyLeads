@@ -15,7 +15,7 @@ using OnlySpans.PolyLeads.Api.Features.Documents.Search;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
-using Dto = Dto.Data;
+using Dto = Dto.Documents;
 
 [Route("/api/v1/document")]
 public sealed class DocumentController(IMediator mediator, IMapper mapper) :

@@ -4,7 +4,7 @@ using OnlySpans.PolyLeads.Api.Data.Entities;
 
 namespace OnlySpans.PolyLeads.Api.Data.Mappings.Dtos;
 
-using Dto = Dto.Data;
+using Dto = Dto.Documents;
 
 [UsedImplicitly]
 public class DetailedDocumentMapping : IRegister
@@ -12,7 +12,7 @@ public class DetailedDocumentMapping : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config
-            .ForType<Document, Dto.DetailedDocument>()
+            .ForType<Entities.Document, Dto.DetailedDocument>()
             .IgnoreNullValues(true)
             .Map(x => x.CreatedByUser, x => $"{x.CreatedBy.FirstName} {x.CreatedBy.LastName}")
             .Map(x => x.UpdatedByUser, x => GetFullName(x.UpdatedBy))

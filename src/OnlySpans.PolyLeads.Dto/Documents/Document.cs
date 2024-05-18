@@ -1,4 +1,4 @@
-namespace OnlySpans.PolyLeads.Dto.Data;
+namespace OnlySpans.PolyLeads.Dto.Documents;
 
 public sealed record Document
 {
