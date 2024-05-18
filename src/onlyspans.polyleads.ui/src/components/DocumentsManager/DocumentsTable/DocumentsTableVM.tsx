@@ -28,7 +28,7 @@ export interface IDocumentsTableVM {
 @injectable()
 class DocumentsTableVM implements IDocumentsTableVM {
   @observable
-  documents: IDocument[] = [];
+  public documents: IDocument[] = [];
 
   @observable
   public isLoading: boolean = false;
