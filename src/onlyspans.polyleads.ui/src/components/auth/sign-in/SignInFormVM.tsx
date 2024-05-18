@@ -4,6 +4,7 @@ import { z } from 'zod';
 import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignInPayload } from '@/data/abstractions/ISignInPayload';
+import { useRouter } from 'next/navigation';
 
 export interface ISignInFormVM {
   isLoading: boolean;
@@ -26,6 +27,8 @@ class SignInFormVM implements ISignInFormVM {
 
   private readonly authApi: IAuthApi;
 
+  private readonly router = useRouter();
+  
   constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
     this.authApi = authApi;
 
@@ -44,20 +47,15 @@ class SignInFormVM implements ISignInFormVM {
 
   @action
   public signIn = async (data: z.infer<typeof this.schemaSignInForm>) => {
-    console.log('3');
     this.formData = data;
     this.sendSignInRequest();
   }
 
   @action.bound
   public sendSignInRequest = flow(function *(this: SignInFormVM) {
-    console.log('1');
-
     if (this.formData === null)
       return;
-
-    console.log('2');
-
+    
     const payload: ISignInPayload = {
       username: this.formData.username,
       password: this.formData.password
@@ -67,6 +65,7 @@ class SignInFormVM implements ISignInFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signIn(payload);
+      this.router.push('/');
     } finally {
       this.setIsLoading(false);
     }
@@ -81,7 +80,6 @@ class SignInFormVM implements ISignInFormVM {
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(6, 'Пароль должен содержать не менее 6 символов'),
     })
-
 }
 
 export default SignInFormVM;

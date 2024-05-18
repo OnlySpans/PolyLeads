@@ -4,6 +4,7 @@ import { z, ZodEffects } from 'zod';
 import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignUpPayload } from '@/data/abstractions/ISignUpPayload';
+import { useRouter } from 'next/navigation';
 
 export interface ISignUpFormVM {
   isLoading: boolean;
@@ -26,6 +27,8 @@ class SignUpFormVM implements ISignUpFormVM {
 
   private readonly authApi: IAuthApi;
 
+  private readonly router = useRouter();
+  
   constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
     this.authApi = authApi;
     makeObservable(this);
@@ -63,6 +66,7 @@ class SignUpFormVM implements ISignUpFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signUp(payload);
+      this.router.push('/');
     } finally {
       this.setIsLoading(false);
     }
