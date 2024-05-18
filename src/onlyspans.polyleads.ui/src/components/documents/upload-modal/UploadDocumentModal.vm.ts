@@ -4,6 +4,7 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
+import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
@@ -25,8 +26,14 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
 
   private formData: z.infer<typeof this.uploadFormSchema> | null = null;
 
-  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+  private readonly documentsTableVM: IDocumentsTableVM;
+
+  constructor(
+    @inject(ServiceSymbols.IDocumentApi) api: IDocumentApi,
+    @inject(ServiceSymbols.IDocumentsTableVM) documentsTableVM: IDocumentsTableVM
+  ) {
     this.api = api;
+    this.documentsTableVM = documentsTableVM;
 
     makeObservable(this);
   }
@@ -36,7 +43,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
       documentName: z
         .string({ required_error: 'Название должно быть заполнено' })
         .min(6, 'Название должно содержать не менее 6 символов')
-        .max(100, 'Название не должно быть более 100 символов'),
+        .max(100, 'Название должно содержать менее 100 символов'),
       url: z
         .string({ required_error: "Ссылка должна быть заполнена" })
         .url('Ссылку необходимо указать в формате URL')
@@ -73,6 +80,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.api.create(payload);
+      this.documentsTableVM.loadDocuments();
     } finally {
       this.setIsLoading(false);
       this.setIsOpened(false);
