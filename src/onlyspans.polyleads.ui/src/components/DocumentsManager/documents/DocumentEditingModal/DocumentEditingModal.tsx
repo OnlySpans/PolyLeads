@@ -25,11 +25,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { IDocumentEditingModalVM } from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal.vm';
+import { IDocument } from '@/data/abstractions/IDocument';
 
-const DocumentEditingModal: React.FC = () => {
+interface IDocumentEditingModal {
+  document: IDocument;
+}
+
+const DocumentEditingModal: React.FC<IDocumentEditingModal> = ({document}) => {
   const vm = useGet<IDocumentEditingModalVM>(
     ServiceSymbols.IDocumentEditingModalVM,
   );
+
+  vm.document = document;
 
   const form = useForm<z.infer<typeof vm.editFormSchema>>({
     resolver: zodResolver(vm.editFormSchema),
@@ -47,7 +54,7 @@ const DocumentEditingModal: React.FC = () => {
           <DialogTitle>Редактирование документа</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(vm.upload)}>
+          <form onSubmit={form.handleSubmit(vm.updateDocument)}>
             <div className='grid w-full items-center gap-6'>
               <FormField
                 control={form.control}
@@ -61,6 +68,7 @@ const DocumentEditingModal: React.FC = () => {
                         placeholder='Название документа'
                         autoComplete='off'
                         autoCorrect='off'
+                        defaultValue={document.name}
                         disabled={vm.isLoading}
                         {...field}
                       />

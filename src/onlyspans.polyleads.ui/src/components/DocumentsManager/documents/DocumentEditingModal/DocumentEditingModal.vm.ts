@@ -1,12 +1,16 @@
-import { injectable } from 'inversify';
-import { action, makeObservable, observable } from 'mobx';
+import { inject, injectable } from 'inversify';
+import { action, flow, makeObservable, observable } from 'mobx';
 import { z } from 'zod';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import type { IDocumentApi } from '@/services/api/document/documentApi';
+import { IDocument } from '@/data/abstractions/IDocument';
 
 export interface IDocumentEditingModalVM {
   isLoading: boolean;
   isOpened: boolean;
+  document: IDocument | null;
   editFormSchema: z.ZodObject<any>;
-  upload: (formData: z.infer<any>) => void;
+  updateDocument: (formData: z.infer<any>) => void;
   setIsOpened: (isOpened: boolean) => void;
 }
 
@@ -18,9 +22,15 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   @observable
   public isOpened: boolean = false;
 
+  @observable
+  public document: IDocument | null = null;
+
+  private readonly api: IDocumentApi;
+
   private formData: z.infer<typeof this.editFormSchema> | null = null;
 
-  constructor() {
+  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+    this.api = api;
     makeObservable(this);
   }
 
@@ -43,31 +53,27 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   }
 
   @action
-  public upload = (formData: z.infer<typeof this.editFormSchema>): void => {
+  public updateDocument = (formData: z.infer<typeof this.editFormSchema>): void => {
     this.formData = formData;
-    // this.sengUploadRequest();
+    this.sengUpdateDocumentRequest();
   }
 
-  // @action.bound
-  // public sengUploadRequest = flow(function *(this: DocumentEditingModalVM) {
-  //   if (this.formData === null)
-  //     return;
-  //
-  //   const payload: INewDocument = {
-  //     name: this.formData.documentName,
-  //     downloadUrl: this.formData.url,
-  //     description: ''
-  //   }
-  //
-  //   try {
-  //     this.formData = null;
-  //     this.setIsLoading(true);
-  //     yield this.api.create(payload);
-  //   } finally {
-  //     this.setIsLoading(false);
-  //     this.setIsOpened(false);
-  //   }
-  // });
+  @action.bound
+  public sengUpdateDocumentRequest = flow(function *(this: DocumentEditingModalVM) {
+    if (this.formData === null || this.document === null)
+      return;
+
+    this.document.name = this.formData.documentName
+
+    try {
+      this.formData = null;
+      this.setIsLoading(true);
+      yield this.api.edit(this.document);
+    } finally {
+      this.setIsLoading(false);
+      this.setIsOpened(false);
+    }
+  });
 }
 
 export default DocumentEditingModalVM;

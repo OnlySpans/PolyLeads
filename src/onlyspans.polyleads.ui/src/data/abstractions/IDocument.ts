@@ -1,4 +1,5 @@
 export interface IDocument {
+  id: number;
   name: string;
   createdAt: string;
   fileRecognitionStatus: number;

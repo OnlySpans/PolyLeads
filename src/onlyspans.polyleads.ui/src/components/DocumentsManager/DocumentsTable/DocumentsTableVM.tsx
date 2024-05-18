@@ -1,5 +1,5 @@
-import {inject, injectable } from 'inversify';
-import {action, computed, flow, makeObservable, observable } from 'mobx';
+import { inject, injectable } from 'inversify';
+import { action, computed, flow, makeObservable, observable } from 'mobx';
 import { IDocument } from '@/data/abstractions/IDocument';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { ReactElement } from 'react';
@@ -231,7 +231,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
                   Копировать название
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DocumentEditingModal />
+                <DocumentEditingModal document={document}/>
               </DropdownMenuContent>
             </DropdownMenu>
           );
