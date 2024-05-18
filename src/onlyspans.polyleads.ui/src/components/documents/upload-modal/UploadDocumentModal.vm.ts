@@ -4,8 +4,6 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
-import useGet from '@/hooks/useGet';
-import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
@@ -27,14 +25,8 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
 
   private formData: z.infer<typeof this.uploadFormSchema> | null = null;
 
-  private readonly documentsTableVM: IDocumentsTableVM;
-
-  constructor(
-    @inject(ServiceSymbols.IDocumentApi) api: IDocumentApi,
-    @inject(ServiceSymbols.IDocumentsTableVM) documentsTableVM: IDocumentsTableVM
-  ) {
+  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
     this.api = api;
-    this.documentsTableVM = documentsTableVM;
 
     makeObservable(this);
   }
@@ -84,7 +76,6 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     } finally {
       this.setIsLoading(false);
       this.setIsOpened(false);
-      this.documentsTableVM.loadDocuments();
     }
   });
 }
