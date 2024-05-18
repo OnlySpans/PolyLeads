@@ -221,7 +221,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
                 <DropdownMenuItem
-                    onClick={() => window.open(document.downloadUrl)}
+                    onClick={() => window.open(document.downloadUrl, '_blank', 'noopener,noreferrer')}
                 >
                   Открыть документ
                 </DropdownMenuItem>
