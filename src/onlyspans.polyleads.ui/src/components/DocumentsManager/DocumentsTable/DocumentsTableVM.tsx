@@ -288,12 +288,16 @@ class DocumentsTableVM implements IDocumentsTableVM {
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
                 <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(document.name)}
+                    onClick={() => window.open(document.downloadUrl)}
                 >
-                  Копировать название
+                  Открыть документ
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DocumentEditingModal />
+                <DropdownMenuItem
+                    onClick={() => navigator.clipboard.writeText(document.name)}
+                >
+                  Копировать название документа
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           );
