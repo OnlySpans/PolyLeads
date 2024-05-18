@@ -18,6 +18,7 @@ import {
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
+import DocumentEditingModal from '../documents/DocumentEditingModal/DocumentEditingModal';
 
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
@@ -224,12 +225,13 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 >
                   Открыть документ
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(document.name)}
                 >
-                  Копировать название документа
+                  Копировать название
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DocumentEditingModal />
               </DropdownMenuContent>
             </DropdownMenu>
           );
