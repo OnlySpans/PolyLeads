@@ -1,5 +1,5 @@
-import { injectable } from 'inversify';
-import { computed, makeObservable, observable } from 'mobx';
+import {inject, injectable } from 'inversify';
+import {action, computed, flow, makeObservable, observable } from 'mobx';
 import { IDocument } from '@/data/abstractions/IDocument';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { ReactElement } from 'react';
@@ -16,6 +16,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import type { IDocumentApi } from '@/services/api/document/documentApi';
 
 const data: IDocument[] = [
   {
@@ -105,7 +107,7 @@ const data: IDocument[] = [
 ];
 
 export interface IDocumentsTableVM {
-  loadDocuments: () => IDocument[];
+  loadDocuments: () => void;
 
   get columns(): ColumnDef<IDocument>[];
 }
@@ -113,17 +115,36 @@ export interface IDocumentsTableVM {
 @injectable()
 class DocumentsTableVM implements IDocumentsTableVM {
   @observable
-  private data: IDocument[];
+  private documents: IDocument[] = [];
 
-  constructor() {
-    // this.initTable();
-    this.data = data;
+  @observable
+  public isLoading: boolean = false;
+
+  private readonly api: IDocumentApi;
+  
+  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+    this.api = api;
+    
+    // this.documents = data;
+    this.loadDocuments();
     makeObservable(this);
   }
 
-  public loadDocuments(): IDocument[] {
-    return this.data;
-  }
+  @action
+  public setIsLoading = (isLoading: boolean) => {
+    this.isLoading = isLoading;
+  };
+  
+  @action.bound
+  public loadDocuments = flow(function *(this: DocumentsTableVM) {
+    try {
+      this.setIsLoading(true);
+      // this.documents = yield this.api.query("");
+      yield this.api.query("")
+    } finally {
+      this.setIsLoading(false);
+    }
+  });
 
   private getFileRecognitionStatusBadge = (recognitionStatus: number): ReactElement => {
     switch (recognitionStatus) {
