@@ -5,6 +5,7 @@ using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Data.Enums;
 using OnlySpans.PolyLeads.Api.Extensions;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
 
@@ -40,6 +41,8 @@ public sealed class CreateDocumentCommandHandler :
         CreateDocumentCommand request,
         CancellationToken cancellationToken)
     {
+        await UrlGuard.EnsureSourceIsPermittedAsync(Context, request.DownloadUrl, cancellationToken);
+
         var now = TimeProvider.GetUtcNow().UtcDateTime;
 
         var document = new Document

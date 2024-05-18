@@ -130,7 +130,7 @@ public sealed class RecognitionWorker
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Возникла ошибка при распозновании документа с id {Id}", document.Id);
+                Logger.LogError(ex, "Возникла ошибка при распознавании документа с id {Id}", document.Id);
                 document.RecognitionStatus = RecognitionStatus.Error;
                 await Context.SaveChangesAsync(cancellationToken);
                 throw;

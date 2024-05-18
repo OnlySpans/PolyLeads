@@ -10,6 +10,8 @@ public class ApplicationDbContext :
 {
     public DbSet<Document> Documents { get; init; } = default!;
 
+    public DbSet<PermittedSource> PermittedSources { get; init; } = default!;
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
