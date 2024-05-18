@@ -16,6 +16,7 @@ public class DetailedDocumentMapping : IRegister
             .IgnoreNullValues(true)
             .Map(x => x.CreatedByUser, x => x.CreatedBy.GetFullNameOrDefault())
             .Map(x => x.UpdatedByUser, x => x.UpdatedBy.GetFullNameOrDefault())
-            .Map(x => x.DeletedByUser, x => x.DeletedBy.GetFullNameOrDefault());
+            .Map(x => x.DeletedByUser, x => x.DeletedBy.GetFullNameOrDefault())
+            .Map(x => x.Source, x => x.Source.Description);
     }
 }

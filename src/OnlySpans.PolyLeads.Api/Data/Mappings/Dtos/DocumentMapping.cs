@@ -13,6 +13,7 @@ public sealed class DocumentMapping : IRegister
     {
         config
            .ForType<Entities.Document, Dto.Document>()
-           .Map(x => x.CreatedByUser, x => x.CreatedBy.GetFullNameOrDefault());
+           .Map(x => x.CreatedByUser, x => x.CreatedBy.GetFullNameOrDefault())
+           .Map(x => x.Source, x => x.Source.Description);
     }
 }

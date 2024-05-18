@@ -3,7 +3,7 @@ using MapsterMapper;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Extensions;
 using OnlySpans.PolyLeads.Api.Features.Documents.Create;
@@ -31,7 +31,10 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
             : new SearchDocumentsQuery(searchTerm);
 
         var documents = await Mediator.Send(query, cancellationToken);
-        var result = documents.ProjectToType<Dto.Document>(Mapper.Config);
+
+        var result = documents
+           .ProjectToType<Dto.Document>(Mapper.Config)
+           .ToListAsync(cancellationToken);
 
         return Ok(result);
     }
