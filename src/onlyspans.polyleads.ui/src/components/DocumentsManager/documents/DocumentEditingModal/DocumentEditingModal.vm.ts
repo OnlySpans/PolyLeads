@@ -4,6 +4,7 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { IDocument } from '@/data/abstractions/IDocument';
+import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
 export interface IDocumentEditingModalVM {
   isLoading: boolean;
@@ -29,8 +30,15 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
 
   private formData: z.infer<typeof this.editFormSchema> | null = null;
 
-  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+  private readonly documentsTableVM: IDocumentsTableVM;
+
+  constructor(
+    @inject(ServiceSymbols.IDocumentApi) api: IDocumentApi,
+    @inject(ServiceSymbols.IDocumentsTableVM) documentsTableVM: IDocumentsTableVM
+  ) {
     this.api = api;
+    this.documentsTableVM = documentsTableVM;
+
     makeObservable(this);
   }
 
@@ -69,6 +77,7 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.api.edit(this.document);
+      this.documentsTableVM.loadDocuments();
     } finally {
       this.setIsLoading(false);
       this.setIsOpened(false);

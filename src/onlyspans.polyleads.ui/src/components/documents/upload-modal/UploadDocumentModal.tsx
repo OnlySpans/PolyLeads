@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -18,16 +18,23 @@ import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
 import { Upload } from 'lucide-react';
 
 const UploadDocumentModal: React.FC = () => {
   const vm = useGet<IUploadDocumentModalVM>(
-    ServiceSymbols.IUploadDocumentModalVM);
+    ServiceSymbols.IUploadDocumentModalVM,
+  );
 
   const form = useForm<z.infer<typeof vm.uploadFormSchema>>({
-    resolver: zodResolver(vm.uploadFormSchema)
+    resolver: zodResolver(vm.uploadFormSchema),
   });
 
   return (
@@ -38,7 +45,7 @@ const UploadDocumentModal: React.FC = () => {
           <div className={'hidden sm:flex'}>Добавить файл</div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-w-[90%] gap-6">
+      <DialogContent className='sm:max-w-[425px] max-w-[90%] gap-6'>
         <DialogHeader>
           <DialogTitle>Добавить файл</DialogTitle>
           <DialogDescription>
@@ -47,19 +54,19 @@ const UploadDocumentModal: React.FC = () => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(vm.upload)}>
-            <div className="grid w-full items-center gap-6">
+            <div className='grid w-full items-center gap-6'>
               <FormField
                 control={form.control}
-                name="documentName"
+                name='documentName'
                 render={({ field }) => (
-                  <FormItem className="flex flex-col space-y-3">
-                    <Label htmlFor="documentName">Название документа</Label>
+                  <FormItem className='flex flex-col space-y-3'>
+                    <Label htmlFor='documentName'>Название документа</Label>
                     <FormControl>
                       <Input
-                        id="documentName"
-                        placeholder="Название документа"
-                        autoComplete="off"
-                        autoCorrect="off"
+                        id='documentName'
+                        placeholder='Название документа'
+                        autoComplete='off'
+                        autoCorrect='off'
                         disabled={vm.isLoading}
                         {...field}
                       />
@@ -70,16 +77,16 @@ const UploadDocumentModal: React.FC = () => {
               />
               <FormField
                 control={form.control}
-                name="url"
+                name='url'
                 render={({ field }) => (
-                  <FormItem className="flex flex-col space-y-3">
-                    <Label htmlFor="url">Ссылка на файл</Label>
+                  <FormItem className='flex flex-col space-y-3'>
+                    <Label htmlFor='url'>Ссылка на файл</Label>
                     <FormControl>
                       <Input
-                        id="url"
-                        placeholder="Ссылка"
-                        autoComplete="off"
-                        autoCorrect="off"
+                        id='url'
+                        placeholder='Ссылка'
+                        autoComplete='off'
+                        autoCorrect='off'
                         disabled={vm.isLoading}
                         {...field}
                       />
@@ -90,11 +97,11 @@ const UploadDocumentModal: React.FC = () => {
               />
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button type="button" variant="secondary">
+                  <Button type='button' variant='secondary'>
                     Отмена
                   </Button>
                 </DialogClose>
-                <Button type="submit">Загрузить</Button>
+                <Button type='submit'>Загрузить</Button>
               </DialogFooter>
             </div>
           </form>
