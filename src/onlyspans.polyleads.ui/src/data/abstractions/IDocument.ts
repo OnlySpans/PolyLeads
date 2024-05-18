@@ -4,4 +4,6 @@ export interface IDocument {
   fileRecognitionStatus: number;
   resource: string;
   createdBy: string;
+  description: string;
+  downloadUrl: string;
 }
