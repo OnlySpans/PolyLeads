@@ -9,6 +9,7 @@ import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsT
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
   isOpened: boolean;
+  isEnabled: boolean;
   uploadFormSchema: z.ZodObject<any>;
   upload: (formData: z.infer<any>) => void;
   setIsOpened: (isOpened: boolean) => void;
@@ -21,6 +22,9 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
 
   @observable
   public isOpened: boolean = false;
+
+  @observable
+  public isEnabled: boolean = false;
 
   private readonly api: IDocumentApi;
 
@@ -84,6 +88,14 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     } finally {
       this.setIsLoading(false);
       this.setIsOpened(false);
+    }
+  });
+
+  @action.bound
+  public getRole = flow(function *(this: UploadDocumentModalVM) {
+    try {
+      // yield this.api.create(payload);
+    } finally {
     }
   });
 }
