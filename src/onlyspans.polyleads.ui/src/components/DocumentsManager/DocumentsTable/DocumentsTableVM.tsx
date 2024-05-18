@@ -21,15 +21,14 @@ import type { IDocumentApi } from '@/services/api/document/documentApi';
 
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
-  getDocuments: () => IDocument[];
-
+  documents: IDocument[];
   get columns(): ColumnDef<IDocument>[];
 }
 
 @injectable()
 class DocumentsTableVM implements IDocumentsTableVM {
   @observable
-  private documents: IDocument[] = [];
+  documents: IDocument[] = [];
 
   @observable
   public isLoading: boolean = false;
@@ -40,10 +39,6 @@ class DocumentsTableVM implements IDocumentsTableVM {
     this.api = api;
     this.loadDocuments();
     makeObservable(this);
-  }
-
-  public getDocuments = (): IDocument[] => {
-    return this.documents;
   }
   
   @action
