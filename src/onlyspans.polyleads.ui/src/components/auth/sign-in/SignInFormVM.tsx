@@ -4,6 +4,7 @@ import { z } from 'zod';
 import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignInPayload } from '@/data/abstractions/ISignInPayload';
+import { useRouter } from 'next/navigation';
 
 export interface ISignInFormVM {
   isLoading: boolean;
@@ -15,7 +16,7 @@ export interface ISignInFormVM {
 }
 
 @injectable()
-class SignInFormVm implements ISignInFormVM {
+class SignInFormVM implements ISignInFormVM {
   @observable
   public isLoading: boolean = false;
 
@@ -26,6 +27,8 @@ class SignInFormVm implements ISignInFormVM {
 
   private readonly authApi: IAuthApi;
 
+  private readonly router = useRouter();
+  
   constructor(@inject(ServiceSymbols.AuthApi) authApi: IAuthApi) {
     this.authApi = authApi;
 
@@ -49,10 +52,10 @@ class SignInFormVm implements ISignInFormVM {
   }
 
   @action.bound
-  public sendSignInRequest = flow(function *(this: SignInFormVm) {
+  public sendSignInRequest = flow(function *(this: SignInFormVM) {
     if (this.formData === null)
       return;
-
+    
     const payload: ISignInPayload = {
       username: this.formData.username,
       password: this.formData.password
@@ -62,6 +65,7 @@ class SignInFormVm implements ISignInFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signIn(payload);
+      this.router.push('/');
     } finally {
       this.setIsLoading(false);
     }
@@ -69,14 +73,13 @@ class SignInFormVm implements ISignInFormVM {
 
   public readonly schemaSignInForm: z.ZodObject<any> = z
     .object({
-      email: z
+      username: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(4, 'Имя должно содержать не менее 4 символов'),
       password: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(6, 'Пароль должен содержать не менее 6 символов'),
     })
-
 }
 
-export default SignInFormVm;
+export default SignInFormVM;

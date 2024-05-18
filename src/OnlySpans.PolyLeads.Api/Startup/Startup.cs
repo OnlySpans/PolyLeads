@@ -39,6 +39,9 @@ public static partial class Startup
 
         await app.MigrateDatabaseAsync();
 
+        await app.SeedUserRolesAsync();
+        await app.SeedMasterUserAsync();
+
         return app;
     }
 }

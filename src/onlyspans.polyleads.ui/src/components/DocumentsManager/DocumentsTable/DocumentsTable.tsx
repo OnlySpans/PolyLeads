@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
 import DataTableViewOptions from './DataTableViewOptions/DataTableViewOptions';
-import { Upload } from 'lucide-react';
+import UploadDocumentModal from '@/components/documents/upload-modal/UploadDocumentModal';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -49,7 +49,7 @@ const DocumentsTable: React.FC = () => {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: vm.loadDocuments(),
+    data: vm.documents,
     columns: vm.columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -79,10 +79,7 @@ const DocumentsTable: React.FC = () => {
             }
             className='h-8 w-[200px] lg:w-[250px]'
           />
-          <Button variant='outline' className='h-8 px-4'>
-            <Upload className={'sm:hidden flex size-4'} />
-            <div className={'hidden sm:flex'}>Добавить файл</div>
-          </Button>
+          <UploadDocumentModal />
         </div>
 
         <DataTableViewOptions table={table} />

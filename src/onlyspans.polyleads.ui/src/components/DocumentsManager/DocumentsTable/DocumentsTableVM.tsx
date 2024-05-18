@@ -1,5 +1,5 @@
-import { injectable } from 'inversify';
-import { computed, makeObservable, observable } from 'mobx';
+import {inject, injectable } from 'inversify';
+import {action, computed, flow, makeObservable, observable } from 'mobx';
 import { IDocument } from '@/data/abstractions/IDocument';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { ReactElement } from 'react';
@@ -16,115 +16,47 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
-import DocumentEditingModal from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal';
-
-const data: IDocument[] = [
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 3,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 3,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 2,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 4,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 2,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 4,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-];
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import type { IDocumentApi } from '@/services/api/document/documentApi';
 
 export interface IDocumentsTableVM {
-  loadDocuments: () => IDocument[];
-
+  loadDocuments: () => void;
+  documents: IDocument[];
   get columns(): ColumnDef<IDocument>[];
 }
 
 @injectable()
 class DocumentsTableVM implements IDocumentsTableVM {
   @observable
-  private data: IDocument[];
+  public documents: IDocument[] = [];
 
-  constructor() {
-    // this.initTable();
-    this.data = data;
+  @observable
+  public isLoading: boolean = false;
+
+  private readonly api: IDocumentApi;
+  
+  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+    this.api = api;
+    this.loadDocuments();
     makeObservable(this);
   }
-
-  public loadDocuments(): IDocument[] {
-    return this.data;
-  }
+  
+  @action
+  public setIsLoading = (isLoading: boolean) => {
+    this.isLoading = isLoading;
+  };
+  
+  @action.bound
+  public loadDocuments = flow(function *(this: DocumentsTableVM) {
+    try {
+      this.setIsLoading(true);
+      this.documents = yield this.api.query("");
+    } catch {
+      this.documents = [];
+    } finally {
+      this.setIsLoading(false);
+    }
+  });
 
   private getFileRecognitionStatusBadge = (recognitionStatus: number): ReactElement => {
     switch (recognitionStatus) {
@@ -294,7 +226,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(document.name)}
+                  onClick={() => navigator.clipboard.writeText(document.name)}
                 >
                   Копировать название документа
                 </DropdownMenuItem>

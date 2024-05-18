@@ -3,7 +3,7 @@ using MapsterMapper;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Extensions;
 using OnlySpans.PolyLeads.Api.Features.Documents.Create;
@@ -15,7 +15,7 @@ using OnlySpans.PolyLeads.Api.Features.Documents.Search;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 
-using Dto = Dto.Data;
+using Dto = Dto.Documents;
 
 [Route("/api/v1/document")]
 public sealed class DocumentController(IMediator mediator, IMapper mapper) :
@@ -31,7 +31,10 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
             : new SearchDocumentsQuery(searchTerm);
 
         var documents = await Mediator.Send(query, cancellationToken);
-        var result = documents.ProjectToType<Dto.Document>(Mapper.Config);
+
+        var result = await documents
+           .ProjectToType<Dto.Document>(Mapper.Config)
+           .ToListAsync(cancellationToken);
 
         return Ok(result);
     }
@@ -49,7 +52,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> Create(
-        [FromBody] Dto.Document dto,
+        [FromBody] Dto.CreateDocumentInput dto,
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
@@ -62,7 +65,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     [HttpPut("{documentId:long}")]
     public async Task<IActionResult> Edit(
         [FromRoute] long documentId,
-        [FromBody] Dto.Document dto,
+        [FromBody] Dto.EditDocumentInput dto,
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
