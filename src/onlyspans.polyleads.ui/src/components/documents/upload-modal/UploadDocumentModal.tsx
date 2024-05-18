@@ -20,6 +20,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
+import { Upload } from 'lucide-react';
 
 const UploadDocumentModal: React.FC = () => {
   const vm = useGet<IUploadDocumentModalVM>(
@@ -32,18 +33,21 @@ const UploadDocumentModal: React.FC = () => {
   return (
     <Dialog open={vm.isOpened} onOpenChange={vm.setIsOpened}>
       <DialogTrigger asChild>
-        <Button variant="default" className='h-8'>Добавить файл</Button>
+        <Button variant='default' className='h-8 px-4'>
+          <Upload className={'sm:hidden flex size-4'} />
+          <div className={'hidden sm:flex'}>Добавить файл</div>
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] max-w-[90%] gap-6">
         <DialogHeader>
           <DialogTitle>Добавить файл</DialogTitle>
           <DialogDescription>
-            Файл будет распознан спустя некоторое время
+            Распознавание файла займет некоторое время
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(vm.upload)}>
-            <div className="grid w-full items-center gap-4">
+            <div className="grid w-full items-center gap-6">
               <FormField
                 control={form.control}
                 name="documentName"
@@ -85,12 +89,12 @@ const UploadDocumentModal: React.FC = () => {
                 )}
               />
               <DialogFooter>
-                <DialogClose asChild className="m-1">
+                <DialogClose asChild>
                   <Button type="button" variant="secondary">
                     Отмена
                   </Button>
                 </DialogClose>
-                <Button type="submit" className="m-1">Загрузить</Button>
+                <Button type="submit">Загрузить</Button>
               </DialogFooter>
             </div>
           </form>

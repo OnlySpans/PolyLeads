@@ -39,7 +39,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
         .max(100, 'Название не должно быть более 100 символов'),
       url: z
         .string({ required_error: "Ссылка должна быть заполнена" })
-        .url('Ссылка должна быть представлена в виде URL')
+        .url('Ссылку необходимо указать в формате URL')
     });
 
   @action
@@ -47,6 +47,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     this.isLoading = isLoading;
   };
 
+  @action
   public setIsOpened = (isOpened: boolean) => {
     this.isOpened = isOpened;
   }
