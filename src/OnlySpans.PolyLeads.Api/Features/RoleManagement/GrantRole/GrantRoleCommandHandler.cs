@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Exceptions;
 
-namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GiveRole;
+namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
 
-public sealed record GiveRoleCommand : IRequest
+public sealed record GrantRoleCommand : IRequest
 {
     public string UserName { get; init; } = string.Empty;
 
@@ -12,26 +12,26 @@ public sealed record GiveRoleCommand : IRequest
 }
 
 [UsedImplicitly]
-public sealed class GiveRoleCommandHandler :
-    IRequestHandler<GiveRoleCommand>
+public sealed class GrantRoleCommandHandler :
+    IRequestHandler<GrantRoleCommand>
 {
     private UserManager<Entities.ApplicationUser> UserManager { get; init; }
     
-    public GiveRoleCommandHandler(
+    public GrantRoleCommandHandler(
         UserManager<Entities.ApplicationUser> userManager)
     {
         UserManager = userManager;
     }
 
     public async Task Handle(
-        GiveRoleCommand request,
+        GrantRoleCommand request,
         CancellationToken cancellationToken)
     {
         var user = await UserManager.FindByNameAsync(request.UserName);
 
         ResourceNotFoundException.ThrowIfNull(
             user, 
-            $"пользователь с ником {request.UserName} не найден");
+            $"Пользователь с именем {request.UserName} не найден");
         
         await UserManager.AddToRoleAsync(user, request.RoleName);
         
@@ -39,6 +39,6 @@ public sealed class GiveRoleCommandHandler :
         
         if (!userRoles.Contains(request.RoleName))
             throw new RoleManagementException(
-                $"не получилось присвоить пользователю с ником {request.UserName} роль {request.RoleName}");
+                $"Не получилось присвоить пользователю с именем {request.UserName} роль {request.RoleName}");
     }
 }

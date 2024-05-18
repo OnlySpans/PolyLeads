@@ -87,28 +87,28 @@ public static partial class Startup
 
         await dbContext.Database.MigrateAsync();
     }
-    
-    private static WebApplication SeedUserRoles(this WebApplication app)
+
+    private static async Task<WebApplication> SeedUserRolesAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;
 
         var roleManager = provider.GetRequiredService<RoleManager<Entities.ApplicationUserRole>>();
-        
+
         var roles = new List<Entities.ApplicationUserRole>
         {
             new() { Name = "Admin" },
-            new() { Name = "Trade_union" },
+            new() { Name = "StudentUnionOrganizer" },
             new() { Name = "Headman" },
             new() { Name = "Student" }
         };
-        
+
         foreach (var role in roles)
         {
-            if (!roleManager.RoleExistsAsync(role.Name!).Result)
+            if (!await roleManager.RoleExistsAsync(role.Name!))
             {
-                var result = roleManager.CreateAsync(role).Result;
-                
+                var result = await roleManager.CreateAsync(role);
+
                 if (!result.Succeeded)
                     throw new Exception($"Ошибка при создании роли {role.Name}.");
             }
@@ -117,36 +117,36 @@ public static partial class Startup
         return app;
     }
 
-    private static async Task SeedMainAdmin(this WebApplication app)
+    private static async Task SeedMasterUserAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;
 
         var userManager = provider.GetRequiredService<UserManager<Entities.ApplicationUser>>();
 
-        var oldBerkas = await userManager.FindByNameAsync("Berkas");
+        var masterUser = await userManager.FindByNameAsync("Berkas");
 
-        if (oldBerkas != null)
+        if (masterUser is not null)
         {
-            var hasRightPassword = await userManager.CheckPasswordAsync(oldBerkas, "svo12345");
+            var hasRightPassword = await userManager.CheckPasswordAsync(masterUser, "svo12345");
 
-            var hasAdminRole = await userManager.IsInRoleAsync(oldBerkas,"Admin");
+            var hasAdminRole = await userManager.IsInRoleAsync(masterUser,"Admin");
 
             if (hasRightPassword && hasAdminRole)
                 return;
 
-            await userManager.DeleteAsync(oldBerkas);
+            await userManager.DeleteAsync(masterUser);
         }
 
-        var mainAdmin = new Entities.ApplicationUser
+        masterUser = new Entities.ApplicationUser
         {
             FirstName = "sex",
             LastName = "void",
             UserName = "Berkas"
         };
 
-        await userManager.CreateAsync(mainAdmin, "svo12345");
+        await userManager.CreateAsync(masterUser, "svo12345");
 
-        await userManager.AddToRoleAsync(mainAdmin, "Admin");
+        await userManager.AddToRoleAsync(masterUser, "Admin");
     }
 }

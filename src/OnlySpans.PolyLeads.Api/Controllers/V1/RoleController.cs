@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
-using OnlySpans.PolyLeads.Api.Features.RoleManagement.GiveRole;
+using OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
 using OnlySpans.PolyLeads.Dto.Data;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
@@ -12,12 +12,12 @@ namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 public sealed class RoleController(IMediator mediator, IMapper mapper) :
     ApplicationController(mediator, mapper)
 {
-    [HttpPost("give")]
-    public async Task<IActionResult> GiveRoleToUser(
-        [FromBody] GiveRoleInput input,
+    [HttpPost("grant")]
+    public async Task<IActionResult> GrantRoleToUser(
+        [FromBody] GrantRoleInput input,
         CancellationToken cancellationToken)
     {
-        var command = Mapper.Map<GiveRoleCommand>(input);
+        var command = Mapper.Map<GrantRoleCommand>(input);
         await Mediator.Send(command, cancellationToken);
         return Ok();
     }

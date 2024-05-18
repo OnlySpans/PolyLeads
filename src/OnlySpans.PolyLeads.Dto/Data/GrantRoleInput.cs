@@ -1,6 +1,6 @@
 ﻿namespace OnlySpans.PolyLeads.Dto.Data;
 
-public sealed record GiveRoleInput
+public sealed record GrantRoleInput
 {
     public required string UserName { get; init; }
 
