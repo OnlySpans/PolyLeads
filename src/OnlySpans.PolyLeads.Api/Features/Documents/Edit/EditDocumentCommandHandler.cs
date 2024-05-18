@@ -17,8 +17,6 @@ public sealed record EditDocumentCommand :
 
     public required string Description { get; init; }
 
-    public required Uri DownloadUrl { get; init; }
-
     public required Guid UserId { get; init; }
 }
 
@@ -29,15 +27,18 @@ public sealed class EditDocumentCommandHandler
     private IMapper Mapper { get; init; }
     private TimeProvider TimeProvider { get; init; }
     private ApplicationDbContext Context { get; init; }
+    private ISender Sender { get; init; }
 
     public EditDocumentCommandHandler(
         IMapper mapper,
         TimeProvider timeProvider,
-        ApplicationDbContext context)
+        ApplicationDbContext context,
+        ISender sender)
     {
         Mapper = mapper;
         TimeProvider = timeProvider;
         Context = context;
+        Sender = sender;
     }
 
     public async Task<Entities.Document> Handle(
