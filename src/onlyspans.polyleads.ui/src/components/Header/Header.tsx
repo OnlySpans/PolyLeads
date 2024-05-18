@@ -3,10 +3,17 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
+import useGet from '@/hooks/useGet';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import { IHeaderVM } from './Header.vm';
 
 interface IHeaderProps {}
 
 const Header: React.FC<IHeaderProps> = () => {
+  const vm = useGet<IHeaderVM>(
+      ServiceSymbols.IHeaderVM,
+  );
+  
   return (
     <header className='sticky top-0 z-50 w-full border-b border-border/70 bg-background/95
       backdrop-blur supports-[backdrop-filter]:bg-background/60'
@@ -35,12 +42,15 @@ const Header: React.FC<IHeaderProps> = () => {
         <div className='flex flex-1 items-center space-x-2 justify-end'>
           <Link
             href={'/sign-in'}
-            className={cn(
-              buttonVariants({
-                variant: 'default',
-                size: 'sm',
-              }),
-            )}
+            className={
+              `${cn(
+                buttonVariants({
+                  variant: 'default',
+                  size: 'sm',
+                })
+              )} 
+              ${vm.isSignInButtonEnabled ? 'hidden' : ''}
+            `}
           >
             Войти
           </Link>

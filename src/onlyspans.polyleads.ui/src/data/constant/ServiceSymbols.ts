@@ -8,7 +8,8 @@ const ServiceSymbols = {
   ISignInFormVM: Symbol.for('IAuthFormVM'),
   ISignUpFormVM: Symbol.for('ISignUpFormVM'),
   IDocumentsTableVM: Symbol.for('IDocumentsTableVM'),
-  IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM')
+  IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM'),
+  IHeaderVM: Symbol.for('IHeaderVM')
 };
 
 export default ServiceSymbols;
