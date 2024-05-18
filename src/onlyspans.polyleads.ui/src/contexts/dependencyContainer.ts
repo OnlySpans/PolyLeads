@@ -15,7 +15,9 @@ import DocumentsTableVM, {
 import DocumentEditingModalVM, {
   IDocumentEditingModalVM,
 } from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal.vm';
-import UploadDocumentModalVM, { IUploadDocumentModalVM } from '@/components/documents/upload-modal/UploadDocumentModal.vm';
+import UploadDocumentModalVM, {
+  IUploadDocumentModalVM,
+} from '@/components/DocumentsManager/documents/upload-modal/UploadDocumentModal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 
 export const createDependencyContainer = (): Container => {
