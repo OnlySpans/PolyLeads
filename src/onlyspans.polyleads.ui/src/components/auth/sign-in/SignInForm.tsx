@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
-import { ISignInFormVM } from '@/components/auth/sign-in/SignInForm.vm';
+import { ISignInFormVM } from '@/components/auth/sign-in/SignInFormVM';
 
 interface ISignInProps {}
 
@@ -36,14 +36,14 @@ const SignInForm: React.FC<ISignInProps> = () => {
       >
         <FormField
           control={form.control}
-          name='email'
+          name='username'
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <Input
-                  id='email'
-                  placeholder='Имя пользователя или почта'
-                  autoComplete='email'
+                  id='username'
+                  placeholder='Имя пользователя'
+                  autoComplete='username'
                   autoCorrect='off'
                   disabled={vm.isLoading}
                   {...field}

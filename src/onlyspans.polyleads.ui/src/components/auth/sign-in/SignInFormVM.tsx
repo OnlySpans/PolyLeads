@@ -15,7 +15,7 @@ export interface ISignInFormVM {
 }
 
 @injectable()
-class SignInFormVm implements ISignInFormVM {
+class SignInFormVM implements ISignInFormVM {
   @observable
   public isLoading: boolean = false;
 
@@ -44,17 +44,22 @@ class SignInFormVm implements ISignInFormVM {
 
   @action
   public signIn = async (data: z.infer<typeof this.schemaSignInForm>) => {
+    console.log('3');
     this.formData = data;
     this.sendSignInRequest();
   }
 
   @action.bound
-  public sendSignInRequest = flow(function *(this: SignInFormVm) {
+  public sendSignInRequest = flow(function *(this: SignInFormVM) {
+    console.log('1');
+
     if (this.formData === null)
       return;
 
+    console.log('2');
+
     const payload: ISignInPayload = {
-      username: this.formData.email,
+      username: this.formData.username,
       password: this.formData.password
     }
 
@@ -69,7 +74,7 @@ class SignInFormVm implements ISignInFormVM {
 
   public readonly schemaSignInForm: z.ZodObject<any> = z
     .object({
-      email: z
+      username: z
         .string({ required_error: 'Поле должно быть заполнено' })
         .min(4, 'Имя должно содержать не менее 4 символов'),
       password: z
@@ -79,4 +84,4 @@ class SignInFormVm implements ISignInFormVM {
 
 }
 
-export default SignInFormVm;
+export default SignInFormVM;
