@@ -66,7 +66,7 @@ class SignUpFormVM implements ISignUpFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signUp(payload);
-      this.router.push('/');
+      this.router.push('/sign-in');
     } finally {
       this.setIsLoading(false);
     }
