@@ -65,7 +65,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
     [HttpPut("{documentId:long}")]
     public async Task<IActionResult> Edit(
         [FromRoute] long documentId,
-        [FromBody] Dto.Document dto,
+        [FromBody] Dto.DocumentEditInfo dto,
         CancellationToken cancellationToken)
     {
         var userId = User.GetUserId();
