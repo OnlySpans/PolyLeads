@@ -49,7 +49,7 @@ const DocumentsTable: React.FC = () => {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: vm.loadDocuments(),
+    data: vm.getDocuments(),
     columns: vm.columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

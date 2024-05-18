@@ -19,95 +19,9 @@ import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 
-const data: IDocument[] = [
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 3,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 3,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 2,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 4,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-  {
-    name: 'AAA Electronic Concrete Cheese',
-    createdAt: '2006-10-13T14:46:05.818Z',
-    fileRecognitionStatus: 2,
-    resource: 'Сайт Политеха',
-    createdBy: 'Zoe',
-  },
-  {
-    name: 'BBB Refined Plastic Pizza',
-    createdAt: '2013-10-07T01:44:43.285Z',
-    fileRecognitionStatus: 1,
-    resource: 'Сайт Политеха',
-    createdBy: 'Ryley',
-  },
-  {
-    name: 'CCC Refined Cotton Gloves',
-    createdAt: '1987-08-31T15:49:22.344Z',
-    fileRecognitionStatus: 0,
-    resource: 'Телеграм',
-    createdBy: 'Lilian',
-  },
-  {
-    name: 'DDD Luxurious Steel Chair',
-    createdAt: '1995-08-22T22:47:55.552Z',
-    fileRecognitionStatus: 4,
-    resource: 'Сайт Политеха',
-    createdBy: 'Alysha',
-  },
-];
-
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
+  getDocuments: () => IDocument[];
 
   get columns(): ColumnDef<IDocument>[];
 }
@@ -134,13 +48,17 @@ class DocumentsTableVM implements IDocumentsTableVM {
   public setIsLoading = (isLoading: boolean) => {
     this.isLoading = isLoading;
   };
+
+  @action
+  public getDocuments = (): IDocument[] => {
+    return this.documents;
+  }
   
   @action.bound
   public loadDocuments = flow(function *(this: DocumentsTableVM) {
     try {
       this.setIsLoading(true);
-      // this.documents = yield this.api.query("");
-      yield this.api.query("")
+      this.documents = yield this.api.query("");
     } finally {
       this.setIsLoading(false);
     }
