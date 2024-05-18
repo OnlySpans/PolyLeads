@@ -38,27 +38,26 @@ class DocumentsTableVM implements IDocumentsTableVM {
   
   constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
     this.api = api;
-    
-    // this.documents = data;
     this.loadDocuments();
     makeObservable(this);
   }
 
+  public getDocuments = (): IDocument[] => {
+    return this.documents;
+  }
+  
   @action
   public setIsLoading = (isLoading: boolean) => {
     this.isLoading = isLoading;
   };
-
-  @action
-  public getDocuments = (): IDocument[] => {
-    return this.documents;
-  }
   
   @action.bound
   public loadDocuments = flow(function *(this: DocumentsTableVM) {
     try {
       this.setIsLoading(true);
       this.documents = yield this.api.query("");
+    } catch {
+      this.documents = [];
     } finally {
       this.setIsLoading(false);
     }
