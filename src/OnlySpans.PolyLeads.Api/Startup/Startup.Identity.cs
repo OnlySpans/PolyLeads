@@ -14,13 +14,9 @@ public static partial class Startup
 
         var roleManager = provider.GetRequiredService<RoleManager<Entities.ApplicationUserRole>>();
 
-        var roles = new List<Entities.ApplicationUserRole>
-        {
-            new() { Name = ApplicationRoleName.Admin },
-            new() { Name = ApplicationRoleName.Student },
-            new() { Name = ApplicationRoleName.Headman },
-            new() { Name = ApplicationRoleName.StudentUnionOrganizer }
-        };
+        var roles = ApplicationRoleName
+            .All
+            .Select(x => new Entities.ApplicationUserRole { Name = x });
 
         foreach (var role in roles)
         {
