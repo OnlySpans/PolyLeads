@@ -6,7 +6,7 @@ import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { IDocument } from '@/data/abstractions/IDocument';
 import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 
-export interface IDocumentEditingModalVM {
+export interface IEditDocumentModalVM {
   isLoading: boolean;
   isOpened: boolean;
   document: IDocument | null;
@@ -16,7 +16,7 @@ export interface IDocumentEditingModalVM {
 }
 
 @injectable()
-class DocumentEditingModalVM implements IDocumentEditingModalVM {
+class EditDocumentModalVM implements IEditDocumentModalVM {
   @observable
   public isLoading: boolean = false;
 
@@ -67,7 +67,7 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   }
 
   @action.bound
-  public sendEditedDocumentRequest = flow(function *(this: DocumentEditingModalVM) {
+  public sendEditedDocumentRequest = flow(function *(this: EditDocumentModalVM) {
     if (this.formData === null || this.document === null)
       return;
 
@@ -85,4 +85,4 @@ class DocumentEditingModalVM implements IDocumentEditingModalVM {
   });
 }
 
-export default DocumentEditingModalVM;
+export default EditDocumentModalVM;

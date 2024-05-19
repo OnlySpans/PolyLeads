@@ -12,9 +12,9 @@ import SignUpFormVM, {
 import DocumentsTableVM, {
   IDocumentsTableVM,
 } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
-import DocumentEditingModalVM, {
-  IDocumentEditingModalVM,
-} from '@/components/DocumentsManager/documents/DocumentEditingModal/DocumentEditingModal.vm';
+import EditDocumentModalVM, {
+  IEditDocumentModalVM,
+} from '@/components/DocumentsManager/documents/DocumentEditingModal/EditDocumentModal.vm';
 import UploadDocumentModalVM, {
   IUploadDocumentModalVM,
 } from '@/components/DocumentsManager/documents/upload-modal/UploadDocumentModal.vm';
@@ -30,7 +30,7 @@ export const createDependencyContainer = (): Container => {
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
   container.bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM).to(UploadDocumentModalVM);
-  container.bind<IDocumentEditingModalVM>(ServiceSymbols.IDocumentEditingModalVM).to(DocumentEditingModalVM);
+  container.bind<IEditDocumentModalVM>(ServiceSymbols.IDocumentEditingModalVM).to(EditDocumentModalVM);
 
   return container;
 };
