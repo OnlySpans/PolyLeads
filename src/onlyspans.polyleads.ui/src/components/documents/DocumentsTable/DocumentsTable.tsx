@@ -29,7 +29,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
-import DataTableViewOptions from './DataTableViewOptions/DataTableViewOptions';
+import DataTableViewOptions from '@/components/documents/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
 import UploadDocumentModal from '@/components/documents/upload-modal/UploadDocumentModal';
 
 declare module '@tanstack/react-table' {

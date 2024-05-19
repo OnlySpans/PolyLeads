@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -25,35 +24,37 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
-import { Upload } from 'lucide-react';
+import { IEditDocumentModalVM } from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
+import { IDocument } from '@/data/abstractions/IDocument';
 
-const UploadDocumentModal: React.FC = () => {
-  const vm = useGet<IUploadDocumentModalVM>(
-    ServiceSymbols.IUploadDocumentModalVM,
+interface IEditDocumentModal {
+  document: IDocument;
+}
+
+const EditDocumentModal: React.FC<IEditDocumentModal> = ({document}) => {
+  const vm = useGet<IEditDocumentModalVM>(
+    ServiceSymbols.IDocumentEditingModalVM,
   );
 
-  const form = useForm<z.infer<typeof vm.uploadFormSchema>>({
-    resolver: zodResolver(vm.uploadFormSchema),
+  vm.document = document;
+
+  const form = useForm<z.infer<typeof vm.editFormSchema>>({
+    resolver: zodResolver(vm.editFormSchema),
   });
 
   return (
     <Dialog open={vm.isOpened} onOpenChange={vm.setIsOpened}>
       <DialogTrigger asChild>
-        <Button variant='default' className='h-8 px-4'>
-          <Upload className={'sm:hidden flex size-4'} />
-          <div className={'hidden sm:flex'}>Добавить файл</div>
+        <Button variant='ghost' className='h-8 px-2 py-1.5 rounded-sm'>
+          Редактировать
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px] max-w-[90%] gap-6'>
         <DialogHeader>
-          <DialogTitle>Добавить файл</DialogTitle>
-          <DialogDescription>
-            Распознавание файла займет некоторое время
-          </DialogDescription>
+          <DialogTitle>Редактирование документа</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(vm.upload)}>
+          <form onSubmit={form.handleSubmit(vm.editDocument)}>
             <div className='grid w-full items-center gap-6'>
               <FormField
                 control={form.control}
@@ -67,26 +68,7 @@ const UploadDocumentModal: React.FC = () => {
                         placeholder='Название документа'
                         autoComplete='off'
                         autoCorrect='off'
-                        disabled={vm.isLoading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='url'
-                render={({ field }) => (
-                  <FormItem className='flex flex-col space-y-3'>
-                    <Label htmlFor='url'>Ссылка на файл</Label>
-                    <FormControl>
-                      <Input
-                        id='url'
-                        placeholder='Ссылка'
-                        autoComplete='off'
-                        autoCorrect='off'
+                        defaultValue={document.name}
                         disabled={vm.isLoading}
                         {...field}
                       />
@@ -96,12 +78,14 @@ const UploadDocumentModal: React.FC = () => {
                 )}
               />
               <DialogFooter>
-                <DialogClose asChild>
+                <Button type='submit' className='m-1'>
+                  Сохранить
+                </Button>
+                <DialogClose asChild className='m-1'>
                   <Button type='button' variant='secondary'>
                     Отмена
                   </Button>
                 </DialogClose>
-                <Button type='submit'>Загрузить</Button>
               </DialogFooter>
             </div>
           </form>
@@ -111,4 +95,4 @@ const UploadDocumentModal: React.FC = () => {
   );
 };
 
-export default observer(UploadDocumentModal);
+export default observer(EditDocumentModal);

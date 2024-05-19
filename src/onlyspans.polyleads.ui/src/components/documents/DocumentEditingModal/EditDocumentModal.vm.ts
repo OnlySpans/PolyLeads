@@ -3,28 +3,32 @@ import { action, flow, makeObservable, observable } from 'mobx';
 import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
-import { INewDocument } from '@/data/abstractions/INewDocument';
+import { IDocument } from '@/data/abstractions/IDocument';
 import type { IDocumentsTableVM } from '@/components/documents/DocumentsTable/DocumentsTableVM';
 
-export interface IUploadDocumentModalVM {
+export interface IEditDocumentModalVM {
   isLoading: boolean;
   isOpened: boolean;
-  uploadFormSchema: z.ZodObject<any>;
-  upload: (formData: z.infer<any>) => void;
+  document: IDocument | null;
+  editFormSchema: z.ZodObject<any>;
+  editDocument: (formData: z.infer<any>) => void;
   setIsOpened: (isOpened: boolean) => void;
 }
 
 @injectable()
-class UploadDocumentModalVM implements IUploadDocumentModalVM {
+class EditDocumentModalVM implements IEditDocumentModalVM {
   @observable
   public isLoading: boolean = false;
 
   @observable
   public isOpened: boolean = false;
 
+  @observable
+  public document: IDocument | null = null;
+
   private readonly api: IDocumentApi;
 
-  private formData: z.infer<typeof this.uploadFormSchema> | null = null;
+  private formData: z.infer<typeof this.editFormSchema> | null = null;
 
   private readonly documentsTableVM: IDocumentsTableVM;
 
@@ -38,15 +42,12 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     makeObservable(this);
   }
 
-  public readonly uploadFormSchema: z.ZodObject<any> = z
+  public readonly editFormSchema: z.ZodObject<any> = z
     .object({
       documentName: z
         .string({ required_error: 'Название должно быть заполнено' })
         .min(6, 'Название должно содержать не менее 6 символов')
-        .max(100, 'Название должно содержать менее 100 символов'),
-      url: z
-        .string({ required_error: "Ссылка должна быть заполнена" })
-        .url('Ссылку необходимо указать в формате URL')
+        .max(100, 'Название не должно быть более 100 символов'),
     });
 
   @action
@@ -60,26 +61,22 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
   }
 
   @action
-  public upload = (formData: z.infer<typeof this.uploadFormSchema>): void => {
+  public editDocument = (formData: z.infer<typeof this.editFormSchema>): void => {
     this.formData = formData;
-    this.sengUploadRequest();
+    this.sendEditedDocumentRequest();
   }
 
   @action.bound
-  public sengUploadRequest = flow(function *(this: UploadDocumentModalVM) {
-    if (this.formData === null)
+  public sendEditedDocumentRequest = flow(function *(this: EditDocumentModalVM) {
+    if (this.formData === null || this.document === null)
       return;
 
-    const payload: INewDocument = {
-      name: this.formData.documentName,
-      downloadUrl: this.formData.url,
-      description: ''
-    }
+    this.document.name = this.formData.documentName
 
     try {
       this.formData = null;
       this.setIsLoading(true);
-      yield this.api.create(payload);
+      yield this.api.edit(this.document);
       this.documentsTableVM.loadDocuments();
     } finally {
       this.setIsLoading(false);
@@ -88,4 +85,4 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
   });
 }
 
-export default UploadDocumentModalVM;
+export default EditDocumentModalVM;
