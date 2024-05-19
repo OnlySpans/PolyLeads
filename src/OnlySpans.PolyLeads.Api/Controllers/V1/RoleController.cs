@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlySpans.PolyLeads.Api.Controllers.Abstractions;
 using OnlySpans.PolyLeads.Api.Features.RoleManagement.GetUserInfo;
 using OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
+using OnlySpans.PolyLeads.Api.Utils;
 using OnlySpans.PolyLeads.Dto.Roles;
 
 namespace OnlySpans.PolyLeads.Api.Controllers.V1;
@@ -13,7 +14,7 @@ namespace OnlySpans.PolyLeads.Api.Controllers.V1;
 public sealed class RoleController(IMediator mediator, IMapper mapper) :
     ApplicationController(mediator, mapper)
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ApplicationRoleName.Admin)]
     [HttpPost("grant")]
     public async Task<IActionResult> GrantRoleToUser(
         [FromBody] GrantRoleInput input,

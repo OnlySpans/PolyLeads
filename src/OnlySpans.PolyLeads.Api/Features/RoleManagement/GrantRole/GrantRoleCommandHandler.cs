@@ -1,6 +1,7 @@
 ﻿using Hangfire.Annotations;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
 
@@ -36,7 +37,8 @@ public sealed class GrantRoleCommandHandler :
         if (await UserManager.IsInRoleAsync(user, request.RoleName))
             return;
 
-        RoleManagementException.ThrowIfNotExist(request.RoleName);
+        if (!ApplicationRoleName.All.Contains(request.RoleName))
+            throw new RoleManagementException($"Роли с названием {request.RoleName} не существует");
 
         var userRoles = await UserManager.GetRolesAsync(user);
 
