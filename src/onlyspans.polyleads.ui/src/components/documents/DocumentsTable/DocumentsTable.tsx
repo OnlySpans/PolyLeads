@@ -29,8 +29,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
-import DataTableViewOptions from './DataTableViewOptions/DataTableViewOptions';
-import UploadDocumentModal from '@/components/DocumentsManager/documents/upload-modal/UploadDocumentModal';
+import DataTableViewOptions from '@/components/documents/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
+import UploadDocumentModal from '@/components/documents/upload-modal/UploadDocumentModal';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {

@@ -11,13 +11,13 @@ import SignUpFormVM, {
 } from '@/components/auth/sign-up/SignUpForm.vm';
 import DocumentsTableVM, {
   IDocumentsTableVM,
-} from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+} from '@/components/documents/DocumentsTable/DocumentsTableVM';
 import EditDocumentModalVM, {
   IEditDocumentModalVM,
-} from '@/components/DocumentsManager/documents/DocumentEditingModal/EditDocumentModal.vm';
+} from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
 import UploadDocumentModalVM, {
   IUploadDocumentModalVM,
-} from '@/components/DocumentsManager/documents/upload-modal/UploadDocumentModal.vm';
+} from '@/components/documents/upload-modal/UploadDocumentModal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 
 export const createDependencyContainer = (): Container => {
@@ -25,12 +25,21 @@ export const createDependencyContainer = (): Container => {
 
   container.bind<ISignInFormVM>(ServiceSymbols.ISignInFormVM).to(SignInFormVM);
   container.bind<ISignUpFormVM>(ServiceSymbols.ISignUpFormVM).to(SignUpFormVM);
-  container.bind<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM).to(DocumentsTableVM).inSingletonScope();
-  container.bind<AxiosInstance>(ServiceSymbols.AxiosInstance).toFactory(() => axios.create({}));
+  container
+    .bind<IDocumentsTableVM>(ServiceSymbols.IDocumentsTableVM)
+    .to(DocumentsTableVM)
+    .inSingletonScope();
+  container
+    .bind<AxiosInstance>(ServiceSymbols.AxiosInstance)
+    .toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
-  container.bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM).to(UploadDocumentModalVM);
-  container.bind<IEditDocumentModalVM>(ServiceSymbols.IDocumentEditingModalVM).to(EditDocumentModalVM);
+  container
+    .bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM)
+    .to(UploadDocumentModalVM);
+  container
+    .bind<IEditDocumentModalVM>(ServiceSymbols.IDocumentEditingModalVM)
+    .to(EditDocumentModalVM);
 
   return container;
 };

@@ -24,7 +24,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IEditDocumentModalVM } from '@/components/DocumentsManager/documents/DocumentEditingModal/EditDocumentModal.vm';
+import { IEditDocumentModalVM } from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
 import { IDocument } from '@/data/abstractions/IDocument';
 
 interface IEditDocumentModal {
