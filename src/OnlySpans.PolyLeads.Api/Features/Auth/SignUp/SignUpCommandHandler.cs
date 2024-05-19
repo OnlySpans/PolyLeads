@@ -53,6 +53,15 @@ public sealed class SignUpCommandHandler :
                    .Errors
                    .Select(x => x.Description)));
 
+        result = await UserManager
+            .AddToRoleAsync(user, "Student");
+
+        if (!result.Succeeded)
+            throw new RoleManagementException(string.Join("; ",
+                result
+                    .Errors
+                    .Select(x => x.Description)));
+
         var command = new SignInCommand
         {
             UserName = request.UserName,
