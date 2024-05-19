@@ -69,10 +69,10 @@ class SignUpFormVM implements ISignUpFormVM {
       yield this.authApi.signUp(payload);
       toast({
         title: "Регистрация успешно завершена!",
-        description: "Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете войти и начать пользоваться " +
+        description: "Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете пользоваться " +
             "всеми возможностями нашего сервиса. Добро пожаловать!",
       })
-      this.router.push('/sign-in');
+      this.router.push('/');
     } catch (e) {
       toast({
         variant: "destructive",
