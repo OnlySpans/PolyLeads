@@ -73,11 +73,21 @@ class SignUpFormVM implements ISignUpFormVM {
             "всеми возможностями нашего сервиса. Добро пожаловать!",
       })
       this.router.push('/');
-    } catch (e) {
+    } catch (e: any) {
+      var username = null;
+      
+      if (e && e.response && e.response.data){
+        const regex = /Username '([^']*)' is already taken\./;
+        username = e.response.data.match(regex)[1];
+      }
+      
       toast({
         variant: "destructive",
         title: "Ошибка при регистрации",
-        description: "Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не устранена, повторите попытку немного позже.",
+        description: `${ username 
+            ? `Имя пользователя ${username} уже занято.`
+            : 'Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не устранена, повторите попытку немного позже.'
+        }`
       })
     } finally {
       this.setIsLoading(false);
