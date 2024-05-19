@@ -71,7 +71,13 @@ class SignInFormVM implements ISignInFormVM {
         description: "Добро пожаловать! Вы успешно вошли в свою учетную запись.",
       })
       this.router.push('/');
-    } finally {
+    } catch (e) {
+      toast({
+        variant: "destructive",
+        title: "Ошибка входа",
+        description: "Неверное имя пользователя или пароль. Пожалуйста, проверьте свои учетные данные и попробуйте снова.",
+      })
+    }finally {
       this.setIsLoading(false);
     }
   });

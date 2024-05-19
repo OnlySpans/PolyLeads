@@ -5,6 +5,7 @@ import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignUpPayload } from '@/data/abstractions/ISignUpPayload';
 import { useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
 
 export interface ISignUpFormVM {
   isLoading: boolean;
@@ -66,7 +67,18 @@ class SignUpFormVM implements ISignUpFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signUp(payload);
+      toast({
+        title: "Регистрация успешно завершена!",
+        description: "Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете войти и начать пользоваться " +
+            "всеми возможностями нашего сервиса. Добро пожаловать!",
+      })
       this.router.push('/sign-in');
+    } catch (e) {
+      toast({
+        variant: "destructive",
+        title: "Ошибка при регистрации",
+        description: "Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не устранена, повторите попытку немного позже.",
+      })
     } finally {
       this.setIsLoading(false);
     }
