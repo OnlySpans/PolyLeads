@@ -1,6 +1,7 @@
 ﻿using Hangfire.Annotations;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GrantRole;
 
@@ -32,12 +33,20 @@ public sealed class GrantRoleCommandHandler :
         ResourceNotFoundException.ThrowIfNull(
             user, 
             $"Пользователь с именем {request.UserName} не найден");
-        
-        await UserManager.AddToRoleAsync(user, request.RoleName);
-        
+
+        if (await UserManager.IsInRoleAsync(user, request.RoleName))
+            return;
+
+        if (!ApplicationRoleName.All.Contains(request.RoleName))
+            throw new RoleManagementException($"Роли с названием {request.RoleName} не существует");
+
         var userRoles = await UserManager.GetRolesAsync(user);
-        
-        if (!userRoles.Contains(request.RoleName))
+
+        await UserManager.RemoveFromRolesAsync(user, userRoles);
+
+        var result = await UserManager.AddToRoleAsync(user, request.RoleName);
+
+        if (!result.Succeeded)
             throw new RoleManagementException(
                 $"Не получилось присвоить пользователю с именем {request.UserName} роль {request.RoleName}");
     }

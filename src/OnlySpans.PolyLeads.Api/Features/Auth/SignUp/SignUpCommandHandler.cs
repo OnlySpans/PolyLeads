@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Features.Auth.SignIn;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.Auth.SignUp;
 
@@ -52,6 +53,15 @@ public sealed class SignUpCommandHandler :
                 result
                    .Errors
                    .Select(x => x.Description)));
+
+        result = await UserManager
+            .AddToRoleAsync(user, ApplicationRoleName.Student);
+
+        if (!result.Succeeded)
+            throw new RoleManagementException(string.Join("; ",
+                result
+                    .Errors
+                    .Select(x => x.Description)));
 
         var command = new SignInCommand
         {
