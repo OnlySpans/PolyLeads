@@ -6,6 +6,7 @@ import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
 import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
 import type { IRoleApi } from '@/services/api/role/roleApi';
+import { toast } from '@/components/ui/use-toast';
 
 export interface IUploadDocumentModalVM {
   isLoading: boolean;
@@ -91,6 +92,16 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
       this.setIsLoading(true);
       yield this.documentApi.create(payload);
       this.documentsTableVM.loadDocuments();
+      toast({
+        title: "Файл добавлен",
+        description: "Распознавание файла может занять некоторое время. Пожалуйста, подождите, пока процесс завершится.",
+      })
+    } catch (e) {
+      toast({
+        variant: "destructive",
+        title: "Ошибка добавления файла",
+        description: "Пожалуйста, убедитесь, что документ находится на поддерживаемых ресурсах.",
+      })
     } finally {
       this.setIsLoading(false);
       this.setIsOpened(false);
