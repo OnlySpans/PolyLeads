@@ -17,6 +17,15 @@ export default class Endpoints {
     public static readonly signUp = (): string =>
       `${Endpoints.Auth.base()}/signup`;
   }
+  
+  public static readonly Role = class {
+    public static readonly base = (): string =>
+        `${Endpoints.suffix}/${Endpoints.v1}/role`;
+
+    // @method get
+    public static readonly getUserRole = (): string =>
+        `${Endpoints.Role.base()}/current-user`;
+  }
 
   public static readonly Document = class {
     public static readonly base = (): string =>

@@ -5,6 +5,7 @@ import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignUpPayload } from '@/data/abstractions/ISignUpPayload';
 import { useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
 
 export interface ISignUpFormVM {
   isLoading: boolean;
@@ -66,7 +67,30 @@ class SignUpFormVM implements ISignUpFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signUp(payload);
-      this.router.push('/sign-in');
+      toast({
+        title: 'Регистрация успешно завершена!',
+        description:
+          'Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете пользоваться ' +
+          'всеми возможностями нашего сервиса. Добро пожаловать!',
+      });
+      this.router.push('/');
+    } catch (e: any) {
+      //TODO: получение ошибки "профиль занят" от бека
+      let username = null;
+
+      if (e && e.response && e.response.data){
+        const regex = /Username '([^']*)' is already taken\./;
+        username = e.response.data.match(regex)[1];
+      }
+      
+      toast({
+        variant: "destructive",
+        title: "Ошибка при регистрации",
+        description: `${ username 
+            ? `Имя пользователя ${username} уже занято.`
+            : 'Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не исчезнет, повторите попытку немного позже.'
+        }`
+      })
     } finally {
       this.setIsLoading(false);
     }

@@ -5,6 +5,7 @@ import type { IAuthApi } from '@/services/api/auth/authApi';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { ISignInPayload } from '@/data/abstractions/ISignInPayload';
 import { useRouter } from 'next/navigation';
+import {toast} from '@/components/ui/use-toast';
 
 export interface ISignInFormVM {
   isLoading: boolean;
@@ -65,8 +66,18 @@ class SignInFormVM implements ISignInFormVM {
       this.formData = null;
       this.setIsLoading(true);
       yield this.authApi.signIn(payload);
+      toast({
+        title: "Вход выполнен",
+        description: "Добро пожаловать! Вы успешно вошли в свою учетную запись.",
+      })
       this.router.push('/');
-    } finally {
+    } catch (e) {
+      toast({
+        variant: "destructive",
+        title: "Ошибка входа",
+        description: "Неверное имя пользователя или пароль. Пожалуйста, проверьте свои учетные данные и попробуйте снова.",
+      })
+    }finally {
       this.setIsLoading(false);
     }
   });

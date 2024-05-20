@@ -19,6 +19,8 @@ import UploadDocumentModalVM, {
   IUploadDocumentModalVM,
 } from '@/components/documents/upload-modal/UploadDocumentModal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
+import { IUserRoleApi, UserRoleApi } from '@/services/api/role/userRoleApi';
+import HeaderVM, { IHeaderVM } from '@/components/Header/Header.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -34,9 +36,11 @@ export const createDependencyContainer = (): Container => {
     .toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
+  container.bind<IUserRoleApi>(ServiceSymbols.IRoleApi).to(UserRoleApi);
   container
     .bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM)
     .to(UploadDocumentModalVM);
+  container.bind<IHeaderVM>(ServiceSymbols.IHeaderVM).to(HeaderVM);
   container
     .bind<IEditDocumentModalVM>(ServiceSymbols.IDocumentEditingModalVM)
     .to(EditDocumentModalVM);

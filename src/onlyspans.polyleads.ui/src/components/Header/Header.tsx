@@ -1,15 +1,22 @@
-'use client'
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
+import useGet from '@/hooks/useGet';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import { IHeaderVM } from './Header.vm';
 import { useRouter } from 'next/navigation';
 
 interface IHeaderProps {}
 
 const Header: React.FC<IHeaderProps> = () => {
+  const vm = useGet<IHeaderVM>(
+      ServiceSymbols.IHeaderVM,
+  );
+
   const router = useRouter();
 
   return (
@@ -40,12 +47,15 @@ const Header: React.FC<IHeaderProps> = () => {
         <div className='flex flex-1 items-center space-x-2 justify-end'>
           <button
             onClick={() => router.push('/sign-in')}
-            className={cn(
-              buttonVariants({
-                variant: 'default',
-                size: 'sm',
-              }),
-            )}
+            className={
+              `${cn(
+                buttonVariants({
+                  variant: 'default',
+                  size: 'sm',
+                })
+              )} 
+              ${vm.isSignInButtonEnabled ? 'hidden' : ''}
+            `}
           >
             Войти
           </button>
