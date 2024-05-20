@@ -45,7 +45,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     this.userRoleApi = userRoleApi;
     this.documentsTableVM = documentsTableVM;
 
-    this.getUserRole();
+    this.enableUploadingForLeadingRoles();
     makeObservable(this);
   }
 
@@ -108,7 +108,7 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
   });
 
   @action.bound
-  public getUserRole = flow(function* (this: UploadDocumentModalVM) {
+  public enableUploadingForLeadingRoles = flow(function* (this: UploadDocumentModalVM) {
     try {
       const response = yield this.userRoleApi.getUserRole();
       const role = response.role;

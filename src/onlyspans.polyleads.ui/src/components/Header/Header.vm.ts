@@ -17,12 +17,12 @@ class HeaderVM implements IHeaderVM {
   constructor(@inject(ServiceSymbols.IRoleApi) userRoleApi: IUserRoleApi) {
     this.userRoleApi = userRoleApi;
 
-    this.isUserAuthorised();
+    this.disableSignInButtonIfAuthorized();
     makeObservable(this);
   }
 
   @action.bound
-  public isUserAuthorised = flow(function* (this: HeaderVM) {
+  public disableSignInButtonIfAuthorized = flow(function* (this: HeaderVM) {
     try {
       const response = yield this.userRoleApi.getUserRole();
 
