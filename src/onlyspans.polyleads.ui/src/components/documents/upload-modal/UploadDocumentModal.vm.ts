@@ -4,7 +4,7 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
-import type { IDocumentsTableVM } from '@/components/DocumentsManager/DocumentsTable/DocumentsTableVM';
+import type { IDocumentsTableVM } from '@/components/documents/DocumentsTable/DocumentsTableVM';
 import type { IRoleApi } from '@/services/api/role/roleApi';
 import { toast } from '@/components/ui/use-toast';
 
@@ -27,9 +27,9 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
 
   @observable
   public isEnabled: boolean = false;
-  
+
   private readonly documentApi: IDocumentApi;
-  
+
   private readonly roleApi: IRoleApi;
 
   private formData: z.infer<typeof this.uploadFormSchema> | null = null;
@@ -113,10 +113,10 @@ class UploadDocumentModalVM implements IUploadDocumentModalVM {
     try {
       const response = yield this.roleApi.getRole()
       const role = response.role;
-      
+
       if (
-          role === 'Admin' 
-          || role === 'StudentUnionOrganizer' 
+          role === 'Admin'
+          || role === 'StudentUnionOrganizer'
           || role === 'Headman'
       ){
         this.isEnabled = true;

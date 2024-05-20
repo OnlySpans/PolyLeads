@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using OnlySpans.PolyLeads.Api.Data.Options;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
 
@@ -13,13 +14,9 @@ public static partial class Startup
 
         var roleManager = provider.GetRequiredService<RoleManager<Entities.ApplicationUserRole>>();
 
-        var roles = new List<Entities.ApplicationUserRole>
-        {
-            new() { Name = "Admin" },
-            new() { Name = "StudentUnionOrganizer" },
-            new() { Name = "Headman" },
-            new() { Name = "Student" }
-        };
+        var roles = ApplicationRoleName
+            .All
+            .Select(x => new Entities.ApplicationUserRole { Name = x });
 
         foreach (var role in roles)
         {

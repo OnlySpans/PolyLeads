@@ -1,5 +1,5 @@
-import {inject, injectable } from 'inversify';
-import {action, computed, flow, makeObservable, observable } from 'mobx';
+import { inject, injectable } from 'inversify';
+import { action, computed, flow, makeObservable, observable } from 'mobx';
 import { IDocument } from '@/data/abstractions/IDocument';
 import { ColumnDef } from '@tanstack/react-table';
 import React, { ReactElement } from 'react';
@@ -18,6 +18,7 @@ import {
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
+import DocumentEditingModal from '@/components/documents/DocumentEditingModal/EditDocumentModal';
 
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
@@ -220,12 +221,17 @@ class DocumentsTableVM implements IDocumentsTableVM {
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end'>
                 <DropdownMenuItem
+                    onClick={() => window.open(document.downloadUrl, '_blank', 'noopener,noreferrer')}
+                >
+                  Открыть документ
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(document.name)}
                 >
-                  Копировать название документа
+                  Копировать название
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Еще какие нибудь приколы</DropdownMenuItem>
+                <DocumentEditingModal document={document}/>
               </DropdownMenuContent>
             </DropdownMenu>
           );
