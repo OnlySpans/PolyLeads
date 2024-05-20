@@ -72,10 +72,10 @@ const DocumentsTable: React.FC = () => {
       <div className='flex items-center justify-between'>
         <div className='flex flex-1 items-center space-x-2'>
           <Input
-            placeholder='Искать по названию'
-            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+            placeholder='Поиск по документам'
+            value={vm.searchQuery}
             onChange={(event) =>
-              table.getColumn('name')?.setFilterValue(event.target.value)
+              vm.search(event.target.value)
             }
             className='h-8 w-[200px] lg:w-[250px]'
           />
