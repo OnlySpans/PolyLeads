@@ -1,15 +1,15 @@
 ﻿import ApiClientBase from '@/services/api/api.base';
 import Endpoints from '@/services/api/endpoints';
 
-export interface IRoleApi {
-    getRole(): Promise<string>;
+export interface IUserRoleApi {
+  getUserRole(): Promise<string>;
 }
 
-export class RoleApi
+export class UserRoleApi
     extends ApiClientBase
-    implements IRoleApi {
-    public readonly getRole = async (): Promise<string> => {
-        const url = Endpoints.Role.getRole();
+    implements IUserRoleApi {
+    public readonly getUserRole = async (): Promise<string> => {
+        const url = Endpoints.Role.getUserRole();
         const response = await this.asyncRunner(() => this.api.get(url));
         return response.data;
     };

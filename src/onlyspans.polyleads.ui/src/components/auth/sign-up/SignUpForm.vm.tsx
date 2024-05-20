@@ -68,14 +68,15 @@ class SignUpFormVM implements ISignUpFormVM {
       this.setIsLoading(true);
       yield this.authApi.signUp(payload);
       toast({
-        title: "Регистрация успешно завершена!",
-        description: "Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете пользоваться " +
-            "всеми возможностями нашего сервиса. Добро пожаловать!",
-      })
+        title: 'Регистрация успешно завершена!',
+        description:
+          'Поздравляем! Ваша учетная запись успешно создана. Теперь вы можете пользоваться ' +
+          'всеми возможностями нашего сервиса. Добро пожаловать!',
+      });
       this.router.push('/');
     } catch (e: any) {
-      var username = null;
-      
+      let username = null;
+
       if (e && e.response && e.response.data){
         const regex = /Username '([^']*)' is already taken\./;
         username = e.response.data.match(regex)[1];
@@ -86,7 +87,7 @@ class SignUpFormVM implements ISignUpFormVM {
         title: "Ошибка при регистрации",
         description: `${ username 
             ? `Имя пользователя ${username} уже занято.`
-            : 'Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не устранена, повторите попытку немного позже.'
+            : 'Пожалуйста, проверьте введенные данные и попробуйте снова. Если проблема не исчезнет, повторите попытку немного позже.'
         }`
       })
     } finally {

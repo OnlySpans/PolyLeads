@@ -23,7 +23,7 @@ export default class Endpoints {
         `${Endpoints.suffix}/${Endpoints.v1}/role`;
 
     // @method get
-    public static readonly getRole = (): string =>
+    public static readonly getUserRole = (): string =>
         `${Endpoints.Role.base()}/current-user`;
   }
 
