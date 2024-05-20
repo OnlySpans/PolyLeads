@@ -75,6 +75,7 @@ class SignUpFormVM implements ISignUpFormVM {
       });
       this.router.push('/');
     } catch (e: any) {
+      //TODO: получение ошибки "профиль занят" от бека
       let username = null;
 
       if (e && e.response && e.response.data){
