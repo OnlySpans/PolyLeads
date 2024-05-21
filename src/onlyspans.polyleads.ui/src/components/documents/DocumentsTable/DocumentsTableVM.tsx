@@ -23,6 +23,8 @@ import DocumentEditingModal from '@/components/documents/DocumentEditingModal/Ed
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
   documents: IDocument[];
+  searchQuery: string;
+  search: (text: string) => void;
   get columns(): ColumnDef<IDocument>[];
 }
 
@@ -33,6 +35,9 @@ class DocumentsTableVM implements IDocumentsTableVM {
 
   @observable
   public isLoading: boolean = false;
+
+  @observable
+  public searchQuery: string = '';
 
   private readonly api: IDocumentApi;
   
@@ -46,12 +51,18 @@ class DocumentsTableVM implements IDocumentsTableVM {
   public setIsLoading = (isLoading: boolean) => {
     this.isLoading = isLoading;
   };
+
+  @action
+  public search = (text: string) => {
+    this.searchQuery = text;
+    this.loadDocuments();
+  };
   
   @action.bound
   public loadDocuments = flow(function *(this: DocumentsTableVM) {
     try {
       this.setIsLoading(true);
-      this.documents = yield this.api.query("");
+      this.documents = yield this.api.query(this.searchQuery);
     } catch {
       this.documents = [];
     } finally {
