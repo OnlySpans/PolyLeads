@@ -17,4 +17,12 @@ public static class EntityExtensions
            .Include(x => x.UpdatedBy)
            .Include(x => x.DeletedBy);
     }
+
+    public static IQueryable<TEntity> WhereIsNotDeleted<TEntity>(this IQueryable<TEntity> query)
+        where TEntity : class,
+            ISoftDeletable
+    {
+        return query
+           .Where(x => x.DeletedAt == null);
+    }
 }

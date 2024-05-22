@@ -25,6 +25,7 @@ public sealed class GetDetailedDocumentQueryHandler
     {
         var document = await Context
             .Documents
+            .WhereIsNotDeleted()
             .IncludeAuditProperties()
             .FirstOrDefaultAsync(
                 x => x.Id == request.DocumentId,

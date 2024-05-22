@@ -49,6 +49,7 @@ public sealed class EditDocumentCommandHandler
 
         var @ref = await Context
             .Documents
+            .WhereIsNotDeleted()
             .FirstOrDefaultAsync(
                 x => x.Id == documentId,
                 cancellationToken);

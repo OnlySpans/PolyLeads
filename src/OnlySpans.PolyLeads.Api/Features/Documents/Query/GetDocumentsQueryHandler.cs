@@ -22,6 +22,7 @@ public sealed class GetDocumentsQueryHandler
     {
         var query = Context
            .Documents
+           .WhereIsNotDeleted()
            .IncludeAuditProperties();
 
         return Task.FromResult(query);
