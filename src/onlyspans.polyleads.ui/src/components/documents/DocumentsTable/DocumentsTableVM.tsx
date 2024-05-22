@@ -12,13 +12,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import DocumentEditingModal from '@/components/documents/DocumentEditingModal/EditDocumentModal';
-import type {IUserRoleApi} from "@/services/api/role/userRoleApi";
 
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
@@ -39,22 +39,11 @@ class DocumentsTableVM implements IDocumentsTableVM {
   @observable
   public searchQuery: string = '';
 
-  private readonly documentApi: IDocumentApi;
-
-  private readonly userRoleApi: IUserRoleApi;
-
-  @observable
-  public isEditingDocumentEnable: boolean = false;
+  private readonly api: IDocumentApi;
   
-  constructor(
-      @inject(ServiceSymbols.IDocumentApi) documentApi: IDocumentApi,
-      @inject(ServiceSymbols.IRoleApi) userRoleApi: IUserRoleApi,
-  ) {
-    this.documentApi = documentApi;
-    this.userRoleApi = userRoleApi;
-    
+  constructor(@inject(ServiceSymbols.IDocumentApi) api: IDocumentApi) {
+    this.api = api;
     this.loadDocuments();
-    this.enableEditingForLeadingRoles();
     makeObservable(this);
   }
   
@@ -73,7 +62,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
   public loadDocuments = flow(function *(this: DocumentsTableVM) {
     try {
       this.setIsLoading(true);
-      this.documents = yield this.documentApi.query(this.searchQuery);
+      this.documents = yield this.api.query(this.searchQuery);
     } catch {
       this.documents = [];
     } finally {
@@ -95,23 +84,6 @@ class DocumentsTableVM implements IDocumentsTableVM {
         return <Badge variant='unknown'>Неизвестен</Badge>;
     }
   };
-
-  @action.bound
-  public enableEditingForLeadingRoles = flow(function* (this: DocumentsTableVM) {
-    try {
-      const response = yield this.userRoleApi.getUserRole();
-      const role = response.role;
-      if (
-          role === 'Admin'
-          || role === 'StudentUnionOrganizer'
-          || role === 'Headman'
-      ) {
-        this.isEditingDocumentEnable = true;
-      }
-    } catch (e) {
-      this.isEditingDocumentEnable = false;
-    }
-  });
 
   @computed
   get columns(): ColumnDef<IDocument>[] {
@@ -268,9 +240,8 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 >
                   Копировать название
                 </DropdownMenuItem>
-                <div className={`${this.isEditingDocumentEnable ? '' : 'hidden'}`}>
-                  <DocumentEditingModal document={document}/> 
-                </div>
+                <DropdownMenuSeparator />
+                <DocumentEditingModal document={document}/>
               </DropdownMenuContent>
             </DropdownMenu>
           );
