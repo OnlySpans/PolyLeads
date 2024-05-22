@@ -36,7 +36,7 @@ export const createDependencyContainer = (): Container => {
     .toFactory(() => axios.create({}));
   container.bind<IAuthApi>(ServiceSymbols.AuthApi).to(AuthApi);
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
-  container.bind<IUserRoleApi>(ServiceSymbols.IRoleApi).to(UserRoleApi).inSingletonScope();
+  container.bind<IUserRoleApi>(ServiceSymbols.IRoleApi).to(UserRoleApi);
   container
     .bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM)
     .to(UploadDocumentModalVM);
