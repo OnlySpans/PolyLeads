@@ -1,5 +1,6 @@
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 
 using OnlySpans.PolyLeads.Api.Abstractions.Recognition;
@@ -67,21 +68,30 @@ public sealed class RecognitionWorker
 
     public async Task RecognizeDocumentsAsync(CancellationToken cancellationToken)
     {
-        await using var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
+        IDbContextTransaction? transaction = null;
 
         try
         {
-            await RecognizeDocumentsAsyncInternal(cancellationToken);
+            transaction = await RecognizeDocumentsAsyncInternal(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
-            await transaction.RollbackAsync(cancellationToken);
+
+            if (transaction is not null)
+                await transaction.RollbackAsync(cancellationToken);
         }
+        finally
+        {
+            if (transaction is not null)
+                await transaction.DisposeAsync();
+        }
+
     }
 
-    private async Task RecognizeDocumentsAsyncInternal(CancellationToken cancellationToken)
+    private async Task<IDbContextTransaction> RecognizeDocumentsAsyncInternal(
+        CancellationToken cancellationToken)
     {
         var queuedDocuments = await Context
            .Documents
@@ -94,6 +104,8 @@ public sealed class RecognitionWorker
             document.RecognitionStatus = RecognitionStatus.Processing;
 
         await Context.SaveChangesAsync(cancellationToken);
+
+        var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
 
         foreach (var document in queuedDocuments)
         {
@@ -135,6 +147,8 @@ public sealed class RecognitionWorker
                 await Context.SaveChangesAsync(cancellationToken);
             }
         }
+
+        return transaction;
     }
 
     private static string PreprocessText(RecognitionResult recognizedContent)
