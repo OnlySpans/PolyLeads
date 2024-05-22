@@ -54,7 +54,7 @@ const Header: React.FC<IHeaderProps> = () => {
                   size: 'sm',
                 })
               )} 
-              ${vm.isSignInButtonEnabled ? 'hidden' : ''}
+              ${vm.isSignInButtonEnabled ? '' : 'hidden'}
             `}
           >
             Войти
