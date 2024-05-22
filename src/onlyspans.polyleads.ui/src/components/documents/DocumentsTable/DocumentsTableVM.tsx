@@ -181,10 +181,9 @@ class DocumentsTableVM implements IDocumentsTableVM {
         },
 
         cell: ({ row }) => (
-          // moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
           <>
             <Badge variant='secondary' className='mr-2'>
-              {moment(row.getValue('createdAt')).format('hh:mm')}
+              {moment(row.getValue('createdAt')).format('HH:mm')}
             </Badge>
             <Badge variant='secondary'>
               {moment(row.getValue('createdAt')).format('DD.MM.YYYY')}
