@@ -133,7 +133,6 @@ public sealed class RecognitionWorker
                 Logger.LogError(ex, "Возникла ошибка при распознавании документа с id {Id}", document.Id);
                 document.RecognitionStatus = RecognitionStatus.Error;
                 await Context.SaveChangesAsync(cancellationToken);
-                throw;
             }
         }
     }
