@@ -25,10 +25,7 @@ class HeaderVM implements IHeaderVM {
   public disableSignInButtonIfAuthorized = flow(function* (this: HeaderVM) {
     try {
       const response = yield this.userRoleApi.getUserRole();
-
-      if (response.role !== null) {
-        this.isSignInButtonEnabled = false;
-      }
+      this.isSignInButtonEnabled = false;
     } catch (e) {
       this.isSignInButtonEnabled = true;
     }
