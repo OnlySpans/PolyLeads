@@ -45,7 +45,7 @@ const EditDocumentModal: React.FC<IEditDocumentModal> = ({document}) => {
   return (
     <Dialog open={vm.isOpened} onOpenChange={vm.setIsOpened}>
       <DialogTrigger asChild>
-        <Button variant='ghost' className='h-8 px-2 py-1.5 rounded-sm'>
+        <Button variant='invisible' size='invisible'>
           Редактировать
         </Button>
       </DialogTrigger>
