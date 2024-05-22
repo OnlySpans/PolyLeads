@@ -167,7 +167,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
       {
         accessorKey: 'fileRecognitionStatus',
         meta: {
-          name: 'Статус распознования',
+          name: 'Статус распознавания',
         },
         header: ({ column }) => {
           return (
@@ -178,7 +178,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
             >
-              Статус распознования
+              Статус распознавания
               <ChevronsUpDown className='ml-2 h-4 w-4' />
             </Button>
           );
