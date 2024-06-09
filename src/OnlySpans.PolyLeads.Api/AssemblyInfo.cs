@@ -1,0 +1,1 @@
+﻿[assembly: MediatorOptions(ServiceLifetime = ServiceLifetime.Scoped)]

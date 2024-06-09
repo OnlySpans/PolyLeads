@@ -21,7 +21,7 @@ public sealed class GetDetailedDocumentQueryHandler
         _context = context;
     }
 
-    public async Task<Entities.Document> Handle(
+    public async ValueTask<Entities.Document> Handle(
         GetDetailedDocumentQuery request,
         CancellationToken cancellationToken)
     {

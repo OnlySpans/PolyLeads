@@ -18,7 +18,7 @@ public sealed class FindPermittedSourceQueryHandler :
         _context = context;
     }
 
-    public async Task<Entities.PermittedSource?> Handle(
+    public async ValueTask<Entities.PermittedSource?> Handle(
         FindPermittedSourceQuery request,
         CancellationToken cancellationToken)
     {

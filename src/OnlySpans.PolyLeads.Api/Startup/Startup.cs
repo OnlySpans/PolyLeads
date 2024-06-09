@@ -12,7 +12,7 @@ public static partial class Startup
            .AddHttpClient()
            .AddScheduler()
            .AddWorkers()
-           .AddMediatR()
+           .AddMediator()
            .AddMarten()
            .AddLogging()
            .AddMapper()

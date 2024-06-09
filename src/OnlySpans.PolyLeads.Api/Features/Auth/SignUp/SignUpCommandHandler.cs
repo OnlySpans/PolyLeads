@@ -37,7 +37,7 @@ public sealed class SignUpCommandHandler :
         _userManager = userManager;
     }
 
-    public async Task Handle(
+    public async ValueTask<Unit> Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
@@ -72,5 +72,7 @@ public sealed class SignUpCommandHandler :
            .Send(
                 command,
                 cancellationToken);
+        
+        return Unit.Value;
     }
 }

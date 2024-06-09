@@ -38,7 +38,7 @@ public sealed class EditDocumentCommandHandler
         _context = context;
     }
 
-    public async Task<Entities.Document> Handle(
+    public async ValueTask<Entities.Document> Handle(
         EditDocumentCommand request,
         CancellationToken cancellationToken)
     {
