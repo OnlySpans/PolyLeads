@@ -18,7 +18,7 @@ public sealed class GetDocumentsQueryHandler
         _context = context;
     }
 
-    public Task<IQueryable<Entities.Document>> Handle(
+    public ValueTask<IQueryable<Entities.Document>> Handle(
         GetDocumentsQuery request,
         CancellationToken cancellationToken)
     {
@@ -27,6 +27,6 @@ public sealed class GetDocumentsQueryHandler
            .WhereIsNotDeleted()
            .IncludeAuditProperties();
 
-        return Task.FromResult(query);
+        return ValueTask.FromResult(query);
     }
 }

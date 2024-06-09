@@ -24,7 +24,7 @@ public sealed class GrantRoleCommandHandler :
         _userManager = userManager;
     }
 
-    public async Task Handle(
+    public async ValueTask<Unit> Handle(
         GrantRoleCommand request,
         CancellationToken cancellationToken)
     {
@@ -35,7 +35,7 @@ public sealed class GrantRoleCommandHandler :
             $"Пользователь с именем {request.UserName} не найден");
 
         if (await _userManager.IsInRoleAsync(user, request.RoleName))
-            return;
+            return Unit.Value;
 
         if (!ApplicationRoleName.All.Contains(request.RoleName))
             throw new RoleManagementException($"Роли с названием {request.RoleName} не существует");
@@ -49,5 +49,7 @@ public sealed class GrantRoleCommandHandler :
         if (!result.Succeeded)
             throw new RoleManagementException(
                 $"Не получилось присвоить пользователю с именем {request.UserName} роль {request.RoleName}");
+
+        return Unit.Value;
     }
 }

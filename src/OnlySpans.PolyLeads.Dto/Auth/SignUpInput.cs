@@ -1,6 +1,6 @@
 ﻿namespace OnlySpans.PolyLeads.Dto.Auth;
 
-public sealed record SignUpInput    
+public sealed record SignUpInput
 {
     public required string FirstName { get; init; }
 

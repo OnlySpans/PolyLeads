@@ -23,7 +23,7 @@ public sealed class SignInCommandHandler :
         _signInManager = signInManager;
     }
 
-    public async Task Handle(
+    public async ValueTask<Unit> Handle(
         SignInCommand request,
         CancellationToken cancellationToken)
     {
@@ -38,5 +38,7 @@ public sealed class SignInCommandHandler :
 
         if (!result.Succeeded)
             throw new AuthenticationException("Неправильный логин или пароль");
+
+        return Unit.Value;
     }
 }

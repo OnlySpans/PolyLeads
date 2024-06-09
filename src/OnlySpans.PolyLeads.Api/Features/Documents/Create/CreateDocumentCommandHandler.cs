@@ -7,7 +7,6 @@ using OnlySpans.PolyLeads.Api.Data.Enums;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Extensions;
 using OnlySpans.PolyLeads.Api.Features.Documents.FindSource;
-using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
 
@@ -42,7 +41,7 @@ public sealed class CreateDocumentCommandHandler :
         _sender = sender;
     }
 
-    public async Task<Document> Handle(
+    public async ValueTask<Document> Handle(
         CreateDocumentCommand request,
         CancellationToken cancellationToken)
     {

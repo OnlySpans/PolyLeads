@@ -23,7 +23,7 @@ public sealed class SearchDocumentsQueryHandler :
         _context = context;
     }
 
-    public async Task<IQueryable<Entities.Document>> Handle(
+    public async ValueTask<IQueryable<Entities.Document>> Handle(
         SearchDocumentsQuery request,
         CancellationToken cancellationToken)
     {

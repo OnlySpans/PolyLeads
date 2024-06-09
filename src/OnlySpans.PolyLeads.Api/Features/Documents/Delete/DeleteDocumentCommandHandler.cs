@@ -26,7 +26,7 @@ public sealed class DeleteDocumentCommandHandler :
         _timeProvider = timeProvider;
     }
 
-    public async Task Handle(
+    public async ValueTask<Unit> Handle(
         DeleteDocumentCommand request,
         CancellationToken cancellationToken)
     {
@@ -46,5 +46,7 @@ public sealed class DeleteDocumentCommandHandler :
 
         await _context
             .SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
     }
 }

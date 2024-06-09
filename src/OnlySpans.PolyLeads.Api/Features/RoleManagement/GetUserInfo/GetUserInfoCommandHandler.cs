@@ -20,7 +20,7 @@ public sealed class GetUserInfoCommandHandler :
         _userManager = userManager;
     }
 
-    public async Task<User?> Handle(
+    public async ValueTask<User?> Handle(
         GetUserInfoCommand request,
         CancellationToken cancellationToken)
     {
