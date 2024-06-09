@@ -28,18 +28,18 @@ public sealed record CreateDocumentCommand :
 public sealed class CreateDocumentCommandHandler :
     IRequestHandler<CreateDocumentCommand, Document>
 {
-    private ApplicationDbContext Context { get; init; }
-    private TimeProvider TimeProvider { get; init; }
-    private ISender Sender { get; init; }
+    private readonly ApplicationDbContext _context;
+    private readonly TimeProvider _timeProvider;
+    private readonly ISender _sender;
 
     public CreateDocumentCommandHandler(
         ApplicationDbContext context,
         TimeProvider timeProvider,
         ISender sender)
     {
-        Context = context;
-        TimeProvider = timeProvider;
-        Sender = sender;
+        _context = context;
+        _timeProvider = timeProvider;
+        _sender = sender;
     }
 
     public async Task<Document> Handle(
@@ -48,13 +48,13 @@ public sealed class CreateDocumentCommandHandler :
     {
         var downloadUrl = request.DownloadUrl;
 
-        var source = await Sender
+        var source = await _sender
            .Send(new FindPermittedSourceQuery(downloadUrl), cancellationToken);
 
         if (source is null)
             throw new UnpermittedResourceException($"Ресурс {downloadUrl} не является доверенным");
 
-        var now = TimeProvider.GetUtcNow().UtcDateTime;
+        var now = _timeProvider.GetUtcNow().UtcDateTime;
 
         var document = new Document
         {
@@ -67,14 +67,14 @@ public sealed class CreateDocumentCommandHandler :
             Source = source
         };
 
-        await Context
+        await _context
             .Documents
             .AddAsync(document, cancellationToken);
 
-        await Context
+        await _context
             .SaveChangesAsync(cancellationToken);
 
-        return await Context
+        return await _context
            .Documents
            .IncludeAuditProperties()
            .FirstAsync(x => x.Id == document.Id, cancellationToken);

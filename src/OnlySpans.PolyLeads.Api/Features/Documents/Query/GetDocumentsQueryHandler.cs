@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Extensions;
 
@@ -6,21 +7,22 @@ namespace OnlySpans.PolyLeads.Api.Features.Documents.Query;
 public sealed record GetDocumentsQuery :
     IRequest<IQueryable<Entities.Document>>;
 
+[UsedImplicitly]
 public sealed class GetDocumentsQueryHandler
     : IRequestHandler<GetDocumentsQuery, IQueryable<Entities.Document>>
 {
-    private ApplicationDbContext Context { get; init; }
+    private readonly ApplicationDbContext _context;
 
     public GetDocumentsQueryHandler(ApplicationDbContext context)
     {
-        Context = context;
+        _context = context;
     }
 
     public Task<IQueryable<Entities.Document>> Handle(
         GetDocumentsQuery request,
         CancellationToken cancellationToken)
     {
-        var query = Context
+        var query = _context
            .Documents
            .WhereIsNotDeleted()
            .IncludeAuditProperties();

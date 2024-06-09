@@ -7,8 +7,6 @@ namespace OnlySpans.PolyLeads.Api.Swagger.Filters;
 
 public class EnumDescriptorFilter : ISchemaFilter
 {
-    private static Type DescriptionAttributeType { get; } = typeof(DescriptionAttribute);
-
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         if (!CanHandle(schema, context)) return;
@@ -24,10 +22,12 @@ public class EnumDescriptorFilter : ISchemaFilter
         var enumValueType = Enum.GetUnderlyingType(enumType);
         builder.Append("<p>Members :</p><ul>");
 
+        var descriptionAttributeType = typeof(DescriptionAttribute);
+
         foreach (var enumValue in enumValues)
         {
             var enumDescription = enumValue
-               .GetCustomAttributes(DescriptionAttributeType, true)
+               .GetCustomAttributes(descriptionAttributeType, true)
                .FirstOrDefault() is DescriptionAttribute descriptionAttribute
                 ? $"{descriptionAttribute.Description} ({enumValue.Name})"
                 : enumValue.Name;

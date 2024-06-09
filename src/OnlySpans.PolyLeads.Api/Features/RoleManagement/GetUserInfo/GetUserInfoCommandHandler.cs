@@ -1,36 +1,36 @@
-﻿using Hangfire.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Dto.Roles;
 
 namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GetUserInfo;
 
-public sealed record GetUserInfoCommand(string UserId) 
+public sealed record GetUserInfoCommand(string UserId)
     : IRequest<User?>;
 
 [UsedImplicitly]
 public sealed class GetUserInfoCommandHandler :
     IRequestHandler<GetUserInfoCommand, User?>
 {
-    private UserManager<Entities.ApplicationUser> UserManager { get; init; }
+    private readonly UserManager<Entities.ApplicationUser> _userManager;
 
     public GetUserInfoCommandHandler(
         UserManager<Entities.ApplicationUser> userManager)
     {
-        UserManager = userManager;
+        _userManager = userManager;
     }
 
     public async Task<User?> Handle(
         GetUserInfoCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await UserManager.FindByIdAsync(request.UserId);
+        var user = await _userManager.FindByIdAsync(request.UserId);
 
         ResourceNotFoundException.ThrowIfNull(
-            user, 
+            user,
             $"Пользователь с id {request.UserId} не найден");
 
-        var roles = await UserManager.GetRolesAsync(user);
+        var roles = await _userManager.GetRolesAsync(user);
 
         var userInfo = new User
         {

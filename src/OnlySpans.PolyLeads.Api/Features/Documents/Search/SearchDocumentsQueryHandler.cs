@@ -12,15 +12,15 @@ public sealed record SearchDocumentsQuery(string SearchTerm) :
 public sealed class SearchDocumentsQueryHandler :
     IRequestHandler<SearchDocumentsQuery, IQueryable<Entities.Document>>
 {
-    private IQuerySession Session { get; init; }
-    private ApplicationDbContext Context { get; init; }
+    private readonly IQuerySession _session;
+    private readonly ApplicationDbContext _context;
 
     public SearchDocumentsQueryHandler(
         IQuerySession session,
         ApplicationDbContext context)
     {
-        Session = session;
-        Context = context;
+        _session = session;
+        _context = context;
     }
 
     public async Task<IQueryable<Entities.Document>> Handle(
@@ -29,7 +29,7 @@ public sealed class SearchDocumentsQueryHandler :
     {
         var searchTerm = request.SearchTerm.ToLower();
 
-        var documentIds = await Session
+        var documentIds = await _session
            .Query<Entities.RecognitionResult>()
            .Where(x => x.Content.WebStyleSearch(searchTerm, "russian")
                     || x.Content.NgramSearch(searchTerm)
@@ -37,7 +37,7 @@ public sealed class SearchDocumentsQueryHandler :
            .Select(x => x.DocumentId)
            .ToListAsync(cancellationToken);
 
-        var query = Context
+        var query = _context
            .Documents
            .WhereIsNotDeleted()
            .Where(x => x.Name.ToLower().Contains(searchTerm)

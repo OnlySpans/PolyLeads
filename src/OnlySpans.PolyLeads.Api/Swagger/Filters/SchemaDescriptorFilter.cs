@@ -4,15 +4,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OnlySpans.PolyLeads.Api.Swagger.Filters;
 
-public class SchemaDescriptorFilter : ISchemaFilter
+public sealed class SchemaDescriptorFilter : ISchemaFilter
 {
-    private static Type DescriptionAttributeType { get; } = typeof(DescriptionAttribute);
-
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
+        var descriptionAttributeType = typeof(DescriptionAttribute);
+
         if (context
             .Type
-            .GetCustomAttributes(DescriptionAttributeType, true)
+            .GetCustomAttributes(descriptionAttributeType, true)
             .FirstOrDefault() is not DescriptionAttribute description) return;
 
         schema.Description = description.Description;
