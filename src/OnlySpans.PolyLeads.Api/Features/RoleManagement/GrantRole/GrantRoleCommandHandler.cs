@@ -1,4 +1,4 @@
-﻿using Hangfire.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Utils;
@@ -16,35 +16,35 @@ public sealed record GrantRoleCommand : IRequest
 public sealed class GrantRoleCommandHandler :
     IRequestHandler<GrantRoleCommand>
 {
-    private UserManager<Entities.ApplicationUser> UserManager { get; init; }
-    
+    private readonly UserManager<Entities.ApplicationUser> _userManager;
+
     public GrantRoleCommandHandler(
         UserManager<Entities.ApplicationUser> userManager)
     {
-        UserManager = userManager;
+        _userManager = userManager;
     }
 
     public async Task Handle(
         GrantRoleCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await UserManager.FindByNameAsync(request.UserName);
+        var user = await _userManager.FindByNameAsync(request.UserName);
 
         ResourceNotFoundException.ThrowIfNull(
-            user, 
+            user,
             $"Пользователь с именем {request.UserName} не найден");
 
-        if (await UserManager.IsInRoleAsync(user, request.RoleName))
+        if (await _userManager.IsInRoleAsync(user, request.RoleName))
             return;
 
         if (!ApplicationRoleName.All.Contains(request.RoleName))
             throw new RoleManagementException($"Роли с названием {request.RoleName} не существует");
 
-        var userRoles = await UserManager.GetRolesAsync(user);
+        var userRoles = await _userManager.GetRolesAsync(user);
 
-        await UserManager.RemoveFromRolesAsync(user, userRoles);
+        await _userManager.RemoveFromRolesAsync(user, userRoles);
 
-        var result = await UserManager.AddToRoleAsync(user, request.RoleName);
+        var result = await _userManager.AddToRoleAsync(user, request.RoleName);
 
         if (!result.Succeeded)
             throw new RoleManagementException(

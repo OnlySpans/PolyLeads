@@ -24,21 +24,18 @@ public sealed record EditDocumentCommand :
 public sealed class EditDocumentCommandHandler
     : IRequestHandler<EditDocumentCommand, Entities.Document>
 {
-    private IMapper Mapper { get; init; }
-    private TimeProvider TimeProvider { get; init; }
-    private ApplicationDbContext Context { get; init; }
-    private ISender Sender { get; init; }
+    private readonly IMapper _mapper;
+    private readonly TimeProvider _timeProvider;
+    private readonly ApplicationDbContext _context;
 
     public EditDocumentCommandHandler(
         IMapper mapper,
         TimeProvider timeProvider,
-        ApplicationDbContext context,
-        ISender sender)
+        ApplicationDbContext context)
     {
-        Mapper = mapper;
-        TimeProvider = timeProvider;
-        Context = context;
-        Sender = sender;
+        _mapper = mapper;
+        _timeProvider = timeProvider;
+        _context = context;
     }
 
     public async Task<Entities.Document> Handle(
@@ -47,7 +44,7 @@ public sealed class EditDocumentCommandHandler
     {
         var documentId = request.DocumentId;
 
-        var @ref = await Context
+        var @ref = await _context
             .Documents
             .WhereIsNotDeleted()
             .FirstOrDefaultAsync(
@@ -58,17 +55,17 @@ public sealed class EditDocumentCommandHandler
             @ref,
             $"Документ с id {documentId} не найден");
 
-        Mapper
+        _mapper
             .From(request)
             .AdaptTo(@ref);
 
         @ref.UpdatedById = request.UserId;
-        @ref.UpdatedAt = TimeProvider.GetUtcNow().UtcDateTime;
+        @ref.UpdatedAt = _timeProvider.GetUtcNow().UtcDateTime;
 
-        await Context
+        await _context
             .SaveChangesAsync(cancellationToken);
 
-        return await Context
+        return await _context
            .Documents
            .IncludeAuditProperties()
            .FirstAsync(x => x.Id == @ref.Id, cancellationToken);

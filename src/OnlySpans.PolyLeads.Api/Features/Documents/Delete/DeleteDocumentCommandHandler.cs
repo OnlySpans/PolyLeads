@@ -15,22 +15,22 @@ public sealed record DeleteDocumentCommand(
 public sealed class DeleteDocumentCommandHandler :
     IRequestHandler<DeleteDocumentCommand>
 {
-    private ApplicationDbContext Context { get; init; }
-    private TimeProvider TimeProvider { get; init; }
+    private readonly ApplicationDbContext _context;
+    private readonly TimeProvider _timeProvider;
 
     public DeleteDocumentCommandHandler(
         ApplicationDbContext context,
         TimeProvider timeProvider)
     {
-        Context = context;
-        TimeProvider = timeProvider;
+        _context = context;
+        _timeProvider = timeProvider;
     }
 
     public async Task Handle(
         DeleteDocumentCommand request,
         CancellationToken cancellationToken)
     {
-        var documentToDelete = await Context
+        var documentToDelete = await _context
             .Documents
             .WhereIsNotDeleted()
             .FirstOrDefaultAsync(
@@ -41,10 +41,10 @@ public sealed class DeleteDocumentCommandHandler :
             documentToDelete,
             $"Документ с id {request.DocumentId} не найден");
 
-        documentToDelete.DeletedAt = TimeProvider.GetUtcNow().UtcDateTime;
+        documentToDelete.DeletedAt = _timeProvider.GetUtcNow().UtcDateTime;
         documentToDelete.DeletedById = request.UserId;
 
-        await Context
+        await _context
             .SaveChangesAsync(cancellationToken);
     }
 }

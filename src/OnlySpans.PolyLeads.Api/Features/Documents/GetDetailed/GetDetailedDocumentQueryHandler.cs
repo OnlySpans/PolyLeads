@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
@@ -8,22 +9,23 @@ namespace OnlySpans.PolyLeads.Api.Features.Documents.GetDetailed;
 public sealed record GetDetailedDocumentQuery(long DocumentId)
     : IRequest<Entities.Document>;
 
+[UsedImplicitly]
 public sealed class GetDetailedDocumentQueryHandler
     : IRequestHandler<GetDetailedDocumentQuery, Entities.Document>
 {
-    private ApplicationDbContext Context { get; init; }
+    private readonly ApplicationDbContext _context;
 
     public GetDetailedDocumentQueryHandler(
         ApplicationDbContext context)
     {
-        Context = context;
+        _context = context;
     }
 
     public async Task<Entities.Document> Handle(
         GetDetailedDocumentQuery request,
         CancellationToken cancellationToken)
     {
-        var document = await Context
+        var document = await _context
             .Documents
             .WhereIsNotDeleted()
             .IncludeAuditProperties()

@@ -16,36 +16,35 @@ public sealed record SignUpCommand : IRequest
 
     public string UserName { get; init; } = string.Empty;
 
-    public string Password { get; init; } = String.Empty;
+    public string Password { get; init; } = string.Empty;
 }
 
 [UsedImplicitly]
 public sealed class SignUpCommandHandler :
     IRequestHandler<SignUpCommand>
 {
-    private IMapper Mapper { get; init; }
-    private UserManager<ApplicationUser> UserManager { get; init; }
-
-    private ISender Sender { get; init; }
+    private readonly IMapper _mapper;
+    private readonly ISender _sender;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public SignUpCommandHandler(
-        UserManager<ApplicationUser> userManager,
         IMapper mapper,
-        ISender sender)
+        ISender sender,
+        UserManager<ApplicationUser> userManager)
     {
-        UserManager = userManager;
-        Mapper = mapper;
-        Sender = sender;
+        _mapper = mapper;
+        _sender = sender;
+        _userManager = userManager;
     }
 
     public async Task Handle(
         SignUpCommand request,
         CancellationToken cancellationToken)
     {
-        var user = Mapper
+        var user = _mapper
            .Map<ApplicationUser>(request);
 
-        var result = await UserManager
+        var result = await _userManager
            .CreateAsync(user, request.Password);
 
         if (!result.Succeeded)
@@ -54,7 +53,7 @@ public sealed class SignUpCommandHandler :
                    .Errors
                    .Select(x => x.Description)));
 
-        result = await UserManager
+        result = await _userManager
             .AddToRoleAsync(user, ApplicationRoleName.Student);
 
         if (!result.Succeeded)
@@ -69,7 +68,7 @@ public sealed class SignUpCommandHandler :
             Password = request.Password
         };
 
-        await Sender
+        await _sender
            .Send(
                 command,
                 cancellationToken);

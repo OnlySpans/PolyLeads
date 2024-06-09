@@ -43,7 +43,6 @@ public static partial class Startup
 
             options.SchemaFilter<SchemaMembersDescriptorFilter>();
             options.SchemaFilter<SchemaDescriptorFilter>();
-            options.SchemaFilter<EnumDescriptorFilter>();
 
             options.EnableAnnotations();
 

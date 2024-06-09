@@ -16,11 +16,11 @@ public sealed record SignInCommand : IRequest
 public sealed class SignInCommandHandler :
     IRequestHandler<SignInCommand>
 {
-    private SignInManager<ApplicationUser> SignInManager { get; init; }
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
     public SignInCommandHandler(SignInManager<ApplicationUser> signInManager)
     {
-        SignInManager = signInManager;
+        _signInManager = signInManager;
     }
 
     public async Task Handle(
@@ -29,7 +29,7 @@ public sealed class SignInCommandHandler :
     {
         var username = request.UserName;
 
-        var result = await SignInManager
+        var result = await _signInManager
            .PasswordSignInAsync(
                 username,
                 request.Password,

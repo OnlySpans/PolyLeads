@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace OnlySpans.PolyLeads.Api.Exceptions;
+﻿namespace OnlySpans.PolyLeads.Api.Exceptions;
 
 public sealed class RoleManagementException : ApiException
 {

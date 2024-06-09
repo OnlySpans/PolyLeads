@@ -6,15 +6,15 @@ namespace OnlySpans.PolyLeads.Api.Swagger.Filters;
 
 public class SchemaMembersDescriptorFilter : ISchemaFilter
 {
-    private static Type DescriptionAttributeType { get; } = typeof(DescriptionAttribute);
-
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         if (context.MemberInfo is null) return;
 
+        var descriptionAttributeType = typeof(DescriptionAttribute);
+
         if (context
             .MemberInfo
-            .GetCustomAttributes(DescriptionAttributeType, true)
+            .GetCustomAttributes(descriptionAttributeType, true)
             .FirstOrDefault() is not DescriptionAttribute descriptionAttribute)
             return;
 

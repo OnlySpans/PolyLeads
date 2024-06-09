@@ -14,25 +14,25 @@ namespace OnlySpans.PolyLeads.Api.Workers;
 
 public sealed class RecognitionWorkerRunner : IHostedService
 {
-    private static string JobId { get; } = "document-recognition";
+    private const string JobId = "document-recognition";
 
-    private IRecurringJobManager RecurringJobs { get; init; }
-    private IOptions<RecognitionOptions> Options { get; init; }
+    private readonly IRecurringJobManager _recurringJobs;
+    private readonly IOptions<RecognitionOptions> _options;
 
     public RecognitionWorkerRunner(
         IRecurringJobManager recurringJobs,
         IOptions<RecognitionOptions> options)
     {
-        RecurringJobs = recurringJobs;
-        Options = options;
+        _recurringJobs = recurringJobs;
+        _options = options;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        RecurringJobs.AddOrUpdate<RecognitionWorker>(
+        _recurringJobs.AddOrUpdate<RecognitionWorker>(
             JobId,
             w => w.RecognizeDocumentsAsync(CancellationToken.None),
-            Options.Value.Cron);
+            _options.Value.Cron);
 
         return Task.CompletedTask;
     }
@@ -43,12 +43,12 @@ public sealed class RecognitionWorkerRunner : IHostedService
 
 public sealed class RecognitionWorker
 {
-    private ApplicationDbContext Context { get; init; }
-    private Marten.IDocumentSession Session { get; init; }
-    private ILogger<RecognitionWorker> Logger { get; init; }
-    private IOptions<RecognitionOptions> Options { get; init; }
-    private IHttpClientFactory HttpClientFactory { get; init; }
-    private IDocumentRecognitionFactory RecognitionFactory { get; init; }
+    private readonly ApplicationDbContext _context;
+    private readonly Marten.IDocumentSession _session;
+    private readonly ILogger<RecognitionWorker> _logger;
+    private readonly IOptions<RecognitionOptions> _options;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IDocumentRecognitionFactory _recognitionFactory;
 
     public RecognitionWorker(
         ApplicationDbContext context,
@@ -58,12 +58,12 @@ public sealed class RecognitionWorker
         IHttpClientFactory httpClientFactory,
         IDocumentRecognitionFactory recognitionFactory)
     {
-        Context = context;
-        Session = session;
-        Logger = logger;
-        Options = options;
-        HttpClientFactory = httpClientFactory;
-        RecognitionFactory = recognitionFactory;
+        _context = context;
+        _session = session;
+        _logger = logger;
+        _options = options;
+        _httpClientFactory = httpClientFactory;
+        _recognitionFactory = recognitionFactory;
     }
 
     public async Task RecognizeDocumentsAsync(CancellationToken cancellationToken)
@@ -77,7 +77,7 @@ public sealed class RecognitionWorker
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
+            _logger.LogError(ex, "Возникла ошибка при работе Worker'а с распознованием");
 
             if (transaction is not null)
                 await transaction.RollbackAsync(cancellationToken);
@@ -93,25 +93,25 @@ public sealed class RecognitionWorker
     private async Task<IDbContextTransaction> RecognizeDocumentsAsyncInternal(
         CancellationToken cancellationToken)
     {
-        var queuedDocuments = await Context
+        var queuedDocuments = await _context
            .Documents
            .Where(x => x.RecognitionStatus == RecognitionStatus.Queued)
-           .Take(Options.Value.FilesBatchSize)
+           .Take(_options.Value.FilesBatchSize)
            .OrderBy(x => x.Id)
            .ToListAsync(cancellationToken);
 
         foreach (var document in queuedDocuments)
             document.RecognitionStatus = RecognitionStatus.Processing;
 
-        await Context.SaveChangesAsync(cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
-        var transaction = await Context.Database.BeginTransactionAsync(cancellationToken);
+        var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 
         foreach (var document in queuedDocuments)
         {
             try
             {
-                using var httpClient = HttpClientFactory.CreateClient();
+                using var httpClient = _httpClientFactory.CreateClient();
 
                 using var httpResponse = await httpClient
                    .GetAsync(document.DownloadUrl, cancellationToken);
@@ -122,7 +122,7 @@ public sealed class RecognitionWorker
                     contentType,
                     $"Не удалось определить тип файла для документа с id {document.Id}");
 
-                var recognizer = RecognitionFactory.Create(contentType);
+                var recognizer = _recognitionFactory.Create(contentType);
 
                 await using var fileContent = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
 
@@ -134,17 +134,17 @@ public sealed class RecognitionWorker
                     Content = PreprocessText(recognizedContent)
                 };
 
-                Session.Store(recognitionResult);
-                await Session.SaveChangesAsync(cancellationToken);
+                _session.Store(recognitionResult);
+                await _session.SaveChangesAsync(cancellationToken);
 
                 document.RecognitionStatus = RecognitionStatus.Success;
-                await Context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Возникла ошибка при распознавании документа с id {Id}", document.Id);
+                _logger.LogError(ex, "Возникла ошибка при распознавании документа с id {Id}", document.Id);
                 document.RecognitionStatus = RecognitionStatus.Error;
-                await Context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
             }
         }
 

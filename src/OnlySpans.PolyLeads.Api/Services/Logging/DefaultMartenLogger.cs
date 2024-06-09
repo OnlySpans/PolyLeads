@@ -8,11 +8,11 @@ public sealed class DefaultMartenLogger :
     IMartenSessionLogger,
     IMartenLogger
 {
-    private ILogger<IDocumentSession> Logger { get; init; }
+    private readonly ILogger<IDocumentSession> _logger;
 
     public DefaultMartenLogger(ILogger<IDocumentSession> logger)
     {
-        Logger = logger;
+        _logger = logger;
     }
 
     public void LogSuccess(NpgsqlCommand command)
@@ -56,19 +56,19 @@ public sealed class DefaultMartenLogger :
 
     public void SchemaChange(string sql)
     {
-        Logger.LogInformation("Executing change schema command \n{Sql}", sql);
+        _logger.LogInformation("Executing change schema command \n{Sql}", sql);
     }
 
     private void LogSuccess(string commandText)
     {
-        Logger.LogInformation(
+        _logger.LogInformation(
             "Executing Marten command \n {CommandText}",
             commandText);
     }
 
     public void LogFailure(Exception exception, string commandText)
     {
-        Logger.LogError(exception,
+        _logger.LogError(exception,
             "Failed to executed Marten command \n{CommandText}",
             commandText);
     }
