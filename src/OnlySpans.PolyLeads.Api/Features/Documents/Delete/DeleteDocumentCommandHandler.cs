@@ -46,7 +46,7 @@ public sealed class DeleteDocumentCommandHandler :
 
         await _context
             .SaveChangesAsync(cancellationToken);
-        
+
         return Unit.Value;
     }
 }

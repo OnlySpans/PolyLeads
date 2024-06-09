@@ -72,7 +72,7 @@ public sealed class SignUpCommandHandler :
            .Send(
                 command,
                 cancellationToken);
-        
+
         return Unit.Value;
     }
 }
