@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Marten;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
+using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Search;
 
@@ -38,6 +39,7 @@ public sealed class SearchDocumentsQueryHandler :
 
         var query = Context
            .Documents
+           .WhereIsNotDeleted()
            .Where(x => x.Name.ToLower().Contains(searchTerm)
                     || x.Description.ToLower().Contains(searchTerm)
                     || documentIds.Contains(x.Id));

@@ -9,6 +9,7 @@ import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IHeaderVM } from './Header.vm';
 import { useRouter } from 'next/navigation';
+import {observer} from "mobx-react-lite";
 
 interface IHeaderProps {}
 
@@ -54,7 +55,7 @@ const Header: React.FC<IHeaderProps> = () => {
                   size: 'sm',
                 })
               )} 
-              ${vm.isSignInButtonEnabled ? 'hidden' : ''}
+              ${vm.isSignInButtonEnabled ? '' : 'hidden'}
             `}
           >
             Войти
@@ -66,4 +67,4 @@ const Header: React.FC<IHeaderProps> = () => {
   );
 };
 
-export default Header;
+export default observer(Header);

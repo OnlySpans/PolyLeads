@@ -153,10 +153,9 @@ class DocumentsTableVM implements IDocumentsTableVM {
         },
 
         cell: ({ row }) => (
-          // moment(row.getValue("createdAt")).format('hh:mm - DD.MM.YYYY')
           <>
             <Badge variant='secondary' className='mr-2'>
-              {moment(row.getValue('createdAt')).format('hh:mm')}
+              {moment(row.getValue('createdAt')).format('HH:mm')}
             </Badge>
             <Badge variant='secondary'>
               {moment(row.getValue('createdAt')).format('DD.MM.YYYY')}
@@ -167,7 +166,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
       {
         accessorKey: 'fileRecognitionStatus',
         meta: {
-          name: 'Статус распознования',
+          name: 'Статус распознавания',
         },
         header: ({ column }) => {
           return (
@@ -178,7 +177,7 @@ class DocumentsTableVM implements IDocumentsTableVM {
                 column.toggleSorting(column.getIsSorted() === 'asc')
               }
             >
-              Статус распознования
+              Статус распознавания
               <ChevronsUpDown className='ml-2 h-4 w-4' />
             </Button>
           );

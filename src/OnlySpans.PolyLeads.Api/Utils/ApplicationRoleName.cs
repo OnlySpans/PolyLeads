@@ -2,10 +2,10 @@
 
 public static class ApplicationRoleName
 {
-    public static IReadOnlyList<string> All { get; } = 
+    public static IReadOnlyList<string> All { get; } =
         [Admin, Student, Headman, StudentUnionOrganizer];
 
-    public const string Admin = "Student";
+    public const string Admin = "Admin";
 
     public const string Student = "Student";
 

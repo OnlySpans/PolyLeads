@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Delete;
 
@@ -31,6 +32,7 @@ public sealed class DeleteDocumentCommandHandler :
     {
         var documentToDelete = await Context
             .Documents
+            .WhereIsNotDeleted()
             .FirstOrDefaultAsync(
                 x => x.Id == request.DocumentId,
                 cancellationToken);
