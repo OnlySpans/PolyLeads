@@ -10,7 +10,7 @@ public sealed class PermittedSourceConfiguration : IEntityTypeConfiguration<Perm
         builder
            .Property(x => x.Description)
            .HasMaxLength(256);
-        
+
         builder.HasData(
             new  {Id = (long) 1, BaseUrl = new Uri("https://www.spbstu.ru"), Description = "Сайт политеха"},
             new  {Id = (long) 2, BaseUrl = new Uri("https://college.spbstu.ru"), Description = "Институт среднего профессионального образования СПБПУ"},

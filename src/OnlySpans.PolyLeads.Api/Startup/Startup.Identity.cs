@@ -67,7 +67,7 @@ public static partial class Startup
         await userManager.CreateAsync(masterUser, masterRoleOptions.Password);
 
         await userManager.AddToRoleAsync(masterUser, masterRoleOptions.Role);
-        
+
         return app;
     }
 }
