@@ -4,13 +4,21 @@ namespace OnlySpans.PolyLeads.Api.Exceptions;
 
 public class UnpermittedResourceException : ApiException
 {
-    public UnpermittedResourceException(string? message, Exception? innerException = null) : base(message, innerException) { }
+    public UnpermittedResourceException(
+        string displayMessage,
+        string? logMessage = null,
+        Exception? innerException = null) :
+        base(displayMessage, logMessage, innerException) { }
 
     [StackTraceHidden]
-    public static void ThrowIf(bool condition, string message, Exception? innerException = null)
+    public static void ThrowIf(
+        bool condition,
+        string displayMessage,
+        string logMessage,
+        Exception? innerException = null)
     {
         if (!condition) return;
 
-        throw new UnpermittedResourceException(message, innerException);
+        throw new UnpermittedResourceException(displayMessage, logMessage, innerException);
     }
 }

@@ -2,6 +2,9 @@
 
 public sealed class RoleManagementException : ApiException
 {
-    public RoleManagementException(string? message, Exception? innerException = null)
-        : base(message, innerException) { }
+    public RoleManagementException(
+        string displayMessage,
+        string? logMessage = null,
+        Exception? innerException = null) :
+        base(displayMessage, logMessage, innerException) { }
 }

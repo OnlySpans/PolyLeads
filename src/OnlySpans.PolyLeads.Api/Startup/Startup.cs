@@ -20,7 +20,8 @@ public static partial class Startup
            .AddApplicationDbContext()
            .AddIdentity()
            .AddDocumentRecognition()
-           .AddControllers();
+           .AddControllers()
+           .AddExceptionHandling();
 
         return Task.FromResult(builder);
     }

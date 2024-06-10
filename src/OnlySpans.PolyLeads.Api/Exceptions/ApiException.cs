@@ -2,6 +2,11 @@
 
 public abstract class ApiException : Exception
 {
-    protected ApiException(string? message, Exception? innerException = null) :
-        base(message, innerException) { }
+    public string DisplayMessage { get; init; }
+
+    protected ApiException(
+        string displayMessage,
+        string? logMessage = null,
+        Exception? innerException = null) : base(logMessage ?? displayMessage, innerException) =>
+        DisplayMessage = displayMessage;
 }
