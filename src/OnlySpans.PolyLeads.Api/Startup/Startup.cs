@@ -28,6 +28,8 @@ public static partial class Startup
 
     public static async Task<WebApplication> Configure(this WebApplication app)
     {
+        app.UseExceptionHandler();
+
         app.UseRouting();
 
         app.UseAuthentication();

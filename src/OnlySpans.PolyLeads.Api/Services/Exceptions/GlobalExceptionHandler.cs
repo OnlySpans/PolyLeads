@@ -29,11 +29,11 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             RecognitionException ex                    => BuildResponse(StatusCodes.Status500InternalServerError, ex),
             ResourceNotFoundException ex               => BuildResponse(StatusCodes.Status404NotFound, ex),
-            AuthenticationException ex                 => BuildResponse(StatusCodes.Status400BadRequest, ex),
+            AuthenticationException ex                 => BuildResponse(StatusCodes.Status401Unauthorized, ex),
             AuthorizationException ex                  => BuildResponse(StatusCodes.Status401Unauthorized, ex),
-            UnsupportedRecognitionFileTypeException ex => BuildResponse(StatusCodes.Status409Conflict, ex),
+            UnsupportedRecognitionFileTypeException ex => BuildResponse(StatusCodes.Status400BadRequest, ex),
             RoleManagementException ex                 => BuildResponse(StatusCodes.Status400BadRequest, ex),
-            UnpermittedResourceException ex            => BuildResponse(StatusCodes.Status409Conflict, ex),
+            UnpermittedResourceException ex            => BuildResponse(StatusCodes.Status400BadRequest, ex),
             ApiException ex                            => BuildResponse(StatusCodes.Status500InternalServerError, ex),
             ValidationException ex => new ProblemDetails
             {
