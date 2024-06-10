@@ -30,11 +30,7 @@ public sealed class RoleController(IMediator mediator, IMapper mapper) :
     public async Task<IActionResult> GetCurrentUserInfo(
         CancellationToken cancellationToken)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId is null)
-            return NoContent();
-
-        var command = new GetUserInfoCommand(userId);
+        var command = new GetUserInfoCommand();
         var user = await Mediator.Send(command, cancellationToken);
         return Ok(user);
     }
