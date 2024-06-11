@@ -22,7 +22,7 @@ const RequestForm: FC = () => {
   }, [vm.value]);
 
   return (
-    <div className='flex px-8 py-4 gap-4 items-end'>
+    <div className='flex gap-4 items-end'>
       <Textarea
         id='requestForm'
         ref={textareaRef}
