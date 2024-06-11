@@ -5,8 +5,8 @@ namespace OnlySpans.PolyLeads.Api.Exceptions;
 
 public sealed class AuthorizationException : ApiException
 {
-    public AuthorizationException(string displayMessage, string? logMessage = null) :
-        base(displayMessage, logMessage) { }
+    public AuthorizationException(string message) :
+        base(message) { }
 
     [StackTraceHidden]
     public static void ThrowIfNull<T>([NotNull] T? value, string message)

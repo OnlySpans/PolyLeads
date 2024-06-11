@@ -4,9 +4,6 @@ public abstract class ApiException : Exception
 {
     public string DisplayMessage { get; init; }
 
-    protected ApiException(
-        string displayMessage,
-        string? logMessage = null,
-        Exception? innerException = null) : base(logMessage ?? displayMessage, innerException) =>
-        DisplayMessage = displayMessage;
+    protected ApiException(string message) : base(message) =>
+        DisplayMessage = message;
 }
