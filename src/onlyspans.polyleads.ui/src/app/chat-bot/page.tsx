@@ -7,7 +7,7 @@ const ChatBotPage = () => {
   return (
     <>
       <Header />
-      <div className='sm:p-8 px-0 py-4 flex justify-center h-[calc(100vh-3.5rem)]'>
+      <div className='sm:p-8 px-0 py-4 flex justify-center h-[calc(100vh-4rem)]'>
         <ChatBot />
       </div>
     </>
