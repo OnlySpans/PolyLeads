@@ -21,6 +21,9 @@ import UploadModalVM, {
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 import { IUserRoleApi, UserRoleApi } from '@/services/api/role/userRoleApi';
 import HeaderVM, { IHeaderVM } from '@/components/header/header.vm';
+import RequestFormVM, {
+  IRequestFormVM,
+} from '@/components/chat-bot/request-form/request-form.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -44,6 +47,9 @@ export const createDependencyContainer = (): Container => {
   container
     .bind<IEditModalVM>(ServiceSymbols.IDocumentEditingModalVM)
     .to(EditModalVM);
+  container
+    .bind<IRequestFormVM>(ServiceSymbols.IRequestFormVM)
+    .to(RequestFormVM);
 
   return container;
 };
