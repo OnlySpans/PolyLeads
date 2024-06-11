@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { EyeIcon, EyeOffIcon, LoaderCircle } from 'lucide-react';
-import { ISignInFormVM } from '@/components/auth/sign-in/SignInFormVM';
+import { ISignInFormVM } from '@/components/auth/sign-in/sign-in-form.vm';
 
 interface ISignInProps {}
 

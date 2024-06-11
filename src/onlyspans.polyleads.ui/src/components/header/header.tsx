@@ -4,10 +4,10 @@ import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
+import { ThemeSwitchButton } from '@/components/ui/theme-switch-button';
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
-import { IHeaderVM } from './Header.vm';
+import { IHeaderVM } from './header.vm';
 import { useRouter } from 'next/navigation';
 import {observer} from "mobx-react-lite";
 

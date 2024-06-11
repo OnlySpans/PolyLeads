@@ -4,9 +4,9 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { IDocument } from '@/data/abstractions/IDocument';
-import type { IDocumentsTableVM } from '@/components/documents/DocumentsTable/DocumentsTableVM';
+import type { IDocumentsTableVM } from '@/components/documents/documents-table/documents-table.vm';
 
-export interface IEditDocumentModalVM {
+export interface IEditModalVM {
   isLoading: boolean;
   isOpened: boolean;
   document: IDocument | null;
@@ -16,7 +16,7 @@ export interface IEditDocumentModalVM {
 }
 
 @injectable()
-class EditDocumentModalVM implements IEditDocumentModalVM {
+class EditModalVM implements IEditModalVM {
   @observable
   public isLoading: boolean = false;
 
@@ -67,7 +67,7 @@ class EditDocumentModalVM implements IEditDocumentModalVM {
   }
 
   @action.bound
-  public sendEditedDocumentRequest = flow(function *(this: EditDocumentModalVM) {
+  public sendEditedDocumentRequest = flow(function *(this: EditModalVM) {
     if (this.formData === null || this.document === null)
       return;
 
@@ -85,4 +85,4 @@ class EditDocumentModalVM implements IEditDocumentModalVM {
   });
 }
 
-export default EditDocumentModalVM;
+export default EditModalVM;

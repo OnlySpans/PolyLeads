@@ -24,15 +24,15 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IEditDocumentModalVM } from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
+import { IEditModalVM } from '@/components/documents/editing-modal/edit-modal.vm';
 import { IDocument } from '@/data/abstractions/IDocument';
 
-interface IEditDocumentModal {
+interface IEditModal {
   document: IDocument;
 }
 
-const EditDocumentModal: React.FC<IEditDocumentModal> = ({document}) => {
-  const vm = useGet<IEditDocumentModalVM>(
+const EditModal: React.FC<IEditModal> = ({document}) => {
+  const vm = useGet<IEditModalVM>(
     ServiceSymbols.IDocumentEditingModalVM,
   );
 
@@ -95,4 +95,4 @@ const EditDocumentModal: React.FC<IEditDocumentModal> = ({document}) => {
   );
 };
 
-export default observer(EditDocumentModal);
+export default observer(EditModal);

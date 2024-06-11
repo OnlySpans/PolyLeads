@@ -25,11 +25,11 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
+import { IUploadModalVM } from './upload-modal.vm';
 import { Upload } from 'lucide-react';
 
-const UploadDocumentModal: React.FC = () => {
-  const vm = useGet<IUploadDocumentModalVM>(
+const UploadModal: React.FC = () => {
+  const vm = useGet<IUploadModalVM>(
     ServiceSymbols.IUploadDocumentModalVM,
   );
 
@@ -114,4 +114,4 @@ const UploadDocumentModal: React.FC = () => {
   );
 };
 
-export default observer(UploadDocumentModal);
+export default observer(UploadModal);

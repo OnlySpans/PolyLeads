@@ -18,7 +18,7 @@ import {
 import { FileRecognitionStatus } from '@/data/enum/fileRecognitionStatus';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
-import DocumentEditingModal from '@/components/documents/DocumentEditingModal/EditDocumentModal';
+import DocumentEditingModal from '@/components/documents/editing-modal/edit-modal';
 
 export interface IDocumentsTableVM {
   loadDocuments: () => void;
