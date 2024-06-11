@@ -1,9 +1,10 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-
+using OnlySpans.PolyLeads.Api.Data.Abstractions.Commands;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
 using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Data.Enums;
+using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Extensions;
 using OnlySpans.PolyLeads.Api.Features.Documents.FindSource;
@@ -12,7 +13,8 @@ namespace OnlySpans.PolyLeads.Api.Features.Documents.Create;
 
 [UsedImplicitly]
 public sealed record CreateDocumentCommand :
-    IRequest<Document>
+    IRequest<Document>,
+    ICalledByUser
 {
     public required string Name { get; init; }
 
@@ -20,7 +22,7 @@ public sealed record CreateDocumentCommand :
 
     public required Uri DownloadUrl { get; init; }
 
-    public required Guid UserId { get; init; }
+    public MaybeSet<Identity?> User { get; set; }
 }
 
 [UsedImplicitly]
@@ -60,7 +62,7 @@ public sealed class CreateDocumentCommandHandler :
             Name = request.Name,
             Description = request.Description,
             DownloadUrl = downloadUrl,
-            CreatedById = request.UserId,
+            CreatedById = request.GetUser().Id,
             CreatedAt = now,
             RecognitionStatus = RecognitionStatus.Queued,
             Source = source
