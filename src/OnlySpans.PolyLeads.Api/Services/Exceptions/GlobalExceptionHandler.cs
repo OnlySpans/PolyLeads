@@ -38,7 +38,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             ValidationException ex => new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
-                Detail = string.Join(".\n", ex.Errors),
+                Detail = string.Join(".\n", ex.Errors)
             },
             _ => new ProblemDetails
             {
