@@ -4,6 +4,7 @@ import RequestForm from '@/components/chat-bot/request-form/request-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Messages } from '@/components/chat-bot/chat-bot.test-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import moment from 'moment/moment';
 
 const ChatBot: FC = () => {
   return (
@@ -23,7 +24,10 @@ const ChatBot: FC = () => {
                 ''
               )}
               <div className='sm:w-3/4 w-5/6 bg-accent p-4 border rounded-md'>
-                {message.text}
+                <p>{message.text}</p>
+                <p className='text-muted-foreground text-right text-xs mb-[-8px] mr-[-4px]'>
+                  {moment(message.timestamp).format('HH:mm')}
+                </p>
               </div>
               {message.type === 'user' ? (
                 <Avatar className='sm:block hidden'>
