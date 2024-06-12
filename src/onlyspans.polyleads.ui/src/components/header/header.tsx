@@ -10,6 +10,13 @@ import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IHeaderVM } from './header.vm';
 import { useRouter } from 'next/navigation';
 import { observer } from 'mobx-react-lite';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { headerLinks } from './header.links';
+import { AlignLeft } from 'lucide-react';
 
 interface IHeaderProps {}
 
@@ -26,29 +33,36 @@ const Header: React.FC<IHeaderProps> = () => {
     >
       <div className='container sm:px-8 px-4 flex h-14 max-w-screen-2xl items-center'>
         <div className='flex gap-3'>
-          <img src={'/logoPolytech.svg'} className='w-7' alt={''} />
+          <img src={'/logoPolytech.svg'} className='w-7 sm:block hidden' alt={''} />
           <p className='sm:flex items-center hidden text-xl font-medium transition-colors mr-4 '>
             PolyLeads
           </p>
-          <nav className='flex items-center gap-4 text-sm'>
-            <Link
-              href='/'
-              className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
-            >
-              Документы
-            </Link>
-            <Link
-              href={'/guides'}
-              className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
-            >
-              Гайды
-            </Link>
-            <Link
-              href={'/chat-bot'}
-              className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
-            >
-              Чат-бот
-            </Link>
+          <div className='sm:hidden flex'>
+            <Popover>
+              <PopoverTrigger>
+                <AlignLeft />
+              </PopoverTrigger>
+              <PopoverContent className='flex flex-col gap-4 ml-4 w-[150px]'>
+                  {headerLinks.map((link) => (
+                    <Link
+                      href={link.href}
+                      className='text-base font-medium'
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+              </PopoverContent>
+            </Popover>
+          </div>
+          <nav className='sm:flex hidden items-center gap-4 text-sm'>
+            {headerLinks.map((link) => (
+              <Link
+                href={link.href}
+                className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
         </div>
         <div className='flex flex-1 items-center space-x-2 justify-end'>

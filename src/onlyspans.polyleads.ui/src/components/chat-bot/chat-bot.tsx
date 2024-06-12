@@ -1,3 +1,5 @@
+'use client';
+
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import RequestForm from '@/components/chat-bot/request-form/request-form';
