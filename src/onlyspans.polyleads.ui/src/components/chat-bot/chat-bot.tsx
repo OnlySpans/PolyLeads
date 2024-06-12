@@ -13,7 +13,7 @@ const ChatBot: FC = () => {
         {Messages.map((message) => (
           <>
             <div
-              className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'justify-end'}`}
+              className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
             >
               {message.type === 'bot' ? (
                 <Avatar className='sm:block hidden'>
@@ -21,7 +21,10 @@ const ChatBot: FC = () => {
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
               ) : (
-                ''
+                <Avatar className='sm:block hidden'>
+                  <AvatarImage src='https://asdsadsa' />
+                  <AvatarFallback>{'^-^'}</AvatarFallback>
+                </Avatar>
               )}
               <div className='sm:w-3/4 w-5/6 bg-accent p-4 border rounded-md'>
                 <p>{message.text}</p>
@@ -29,14 +32,6 @@ const ChatBot: FC = () => {
                   {moment(message.timestamp).format('HH:mm')}
                 </p>
               </div>
-              {message.type === 'user' ? (
-                <Avatar className='sm:block hidden'>
-                  <AvatarImage src='https://asdsadsa' />
-                  <AvatarFallback>{'^-^'}</AvatarFallback>
-                </Avatar>
-              ) : (
-                ''
-              )}
             </div>
           </>
         ))}
