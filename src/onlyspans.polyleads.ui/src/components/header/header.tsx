@@ -9,7 +9,7 @@ import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IHeaderVM } from './header.vm';
 import { useRouter } from 'next/navigation';
-import {observer} from "mobx-react-lite";
+import { observer } from 'mobx-react-lite';
 
 interface IHeaderProps {}
 
@@ -42,6 +42,12 @@ const Header: React.FC<IHeaderProps> = () => {
               className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
             >
               Гайды
+            </Link>
+            <Link
+              href={'/chat-bot'}
+              className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
+            >
+              Чат-бот
             </Link>
           </nav>
         </div>
