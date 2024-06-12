@@ -25,8 +25,8 @@ const Header: React.FC<IHeaderProps> = () => {
       backdrop-blur supports-[backdrop-filter]:bg-background/60'
     >
       <div className='container sm:px-8 px-4 flex h-14 max-w-screen-2xl items-center'>
-        <div className='flex gap-4'>
-          <img src={'/logoPolytech.svg'} className='ml-1 w-9' alt={''} />
+        <div className='flex gap-3'>
+          <img src={'/logoPolytech.svg'} className='w-7' alt={''} />
           <p className='sm:flex items-center hidden text-xl font-medium transition-colors mr-4 '>
             PolyLeads
           </p>
