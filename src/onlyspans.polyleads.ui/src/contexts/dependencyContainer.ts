@@ -12,12 +12,12 @@ import SignUpFormVM, {
 import DocumentsTableVM, {
   IDocumentsTableVM,
 } from '@/components/documents/documents-table/documents-table.vm';
-import EditModalVM, {
-  IEditModalVM,
-} from '@/components/documents/editing-modal/edit-modal.vm';
-import UploadModalVM, {
-  IUploadModalVM,
-} from '@/components/documents/upload-modal/upload-modal.vm';
+import EditDocumentModalVM, {
+  IEditDocumentModalVM,
+} from '@/components/documents/edit-document-modal/edit-document-modal.vm';
+import UploadDocumentModalVM, {
+  IUploadDocumentModalVM,
+} from '@/components/documents/upload-document-modal/upload-document-modal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 import { IUserRoleApi, UserRoleApi } from '@/services/api/role/userRoleApi';
 import HeaderVM, { IHeaderVM } from '@/components/header/header.vm';
@@ -38,12 +38,12 @@ export const createDependencyContainer = (): Container => {
   container.bind<IDocumentApi>(ServiceSymbols.IDocumentApi).to(DocumentApi);
   container.bind<IUserRoleApi>(ServiceSymbols.IRoleApi).to(UserRoleApi);
   container
-    .bind<IUploadModalVM>(ServiceSymbols.IUploadDocumentModalVM)
-    .to(UploadModalVM);
+    .bind<IUploadDocumentModalVM>(ServiceSymbols.IUploadDocumentModalVM)
+    .to(UploadDocumentModalVM);
   container.bind<IHeaderVM>(ServiceSymbols.IHeaderVM).to(HeaderVM);
   container
-    .bind<IEditModalVM>(ServiceSymbols.IDocumentEditingModalVM)
-    .to(EditModalVM);
+    .bind<IEditDocumentModalVM>(ServiceSymbols.IEditDocumentModalVM)
+    .to(EditDocumentModalVM);
 
   return container;
 };

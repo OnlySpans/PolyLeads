@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
 import TableViewOptions from '@/components/documents/documents-table/table-view-options/table-view-options';
-import UploadDocumentModal from '@/components/documents/upload-modal/upload-modal';
+import UploadDocumentModal from '@/components/documents/upload-document-modal/upload-document-modal';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
