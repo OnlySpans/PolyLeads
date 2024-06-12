@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace OnlySpans.PolyLeads.Api.Exceptions;
 
 public class UnpermittedResourceException : ApiException
