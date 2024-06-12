@@ -24,7 +24,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IEditDocumentModalVM } from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
+import { IEditDocumentModalVM } from '@/components/documents/edit-document-modal/edit-document-modal.vm';
 import { IDocument } from '@/data/abstractions/IDocument';
 
 interface IEditDocumentModal {
@@ -33,7 +33,7 @@ interface IEditDocumentModal {
 
 const EditDocumentModal: React.FC<IEditDocumentModal> = ({document}) => {
   const vm = useGet<IEditDocumentModalVM>(
-    ServiceSymbols.IDocumentEditingModalVM,
+    ServiceSymbols.IEditDocumentModalVM,
   );
 
   vm.document = document;

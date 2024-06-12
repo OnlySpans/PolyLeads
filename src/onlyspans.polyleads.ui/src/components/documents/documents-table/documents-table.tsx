@@ -2,7 +2,7 @@
 
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
-import { IDocumentsTableVM } from './DocumentsTableVM';
+import { IDocumentsTableVM } from './documents-table.vm';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
@@ -29,8 +29,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RowData } from '@tanstack/table-core';
-import DataTableViewOptions from '@/components/documents/DocumentsTable/DataTableViewOptions/DataTableViewOptions';
-import UploadDocumentModal from '@/components/documents/upload-modal/UploadDocumentModal';
+import TableViewOptions from '@/components/documents/documents-table/table-view-options/table-view-options';
+import UploadDocumentModal from '@/components/documents/upload-document-modal/upload-document-modal';
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -82,7 +82,7 @@ const DocumentsTable: React.FC = () => {
           <UploadDocumentModal />
         </div>
 
-        <DataTableViewOptions table={table} />
+        <TableViewOptions table={table} />
       </div>
 
       <div className='rounded-md border'>

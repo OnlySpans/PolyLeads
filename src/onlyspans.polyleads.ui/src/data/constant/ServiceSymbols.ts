@@ -10,7 +10,7 @@ const ServiceSymbols = {
   IDocumentsTableVM: Symbol.for('IDocumentsTableVM'),
   IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM'),
   IHeaderVM: Symbol.for('IHeaderVM'),
-  IDocumentEditingModalVM: Symbol.for('IDocumentEditingModalVM'),
+  IEditDocumentModalVM: Symbol.for('IDocumentEditingModalVM'),
 };
 
 export default ServiceSymbols;

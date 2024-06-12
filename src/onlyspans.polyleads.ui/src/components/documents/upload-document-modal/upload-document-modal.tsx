@@ -25,7 +25,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { IUploadDocumentModalVM } from './UploadDocumentModal.vm';
+import { IUploadDocumentModalVM } from './upload-document-modal.vm';
 import { Upload } from 'lucide-react';
 
 const UploadDocumentModal: React.FC = () => {

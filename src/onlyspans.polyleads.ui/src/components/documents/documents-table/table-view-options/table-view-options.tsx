@@ -13,7 +13,7 @@ interface IDataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-const DataTableViewOptions: React.FC<any> = <TData extends any>({
+const TableViewOptions: React.FC<any> = <TData extends any>({
   table,
 }: IDataTableViewOptionsProps<TData>) => {
   return (
@@ -48,4 +48,4 @@ const DataTableViewOptions: React.FC<any> = <TData extends any>({
   );
 };
 
-export default DataTableViewOptions;
+export default TableViewOptions;

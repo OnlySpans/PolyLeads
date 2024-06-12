@@ -2,25 +2,25 @@ import React from 'react';
 import { Container } from 'inversify';
 import SignInFormVM, {
   ISignInFormVM,
-} from '@/components/auth/sign-in/SignInFormVM';
+} from '@/components/auth/sign-in/sign-in-form.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import axios, { AxiosInstance } from 'axios';
 import { AuthApi, IAuthApi } from '@/services/api/auth/authApi';
 import SignUpFormVM, {
   ISignUpFormVM,
-} from '@/components/auth/sign-up/SignUpForm.vm';
+} from '@/components/auth/sign-up/sign-up-form.vm';
 import DocumentsTableVM, {
   IDocumentsTableVM,
-} from '@/components/documents/DocumentsTable/DocumentsTableVM';
+} from '@/components/documents/documents-table/documents-table.vm';
 import EditDocumentModalVM, {
   IEditDocumentModalVM,
-} from '@/components/documents/DocumentEditingModal/EditDocumentModal.vm';
+} from '@/components/documents/edit-document-modal/edit-document-modal.vm';
 import UploadDocumentModalVM, {
   IUploadDocumentModalVM,
-} from '@/components/documents/upload-modal/UploadDocumentModal.vm';
+} from '@/components/documents/upload-document-modal/upload-document-modal.vm';
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 import { IUserRoleApi, UserRoleApi } from '@/services/api/role/userRoleApi';
-import HeaderVM, { IHeaderVM } from '@/components/Header/Header.vm';
+import HeaderVM, { IHeaderVM } from '@/components/header/header.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -42,7 +42,7 @@ export const createDependencyContainer = (): Container => {
     .to(UploadDocumentModalVM);
   container.bind<IHeaderVM>(ServiceSymbols.IHeaderVM).to(HeaderVM);
   container
-    .bind<IEditDocumentModalVM>(ServiceSymbols.IDocumentEditingModalVM)
+    .bind<IEditDocumentModalVM>(ServiceSymbols.IEditDocumentModalVM)
     .to(EditDocumentModalVM);
 
   return container;

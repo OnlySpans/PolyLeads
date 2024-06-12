@@ -4,7 +4,7 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { IDocument } from '@/data/abstractions/IDocument';
-import type { IDocumentsTableVM } from '@/components/documents/DocumentsTable/DocumentsTableVM';
+import type { IDocumentsTableVM } from '@/components/documents/documents-table/documents-table.vm';
 
 export interface IEditDocumentModalVM {
   isLoading: boolean;

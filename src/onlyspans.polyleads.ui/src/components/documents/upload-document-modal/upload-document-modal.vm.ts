@@ -4,7 +4,7 @@ import { z } from 'zod';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import type { IDocumentApi } from '@/services/api/document/documentApi';
 import { INewDocument } from '@/data/abstractions/INewDocument';
-import type { IDocumentsTableVM } from '@/components/documents/DocumentsTable/DocumentsTableVM';
+import type { IDocumentsTableVM } from '@/components/documents/documents-table/documents-table.vm';
 import type { IUserRoleApi } from '@/services/api/role/userRoleApi';
 import { toast } from '@/components/ui/use-toast';
 

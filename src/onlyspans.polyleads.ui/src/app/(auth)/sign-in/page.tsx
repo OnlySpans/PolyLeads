@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import SignInForm from '@/components/auth/sign-in/SignInForm';
-import { ThemeSwitchButton } from '@/components/ui/ThemeSwitchButton';
-import AuthBackgroundImage from '@/components/auth/AuthBackgroundImage';
+import SignInForm from '@/components/auth/sign-in/sign-in-form';
+import { ThemeSwitchButton } from '@/components/ui/theme-switch-button';
+import AuthBackgroundImage from '@/components/auth/auth-background-image';
 
 const AuthenticationPage = () => {
   return (
