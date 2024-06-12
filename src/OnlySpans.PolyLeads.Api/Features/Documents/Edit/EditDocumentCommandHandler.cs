@@ -1,15 +1,17 @@
 using JetBrains.Annotations;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
-
+using OnlySpans.PolyLeads.Api.Data.Abstractions.Commands;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
+using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Edit;
 
 public sealed record EditDocumentCommand :
-    IRequest<Entities.Document>
+    IRequest<Entities.Document>,
+    ICalledByUser
 {
     public required long DocumentId { get; init; }
 
@@ -17,7 +19,7 @@ public sealed record EditDocumentCommand :
 
     public required string Description { get; init; }
 
-    public required Guid UserId { get; init; }
+    public MaybeSet<Identity?> User { get; set; }
 }
 
 [UsedImplicitly]
@@ -59,7 +61,7 @@ public sealed class EditDocumentCommandHandler
             .From(request)
             .AdaptTo(@ref);
 
-        @ref.UpdatedById = request.UserId;
+        @ref.UpdatedById = request.GetUser().Id;
         @ref.UpdatedAt = _timeProvider.GetUtcNow().UtcDateTime;
 
         await _context

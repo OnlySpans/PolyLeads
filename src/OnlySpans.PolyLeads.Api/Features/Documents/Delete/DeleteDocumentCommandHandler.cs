@@ -1,15 +1,19 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-
+using OnlySpans.PolyLeads.Api.Data.Abstractions.Commands;
 using OnlySpans.PolyLeads.Api.Data.Contexts;
+using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Extensions;
 
 namespace OnlySpans.PolyLeads.Api.Features.Documents.Delete;
 
-public sealed record DeleteDocumentCommand(
-    long DocumentId,
-    Guid UserId) : IRequest;
+public sealed record DeleteDocumentCommand(long DocumentId) : 
+    IRequest,
+    ICalledByUser
+{
+    public MaybeSet<Identity?> User { get; set; }
+}
 
 [UsedImplicitly]
 public sealed class DeleteDocumentCommandHandler :
@@ -42,7 +46,7 @@ public sealed class DeleteDocumentCommandHandler :
             $"Документ с id {request.DocumentId} не найден");
 
         documentToDelete.DeletedAt = _timeProvider.GetUtcNow().UtcDateTime;
-        documentToDelete.DeletedById = request.UserId;
+        documentToDelete.DeletedById = request.GetUser().Id;
 
         await _context
             .SaveChangesAsync(cancellationToken);

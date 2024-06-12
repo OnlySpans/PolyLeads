@@ -1,4 +1,3 @@
-import { IRequestFormVM } from '@/components/chat-bot/request-form/request-form.vm';
 
 const ServiceSymbols = {
   IAuthFormVM: Symbol.for('IAuthFormVM'),
@@ -11,7 +10,7 @@ const ServiceSymbols = {
   IDocumentsTableVM: Symbol.for('IDocumentsTableVM'),
   IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM'),
   IHeaderVM: Symbol.for('IHeaderVM'),
-  IDocumentEditingModalVM: Symbol.for('IDocumentEditingModalVM'),
+  IEditDocumentModalVM: Symbol.for('IDocumentEditingModalVM'),
   IRequestFormVM: Symbol.for('IRequestFormVM'),
 };
 

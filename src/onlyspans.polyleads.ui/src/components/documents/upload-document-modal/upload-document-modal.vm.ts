@@ -8,7 +8,7 @@ import type { IDocumentsTableVM } from '@/components/documents/documents-table/d
 import type { IUserRoleApi } from '@/services/api/role/userRoleApi';
 import { toast } from '@/components/ui/use-toast';
 
-export interface IUploadModalVM {
+export interface IUploadDocumentModalVM {
   isLoading: boolean;
   isOpened: boolean;
   isEnabled: boolean;
@@ -18,7 +18,7 @@ export interface IUploadModalVM {
 }
 
 @injectable()
-class UploadModalVM implements IUploadModalVM {
+class UploadDocumentModalVM implements IUploadDocumentModalVM {
   @observable
   public isLoading: boolean = false;
 
@@ -76,7 +76,7 @@ class UploadModalVM implements IUploadModalVM {
   };
 
   @action.bound
-  public sengUploadRequest = flow(function* (this: UploadModalVM) {
+  public sengUploadRequest = flow(function* (this: UploadDocumentModalVM) {
     if (this.formData === null)
       return;
 
@@ -108,7 +108,7 @@ class UploadModalVM implements IUploadModalVM {
   });
 
   @action.bound
-  public enableUploadingForLeadingRoles = flow(function* (this: UploadModalVM) {
+  public enableUploadingForLeadingRoles = flow(function* (this: UploadDocumentModalVM) {
     try {
       const response = yield this.userRoleApi.getUserRole();
       const role = response.role;
@@ -126,4 +126,4 @@ class UploadModalVM implements IUploadModalVM {
   });
 }
 
-export default UploadModalVM;
+export default UploadDocumentModalVM;

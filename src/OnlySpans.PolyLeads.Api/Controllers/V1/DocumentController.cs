@@ -55,8 +55,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         [FromBody] Dto.CreateDocumentInput dto,
         CancellationToken cancellationToken)
     {
-        var userId = User.GetUserId();
-        var command = Mapper.Map<CreateDocumentCommand>(dto) with {UserId = userId};
+        var command = Mapper.Map<CreateDocumentCommand>(dto);
         var document = await Mediator.Send(command, cancellationToken);
         return Created(Mapper.Map<Dto.DetailedDocument>(document));
     }
@@ -68,8 +67,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         [FromBody] Dto.EditDocumentInput dto,
         CancellationToken cancellationToken)
     {
-        var userId = User.GetUserId();
-        var command = Mapper.Map<EditDocumentCommand>(dto) with { DocumentId = documentId, UserId = userId };
+        var command = Mapper.Map<EditDocumentCommand>(dto) with { DocumentId = documentId };
         var document = await Mediator.Send(command, cancellationToken);
         return Ok(Mapper.Map<Dto.DetailedDocument>(document));
     }
@@ -80,8 +78,7 @@ public sealed class DocumentController(IMediator mediator, IMapper mapper) :
         [FromRoute] long documentId,
         CancellationToken cancellationToken)
     {
-        var userId = User.GetUserId();
-        var command = new DeleteDocumentCommand(documentId, userId);
+        var command = new DeleteDocumentCommand(documentId);
         await Mediator.Send(command, cancellationToken);
         return Ok();
     }

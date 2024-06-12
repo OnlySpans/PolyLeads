@@ -13,6 +13,7 @@ public static partial class Startup
            .AddScheduler()
            .AddWorkers()
            .AddMediator()
+           .AddMediatorPipeline()
            .AddMarten()
            .AddLogging()
            .AddMapper()

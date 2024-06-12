@@ -1,12 +1,19 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.AspNetCore.Identity;
+using OnlySpans.PolyLeads.Api.Data.Abstractions.Commands;
+using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Extensions;
 using OnlySpans.PolyLeads.Dto.Roles;
 
 namespace OnlySpans.PolyLeads.Api.Features.RoleManagement.GetUserInfo;
 
-public sealed record GetUserInfoCommand(string UserId)
-    : IRequest<User?>;
+public sealed record GetUserInfoCommand :
+    IRequest<User?>,
+    ICalledByUser
+{
+    public MaybeSet<Identity?> User { get; set; }
+}
 
 [UsedImplicitly]
 public sealed class GetUserInfoCommandHandler :
@@ -24,11 +31,12 @@ public sealed class GetUserInfoCommandHandler :
         GetUserInfoCommand request,
         CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(request.UserId);
+        var userId = request.GetUser().Id;
+        var user = await _userManager.FindByIdAsync(userId.ToString());
 
         ResourceNotFoundException.ThrowIfNull(
             user,
-            $"Пользователь с id {request.UserId} не найден");
+            $"Пользователь с id {userId} не найден");
 
         var roles = await _userManager.GetRolesAsync(user);
 
