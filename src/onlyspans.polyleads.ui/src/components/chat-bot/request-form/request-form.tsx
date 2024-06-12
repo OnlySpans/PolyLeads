@@ -26,11 +26,12 @@ const RequestForm: FC = () => {
       <Textarea
         id='requestForm'
         ref={textareaRef}
+        value={vm.value}
         onChange={(e) => vm.setValue(e.target.value)}
         placeholder='Введите запрос'
         className={`resize-none max-h-32`}
       />
-      <Button className='w-10 h-10 p-3' onClick={() => {}}>
+      <Button className='w-10 h-10 p-3' onClick={vm.sendRequest}>
         <SendHorizontal />
       </Button>
     </div>

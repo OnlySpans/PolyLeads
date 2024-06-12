@@ -4,6 +4,7 @@ import { action, makeObservable, observable } from 'mobx';
 export interface IRequestFormVM {
   value: string;
   setValue: (value: string) => void;
+  sendRequest: () => void;
 }
 
 @injectable()
@@ -18,6 +19,11 @@ class RequestFormVM implements IRequestFormVM {
   @action
   public setValue = (value: string) => {
     this.value = value
+  }
+
+  @action
+  public sendRequest = () => {
+    this.value = ''
   }
 }
 
