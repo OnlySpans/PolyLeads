@@ -24,6 +24,7 @@ import HeaderVM, { IHeaderVM } from '@/components/header/header.vm';
 import RequestFormVM, {
   IRequestFormVM,
 } from '@/components/chat-bot/request-form/request-form.vm';
+import ChatBotVM, { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -50,6 +51,9 @@ export const createDependencyContainer = (): Container => {
   container
     .bind<IRequestFormVM>(ServiceSymbols.IRequestFormVM)
     .to(RequestFormVM);
+  container
+    .bind<IChatBotVM>(ServiceSymbols.IChatBotVM)
+    .to(ChatBotVM);
 
   return container;
 };

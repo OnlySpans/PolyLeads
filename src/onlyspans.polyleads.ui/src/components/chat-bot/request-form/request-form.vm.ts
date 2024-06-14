@@ -1,5 +1,7 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import type { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
 export interface IRequestFormVM {
   value: string;
@@ -11,27 +13,31 @@ export interface IRequestFormVM {
 @injectable()
 class RequestFormVM implements IRequestFormVM {
   @observable
-  public value: string = ''
+  public value: string = '';
 
-  constructor() {
+  private readonly chatBotVM: IChatBotVM;
+
+  constructor(@inject(ServiceSymbols.IChatBotVM) chatBotVM: IChatBotVM) {
+    this.chatBotVM = chatBotVM;
     makeObservable(this);
   }
 
   @action
   public setValue = (value: string) => {
-    this.value = value
-  }
+    this.value = value;
+  };
 
   @action
   public sendRequest = () => {
-    this.value = ''
-  }
+    this.chatBotVM.sendRequest(this.value)
+    this.value = '';
+  };
 
   @action
   public sendExampleRequest = (request: string) => {
-    this.value = request
-    this.sendRequest() 
-  }
+    this.value = request;
+    this.sendRequest();
+  };
 }
 
 export default RequestFormVM;

@@ -4,19 +4,21 @@ import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import RequestForm from '@/components/chat-bot/request-form/request-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { IMessage } from '@/components/chat-bot/chat-bot.test-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import moment from 'moment/moment';
 import RequestExamplesCards from '@/components/chat-bot/request-examples-cards/request-examples-cards';
+import useGet from '@/hooks/useGet';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
+import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
 const ChatBot: FC = () => {
-  const Messages: IMessage[] = [];
+  const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
 
   return (
     <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col items-center content-center justify-between'>
-      {Messages.length !== 0 ? (
+      {vm.messages.length !== 0 ? (
         <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2 mb-6'>
-          {Messages.map((message) => (
+          {vm.messages.map((message) => (
             <>
               <div
                 className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}

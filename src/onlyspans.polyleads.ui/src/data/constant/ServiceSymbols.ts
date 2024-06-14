@@ -1,4 +1,3 @@
-
 const ServiceSymbols = {
   IAuthFormVM: Symbol.for('IAuthFormVM'),
   AxiosInstance: Symbol.for('AxiosInstance'),
@@ -12,6 +11,7 @@ const ServiceSymbols = {
   IHeaderVM: Symbol.for('IHeaderVM'),
   IEditDocumentModalVM: Symbol.for('IDocumentEditingModalVM'),
   IRequestFormVM: Symbol.for('IRequestFormVM'),
+  IChatBotVM: Symbol.for('IChatBotVM'),
 };
 
 export default ServiceSymbols;
