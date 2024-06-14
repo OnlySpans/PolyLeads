@@ -60,7 +60,7 @@ class ChatBotVM implements IChatBotVM {
       this.messages.push({
         id: this.messages.length + 1,
         type: 'bot',
-        text: request,
+        text: request.repeat(10),
         timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
       this.isLoading = false
