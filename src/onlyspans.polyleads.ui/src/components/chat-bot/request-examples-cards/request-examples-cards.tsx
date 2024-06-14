@@ -25,18 +25,15 @@ const RequestExamplesCards: FC = () => {
         className='w-full'
       >
         <CarouselContent>
-          {requestExamplesData.map((_, index) => (
+          {requestExamplesData.map((example, index) => (
             <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/3'>
               <div>
-                <Card className='bg-muted'>
+                <Card className='bg-muted hover:bg-muted-foreground/25 cursor-pointer'>
                   <CardHeader>
-                    <CardTitle>{_.icon}</CardTitle>
+                    <CardTitle>{example.icon}</CardTitle>
                   </CardHeader>
                   <CardContent className='flex aspect-square items-center justify-center p-6'>
-                    <p>{_.request}</p>
-                    <p className='text-3xl font-semibold'>{index + 1}</p>
-                    <br />
-                    <p className='text-3xl font-semibold'>{index + 1}</p>
+                    <p>{example.request}</p>
                   </CardContent>
                 </Card>
               </div>
