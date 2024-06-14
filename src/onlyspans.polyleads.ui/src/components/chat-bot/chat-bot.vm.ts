@@ -25,14 +25,16 @@ class ChatBotVM implements IChatBotVM {
   constructor() {
     this.messages = MessagesExample;
 
+    this.scrollToBottom();
     makeObservable(this);
   }
 
   @action
   public scrollToBottom = () => {
-    if (this.messagesEndRef.current) {
-      this.messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-    }
+    setTimeout(() => {
+      if (this.messagesEndRef.current)
+        this.messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }, 100);
   };
 
   @action
@@ -44,9 +46,7 @@ class ChatBotVM implements IChatBotVM {
       timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
 
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 100);
+    this.scrollToBottom();
   };
 }
 
