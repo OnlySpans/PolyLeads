@@ -64,6 +64,7 @@ class ChatBotVM implements IChatBotVM {
         timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
       this.isLoading = false
+      this.scrollToBottom();
     }, 3000);
   };
 }
