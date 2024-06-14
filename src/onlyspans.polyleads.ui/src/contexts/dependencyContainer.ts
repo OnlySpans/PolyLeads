@@ -53,7 +53,8 @@ export const createDependencyContainer = (): Container => {
     .to(RequestFormVM);
   container
     .bind<IChatBotVM>(ServiceSymbols.IChatBotVM)
-    .to(ChatBotVM);
+    .to(ChatBotVM)
+    .inSingletonScope();
 
   return container;
 };

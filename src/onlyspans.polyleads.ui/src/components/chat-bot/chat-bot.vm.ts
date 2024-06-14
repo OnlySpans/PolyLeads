@@ -15,7 +15,7 @@ class ChatBotVM implements IChatBotVM {
   public messages: IMessage[] = [];
 
   constructor() {
-    this.messages = MessagesExample
+    this.messages = MessagesExample;
     makeObservable(this);
   }
 
@@ -25,9 +25,9 @@ class ChatBotVM implements IChatBotVM {
       id: 1,
       type: 'user',
       text: request,
-      timestamp: moment().format('YYYY-MM-DD HH:mm:ss')
-    })
-    console.log(this.messages)
+      timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+    });
+    console.log(this.messages);
   };
 }
 

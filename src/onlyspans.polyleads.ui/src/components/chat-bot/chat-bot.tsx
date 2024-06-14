@@ -30,7 +30,7 @@ const ChatBot: FC = () => {
                   </Avatar>
                 ) : (
                   <Avatar className='sm:block hidden'>
-                    <AvatarImage src='https://asdsadsa' />
+                    <AvatarImage src='' />
                     <AvatarFallback>{'^-^'}</AvatarFallback>
                   </Avatar>
                 )}
