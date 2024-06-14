@@ -9,8 +9,13 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { requestExamplesData } from '@/components/chat-bot/request-examples-cards/request-examples.data';
 import Autoplay from 'embla-carousel-autoplay';
+import useGet from '@/hooks/useGet';
+import { IRequestFormVM } from '@/components/chat-bot/request-form/request-form.vm';
+import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
 const RequestExamplesCards: FC = () => {
+  const vm = useGet<IRequestFormVM>(ServiceSymbols.IRequestFormVM);
+
   return (
     <Carousel
       opts={{
@@ -29,9 +34,7 @@ const RequestExamplesCards: FC = () => {
             <div className='p-1'>
               <Card
                 className='bg-muted hover:bg-muted-foreground/25 cursor-pointer max-h-[30%]'
-                onClick={() => {
-                  console.log(index);
-                }}
+                onClick={() => vm.sendExampleRequest(example.request)}
               >
                 <CardHeader className='pb-2'>
                   <CardTitle>{example.icon}</CardTitle>

@@ -5,6 +5,7 @@ export interface IRequestFormVM {
   value: string;
   setValue: (value: string) => void;
   sendRequest: () => void;
+  sendExampleRequest: (request: string) => void;
 }
 
 @injectable()
@@ -24,6 +25,12 @@ class RequestFormVM implements IRequestFormVM {
   @action
   public sendRequest = () => {
     this.value = ''
+  }
+
+  @action
+  public sendExampleRequest = (request: string) => {
+    this.value = request
+    this.sendRequest() 
   }
 }
 
