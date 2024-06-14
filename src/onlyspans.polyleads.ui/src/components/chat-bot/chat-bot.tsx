@@ -35,8 +35,10 @@ const ChatBot: FC = () => {
                   <AvatarFallback>{'^-^'}</AvatarFallback>
                 </Avatar>
               )}
-              <div className='sm:w-3/4 w-5/6 bg-accent p-4 border rounded-md'>
-                <p>{message.text}</p>
+              <div className='sm:w-3/4 w-5/6 max-w-full bg-accent p-4 border rounded-md'>
+                <p className='hyphens-auto break-words max-w-[40rem]'>
+                  {message.text}
+                </p>
                 <p className='text-muted-foreground text-right text-xs mb-[-8px] mr-[-4px]'>
                   {moment(message.timestamp).format('HH:mm')}
                 </p>
