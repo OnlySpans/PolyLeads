@@ -10,6 +10,8 @@ import RequestExamplesCards from '@/components/chat-bot/request-examples-cards/r
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
+import { Skeleton } from '@/components/ui/skeleton';
+import { LoaderCircle } from 'lucide-react';
 
 const ChatBot: FC = () => {
   const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
@@ -41,6 +43,18 @@ const ChatBot: FC = () => {
               </div>
             </div>
           ))}
+          {vm.isLoading ? (
+            <div className='my-4 flex items-end gap-2 justify-start'>
+              <Avatar className='sm:block hidden animate-spin'>
+                <AvatarFallback>
+                  <LoaderCircle />
+                </AvatarFallback>
+              </Avatar>
+              <Skeleton className='h-[60px] sm:w-3/4 w-5/6 border rounded-md' />
+            </div>
+          ) : (
+            <></>
+          )}
           <div ref={vm.messagesEndRef} />
         </ScrollArea>
       ) : (

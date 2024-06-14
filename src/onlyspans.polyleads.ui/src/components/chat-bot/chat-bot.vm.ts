@@ -11,12 +11,16 @@ export interface IChatBotVM {
   sendRequest: (request: string) => void;
   messagesEndRef: RefObject<HTMLDivElement>;
   scrollToBottom: () => void;
+  isLoading: boolean;
 }
 
 @injectable()
 class ChatBotVM implements IChatBotVM {
   @observable
   public messages: IMessage[] = [];
+
+  @observable
+  public isLoading: boolean = false;
 
   @observable
   public readonly messagesEndRef: RefObject<HTMLDivElement> =
@@ -48,7 +52,19 @@ class ChatBotVM implements IChatBotVM {
       });
     }
 
+    this.isLoading = true;
+
     this.scrollToBottom();
+
+    setTimeout(() => {
+      this.messages.push({
+        id: this.messages.length + 1,
+        type: 'bot',
+        text: request,
+        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+      });
+      this.isLoading = false
+    }, 3000);
   };
 }
 
