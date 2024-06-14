@@ -49,7 +49,7 @@ const ChatBot: FC = () => {
             <div className='my-4 flex items-end gap-2 justify-start'>
               <Avatar className='sm:block hidden animate-spin'>
                 <AvatarFallback>
-                  <LoaderCircle />
+                  <LoaderCircle className='text-primary' />
                 </AvatarFallback>
               </Avatar>
               <Skeleton className='h-[60px] sm:w-3/4 w-5/6 border rounded-md' />
