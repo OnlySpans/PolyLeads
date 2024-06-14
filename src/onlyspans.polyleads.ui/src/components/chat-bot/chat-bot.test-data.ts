@@ -1,4 +1,11 @@
-export const Messages = [
+export interface IMessage {
+  id: number,
+  type: string,
+  text: string,
+  timestamp: string
+}
+
+export const Messages: IMessage[] = [
   {
     id: 1,
     type: 'bot',

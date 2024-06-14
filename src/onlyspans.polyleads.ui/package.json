@@ -24,6 +24,8 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel-autoplay": "^8.1.5",
+    "embla-carousel-react": "^8.1.5",
     "graphql": "^16.8.1",
     "inversify": "^6.0.2",
     "lucide-react": "^0.359.0",
