@@ -2,9 +2,9 @@ import { injectable } from 'inversify';
 import { action, makeObservable, observable } from 'mobx';
 import { IMessage } from '@/data/abstractions/IMessage';
 import moment from 'moment';
-import { MessagesExample } from '@/components/chat-bot/chat-bot.test-data';
 import type { RefObject } from 'react';
 import { createRef } from 'react';
+import { MessagesExample } from '@/components/chat-bot/chat-bot.test-data';
 
 export interface IChatBotVM {
   messages: IMessage[];
@@ -23,8 +23,6 @@ class ChatBotVM implements IChatBotVM {
     createRef<HTMLDivElement>();
 
   constructor() {
-    this.messages = MessagesExample;
-
     this.scrollToBottom();
     makeObservable(this);
   }
@@ -39,12 +37,16 @@ class ChatBotVM implements IChatBotVM {
 
   @action
   public sendRequest = (request: string) => {
-    this.messages.push({
-      id: this.messages.length + 1,
-      type: 'user',
-      text: request,
-      timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
-    });
+    if (request === 'example') {
+      this.messages = MessagesExample;
+    } else {
+      this.messages.push({
+        id: this.messages.length + 1,
+        type: 'user',
+        text: request,
+        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+      });
+    }
 
     this.scrollToBottom();
   };

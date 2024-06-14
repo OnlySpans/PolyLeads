@@ -19,29 +19,27 @@ const ChatBot: FC = () => {
       {vm.messages.length !== 0 ? (
         <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2 mb-6'>
           {vm.messages.map((message) => (
-            <>
-              <div
-                className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
-              >
-                {message.type === 'bot' ? (
-                  <Avatar className='sm:block hidden'>
-                    <AvatarImage src='https://github.asdasdcom/shadcn.png' />
-                    <AvatarFallback>AI</AvatarFallback>
-                  </Avatar>
-                ) : (
-                  <Avatar className='sm:block hidden'>
-                    <AvatarImage src='' />
-                    <AvatarFallback>{'^-^'}</AvatarFallback>
-                  </Avatar>
-                )}
-                <div className='sm:w-3/4 w-5/6 bg-accent p-4 border rounded-md'>
-                  <p>{message.text}</p>
-                  <p className='text-muted-foreground text-right text-xs mb-[-8px] mr-[-4px]'>
-                    {moment(message.timestamp).format('HH:mm')}
-                  </p>
-                </div>
+            <div
+              className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
+            >
+              {message.type === 'bot' ? (
+                <Avatar className='sm:block hidden'>
+                  <AvatarImage src='https://github.asdasdcom/shadcn.png' />
+                  <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+              ) : (
+                <Avatar className='sm:block hidden'>
+                  <AvatarImage src='' />
+                  <AvatarFallback>{'^-^'}</AvatarFallback>
+                </Avatar>
+              )}
+              <div className='sm:w-3/4 w-5/6 bg-accent p-4 border rounded-md'>
+                <p>{message.text}</p>
+                <p className='text-muted-foreground text-right text-xs mb-[-8px] mr-[-4px]'>
+                  {moment(message.timestamp).format('HH:mm')}
+                </p>
               </div>
-            </>
+            </div>
           ))}
           <div ref={vm.messagesEndRef} />
         </ScrollArea>
