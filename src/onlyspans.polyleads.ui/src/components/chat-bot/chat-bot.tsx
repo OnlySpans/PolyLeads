@@ -1,7 +1,7 @@
 'use client';
 
 import { observer } from 'mobx-react-lite';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import RequestForm from '@/components/chat-bot/request-form/request-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -13,6 +13,10 @@ import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
 const ChatBot: FC = () => {
   const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
+
+  useEffect(() => {
+    vm.scrollToBottom();
+  }, [vm.messages]);
 
   return (
     <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col items-center content-center justify-between'>
@@ -43,6 +47,7 @@ const ChatBot: FC = () => {
               </div>
             </>
           ))}
+          <div ref={vm.messagesEndRef} />
         </ScrollArea>
       ) : (
         <div className='w-full h-screen rounded-md border md:px-4 px-2 mb-6'>
