@@ -21,13 +21,16 @@ public static partial class Startup
            .AddApplicationDbContext()
            .AddIdentity()
            .AddDocumentRecognition()
-           .AddControllers();
+           .AddControllers()
+           .AddExceptionHandling();
 
         return Task.FromResult(builder);
     }
 
     public static async Task<WebApplication> Configure(this WebApplication app)
     {
+        app.UseExceptionHandler();
+
         app.UseRouting();
 
         app.UseAuthentication();
