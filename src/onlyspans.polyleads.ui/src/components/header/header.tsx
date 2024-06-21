@@ -2,8 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ThemeSwitchButton } from '@/components/ui/theme-switch-button';
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
@@ -21,9 +20,7 @@ import { AlignLeft } from 'lucide-react';
 interface IHeaderProps {}
 
 const Header: React.FC<IHeaderProps> = () => {
-  const vm = useGet<IHeaderVM>(
-      ServiceSymbols.IHeaderVM,
-  );
+  const vm = useGet<IHeaderVM>(ServiceSymbols.IHeaderVM);
 
   const router = useRouter();
 
@@ -33,10 +30,10 @@ const Header: React.FC<IHeaderProps> = () => {
     >
       <div className='container sm:px-8 px-4 flex h-14 max-w-screen-2xl items-center'>
         <div className='flex gap-3'>
-          <img src={'/logoPolytech.svg'} className='w-7 sm:block hidden' alt={''} />
-          <p className='sm:flex items-center hidden text-xl font-medium transition-colors mr-4 '>
-            PolyLeads
-          </p>
+          <div className='hidden sm:flex gap-3 items-center font-medium text-xl mr-4'>
+            <img src={'/logoPolytech.svg'} className='w-7' alt={''} />
+            <p>PolyLeads</p>
+          </div>
           <div className='sm:hidden flex'>
             <Popover>
               <PopoverTrigger>
@@ -66,20 +63,13 @@ const Header: React.FC<IHeaderProps> = () => {
           </nav>
         </div>
         <div className='flex flex-1 items-center space-x-2 justify-end'>
-          <button
+          <Button
+            size='sm'
+            className={`${vm.isSignInButtonEnabled ? '' : 'hidden'}`}
             onClick={() => router.push('/sign-in')}
-            className={
-              `${cn(
-                buttonVariants({
-                  variant: 'default',
-                  size: 'sm',
-                })
-              )} 
-              ${vm.isSignInButtonEnabled ? '' : 'hidden'}
-            `}
           >
             Войти
-          </button>
+          </Button>
           <ThemeSwitchButton />
         </div>
       </div>

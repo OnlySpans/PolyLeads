@@ -80,7 +80,9 @@ class SignUpFormVM implements ISignUpFormVM {
 
       if (e && e.response && e.response.data){
         const regex = /Username '([^']*)' is already taken\./;
-        username = e.response.data.match(regex)[1];
+        if (e.response.data.match(regex)){
+          username = e.response.data.match(regex)[1];
+        }
       }
       
       toast({
