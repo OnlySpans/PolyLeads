@@ -11,15 +11,14 @@ import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 import { Skeleton } from '@/components/ui/skeleton';
-import { LoaderCircle } from 'lucide-react';
 
 const ChatBot: FC = () => {
   const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
 
   return (
-    <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col items-center content-center justify-between'>
+    <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col gap-4 items-center content-center justify-between'>
       {vm.messages.length !== 0 ? (
-        <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2 mb-6'>
+        <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2'>
           {vm.messages.map((message) => (
             <div
               className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
@@ -27,7 +26,7 @@ const ChatBot: FC = () => {
             >
               {message.type === 'bot' ? (
                 <Avatar className='sm:block hidden'>
-                  <AvatarImage src='https://github.asdasdcom/shadcn.png' />
+                  {/*<AvatarImage src='https://github.com/shadcn.png' />*/}
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
               ) : (
@@ -48,10 +47,8 @@ const ChatBot: FC = () => {
           ))}
           {vm.isLoading ? (
             <div className='my-4 flex items-end gap-2 justify-start'>
-              <Avatar className='sm:block hidden animate-spin'>
-                <AvatarFallback>
-                  <LoaderCircle className='text-primary' />
-                </AvatarFallback>
+              <Avatar className='sm:block hidden'>
+                <AvatarFallback>AI</AvatarFallback>
               </Avatar>
               <Skeleton className='h-[60px] sm:w-3/4 w-5/6 border rounded-md' />
             </div>
@@ -61,7 +58,7 @@ const ChatBot: FC = () => {
           <div ref={vm.messagesEndRef} />
         </ScrollArea>
       ) : (
-        <div className='w-full h-screen rounded-md border md:px-4 px-2 mb-6'>
+        <div className='w-full h-screen rounded-md border md:px-4 px-2'>
           <div className='flex h-full justify-center items-center content-center'>
             <RequestExamplesCards />
           </div>
