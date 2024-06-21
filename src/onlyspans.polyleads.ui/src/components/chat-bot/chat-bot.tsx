@@ -23,6 +23,7 @@ const ChatBot: FC = () => {
           {vm.messages.map((message) => (
             <div
               className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
+              key={message.id}
             >
               {message.type === 'bot' ? (
                 <Avatar className='sm:block hidden'>

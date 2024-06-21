@@ -44,6 +44,7 @@ const Header: React.FC<IHeaderProps> = () => {
                     <Link
                       href={link.href}
                       className='text-base font-medium'
+                      key={link.name}
                     >
                       {link.name}
                     </Link>
@@ -56,6 +57,7 @@ const Header: React.FC<IHeaderProps> = () => {
               <Link
                 href={link.href}
                 className='text-base font-medium text-muted-foreground transition-colors hover:text-primary'
+                key={link.name}
               >
                 {link.name}
               </Link>
