@@ -1,7 +1,7 @@
 'use client';
 
 import { observer } from 'mobx-react-lite';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC } from 'react';
 import useGet from '@/hooks/useGet';
 import { IRequestFormVM } from '@/components/chat-bot/request-form/request-form.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
@@ -13,21 +13,12 @@ import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 const RequestForm: FC = () => {
   const vm = useGet<IRequestFormVM>(ServiceSymbols.IRequestFormVM);
   const chatBotVM = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  }, [vm.value]);
 
   return (
     <div className='flex gap-4 items-end'>
       <Textarea
         id='requestForm'
-        ref={textareaRef}
+        ref={vm.textareaRef}
         value={vm.value}
         disabled={chatBotVM.isLoading}
         onChange={(e) => vm.setValue(e.target.value)}
