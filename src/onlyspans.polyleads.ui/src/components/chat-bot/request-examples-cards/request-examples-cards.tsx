@@ -40,7 +40,7 @@ const RequestExamplesCards: FC = () => {
                   <CardTitle>{example.icon}</CardTitle>
                 </CardHeader>
                 <CardContent className='flex min-h-32 items-start justify-center p-4'>
-                  <p>{example.request}</p>
+                  {example.request}
                 </CardContent>
               </Card>
             </div>
