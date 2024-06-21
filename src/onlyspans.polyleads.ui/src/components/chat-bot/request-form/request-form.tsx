@@ -32,7 +32,7 @@ const RequestForm: FC = () => {
         disabled={chatBotVM.isLoading}
         onChange={(e) => vm.setValue(e.target.value)}
         placeholder='Введите запрос'
-        className='resize-none max-h-32 text-base 2xl:text-lg'
+        className='resize-none max-h-40 text-base 2xl:text-lg'
       />
       <Button
         className='w-10 h-10 p-3'
