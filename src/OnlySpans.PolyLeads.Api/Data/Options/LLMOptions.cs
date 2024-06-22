@@ -2,17 +2,21 @@
 
 namespace OnlySpans.PolyLeads.Api.Data.Options;
 
-public sealed record LLMOptions() : IApplicationOptions
+public sealed record LLMOptions : IApplicationOptions
 {
     public static string Section { get; } = "LLM";
 
-    public static string ApiKey { get; } = string.Empty;
+    public string ApiKey { get; init;} = string.Empty;
 
-    public static string ModelUri { get; } = string.Empty;
+    public string FolderId { get; init;} = string.Empty;
 
-    public static string RequestUri { get; } = string.Empty;
+    public string ModelId { get; init;} = string.Empty;
 
-    public static float Temperature { get; } = 0;
+    public string RequestUri { get; init;} = string.Empty;
 
-    public static int MaxResponseTokens { get; } = 0;
+    public string SystemPrompt { get; init;} = string.Empty;
+
+    public float Temperature { get; init;} = 0;
+
+    public int MaxResponseTokens { get; init;} = 0;
 }
