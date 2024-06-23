@@ -5,7 +5,7 @@ namespace OnlySpans.PolyLeads.Api.Startup;
 
 public static partial class Startup
 {
-    private static WebApplicationBuilder AddLLM(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddLLMIntegration(this WebApplicationBuilder builder)
     {
         builder
             .Services

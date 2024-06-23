@@ -34,6 +34,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             UnsupportedRecognitionFileTypeException ex => BuildResponse(StatusCodes.Status400BadRequest, ex),
             RoleManagementException ex                 => BuildResponse(StatusCodes.Status400BadRequest, ex),
             UnpermittedResourceException ex            => BuildResponse(StatusCodes.Status400BadRequest, ex),
+            ExternalServiceFailureException ex         => BuildResponse(StatusCodes.Status424FailedDependency, ex),
             ApiException ex                            => BuildResponse(StatusCodes.Status500InternalServerError, ex),
             ValidationException ex => new ProblemDetails
             {

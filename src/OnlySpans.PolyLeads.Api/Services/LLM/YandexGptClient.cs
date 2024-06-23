@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Options;
 using OnlySpans.PolyLeads.Api.Abstractions.LLM;
 using OnlySpans.PolyLeads.Api.Data.Options;
-using OnlySpans.PolyLeads.Api.Data.Records.LLM;
+using OnlySpans.PolyLeads.Api.Exceptions;
+using OnlySpans.PolyLeads.Api.Utils;
 
 namespace OnlySpans.PolyLeads.Api.Services.LLM;
 
@@ -10,61 +11,85 @@ public sealed class YandexGptClient : ILLMClient
 {
     private readonly HttpClient _httpClient;
     
-    private readonly IOptions<LLMOptions> _options;
+    private readonly LLMOptions _options;
 
     public YandexGptClient(
         HttpClient httpClient, 
         IOptions<LLMOptions> options)
     {
         _httpClient = httpClient;
-        _options = options;
+        _options = options.Value;
     }
 
     public async Task<Stream> GenerateResponseAsync(
         string userPrompt, 
-        string documents,
-        CancellationToken cancellationToken = new CancellationToken())
+        IReadOnlyList<string> documentsContent,
+        CancellationToken cancellationToken = new())
     {
-        var values = _options.Value;
-        
         var requestBody = new YandexGptRequestBody
         {
-            ModelUri = $"gpt://{values.FolderId}/{values.ModelId}",
+            ModelUri = $"gpt://{_options.FolderId}/{_options.ModelId}",
             CompletionOptions = new()
             {
                 Stream = true,
-                Temperature = values.Temperature,
-                MaxTokens = values.MaxResponseTokens
+                Temperature = _options.Temperature,
+                MaxTokens = _options.MaxResponseTokens
             },
             Messages = [
                 new()
                 {
-                    Role = "system",
-                    Text = values.SystemPrompt
+                    Role = MessageRole.System,
+                    Text = _options.SystemPrompt
                 },
                 new()
                 {
-                    Role = "user",
-                    Text = $"Вопрос пользователя: {userPrompt}. Документы: {documents}"
+                    Role = MessageRole.User,
+                    Text = $"Вопрос пользователя: {userPrompt}. Документы: {string.Join(". ", documentsContent)}"
                 }
             ]
         };
 
-        var request = new HttpRequestMessage(HttpMethod.Post, values.RequestUri)
+        var request = new HttpRequestMessage(HttpMethod.Post, _options.RequestUri)
         {
             Content = JsonContent.Create(requestBody)
         };
 
         request.Headers.Authorization = new AuthenticationHeaderValue(
             "Api-Key", 
-            values.ApiKey);
+            _options.ApiKey);
 
         var response = await _httpClient.SendAsync(request, cancellationToken);
 
-        var body = await response
+        if (!response.IsSuccessStatusCode)
+            throw new ExternalServiceFailureException(response.ReasonPhrase ?? "");
+
+        return await response
             .Content
             .ReadAsStreamAsync(cancellationToken);
-
-        return body;
     }
+}
+
+file sealed record YandexGptRequestBody
+{
+    public string ModelUri { get; init; } = string.Empty;
+
+    public CompletionOptions CompletionOptions { get; init; } = default!;
+
+    public List<Message> Messages { get; init; } = default!;
+}
+
+public sealed record CompletionOptions
+{
+    public bool Stream { get; init; }
+
+    public float Temperature { get; init; }
+
+    public int MaxTokens { get; init; }
+}
+
+file sealed record Message
+{
+    public string Role { get; init; } = string.Empty;
+
+    public string Text { get; init; } = string.Empty;
 }

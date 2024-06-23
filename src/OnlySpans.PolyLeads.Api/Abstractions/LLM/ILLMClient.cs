@@ -4,6 +4,6 @@ public interface ILLMClient
 {
     Task<Stream> GenerateResponseAsync(
         string userPrompt,
-        string documents,
+        IReadOnlyList<string> documentsContent,
         CancellationToken cancellationToken = new());
 }

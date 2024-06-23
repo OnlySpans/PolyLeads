@@ -21,7 +21,7 @@ public static partial class Startup
            .AddApplicationDbContext()
            .AddIdentity()
            .AddDocumentRecognition()
-           .AddLLM()
+           .AddLLMIntegration()
            .AddControllers()
            .AddExceptionHandling();
 
