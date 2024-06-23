@@ -45,6 +45,7 @@ public static partial class Startup
 
         await app.SeedUserRolesAsync();
         await app.SeedMasterUserAsync();
+        await app.SeedDocumentsAsync();
 
         return app;
     }
