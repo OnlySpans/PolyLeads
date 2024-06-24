@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HotChocolate.Types;
+using JasperFx.Core;
+using Microsoft.AspNetCore.Identity;
+using OnlySpans.PolyLeads.Api.Data.Options;
 using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Features.Documents.Create;
@@ -8,7 +11,7 @@ namespace OnlySpans.PolyLeads.Api.Features.Seeding;
 
 public sealed record DocumentSeedCommand : IRequest
 {
-    //public string FilePath { get;} = ;
+    public string FilePath { get; } = Path.GetFullPath(@"..\\OnlySpans.PolyLeads.Api\\documents-seed.json");
 }
 
 public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCommand>
@@ -36,16 +39,27 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
             throw new ResourceNotFoundException($"Файл с путем {filepath} не найден");
         }
 
-        using StreamReader reader = new(filepath);
+        using var stream = File.OpenRead(filepath);
 
-        var json = await reader.ReadToEndAsync(cancellationToken);
-
-        var documents = JsonSerializer.Deserialize<List<DocumentSeed>>(json);
+        var documents = await JsonSerializer
+           .DeserializeAsync<List<DocumentSeed>>(
+                stream,
+                cancellationToken: cancellationToken);
 
         if (documents == null)
         {
-            throw new ResourceNotFoundException("Документов нет");
+            throw new ResourceNotFoundException("Документы не загрузились");
         }
+
+        var adminUsers = await _userManager
+           .GetUsersInRoleAsync("Admin");
+
+        if (adminUsers == null)
+        {
+            throw new ResourceNotFoundException("Пользователей с правами админа нет");
+        }
+
+        var adminUser = adminUsers.First();
 
         foreach (var document in documents)
         {
@@ -54,7 +68,11 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
                 Name = document.Name,
                 Description = document.Description,
                 DownloadUrl = document.DownloadUrl,
-                //User = 
+                User = new MaybeSet<Identity?>
+                {
+                    Value = new Identity(adminUser.Id),
+                    WasSet = true
+                }
             }, cancellationToken);
         }
 
