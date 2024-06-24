@@ -1,13 +1,238 @@
 [
   {
     "Name": "Устав образовательной организации",
-    "Description": "sbabab",
+    "Description": "Устав",
     "DownloadUrl": "https://www.spbstu.ru/upload/administration-catalogue/ustav-18-03-21.pdf"
   },
   {
+    "Name": "Изменения в Устав от 29.12.2021",
+    "Description": "Изменения в Устав",
+    "DownloadUrl": "https://www.spbstu.ru/upload/administration-catalogue/izmenenia-v-ustav-29-12-21.pdf"
+  },
+  {
+    "Name": "Правила внутреннего распорядка обучающихся",
+    "Description": "Правила распорядка",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Pravila_rasporyadka_2016.pdf"
+  },
+  {
+    "Name": "Показатели самообследования",
+    "Description": "Показатели самообследования",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/pokazateli_spbpu_sosnovy_bor_2023.pdf"
+  },
+  {
+    "Name": "Отчеты об исполнении предписаний органов, осуществляющих государственный контроль (надзор) в сфере образования",
+    "Description": "Отчеты об исполнении предписаний органов",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Otchet_predpisaniya_2014.pdf"
+  },
+  {
+    "Name": "Правила приема обучающихся в виде электронного документа, подписанного электронной подписью",
+    "Description": "Правила приема обучающихся",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/pravila_priema_2024_sign.pdf"
+  },
+  {
+    "Name": "Режим занятий обучающихся",
+    "Description": "Режим занятий обучающихся",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Rezhim_zanyat_spbpu_2016.pdf"
+  },
+  {
+    "Name": "Формы, периодичность и порядок текущего контроля успеваемости и промежуточной аттестации обучающихся",
+    "Description": "Формы, периодичность и порядок текущего контроля успеваемости",
+    "DownloadUrl": "https://www.spbstu.ru/upload/documents/education/provision-monitoring-progress_2024.pdf"
+  },
+  {
+    "Name": "Порядок и основания перевода, отчисления и восстановления обучающихся",
+    "Description": "Порядок и основания перевода, отчисления и восстановления обучающихся",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/regulations_movement_contingent_students_2023.pdf"
+  },
+  {
+    "Name": "Порядок оформления возникновения, приостановления и прекращения отношений между образовательной организацией и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся",
+    "Description": "Порядок оформления возникновения, приостановления и прекращения отношений",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Otnoshenie_spbpu_2018.pdf"
+  },
+  {
+    "Name": "Правила внутреннего трудового распорядка",
+    "Description": "Правила трудового распорядка",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/pravila_trud_rasporyadka_2023_signature.pdf"
+  },
+  {
     "Name": "Свидетельство о государственной аккредитации",
-    "Description": "12341234",
+    "Description": "Гос. аккредитация",
     "DownloadUrl": "https://www.spbstu.ru/upload/sveden/2023/vypiska_akkredit_2024.pdf"
+  },
+  {
+    "Name": "Предписания органов, осуществляющих государственный контроль (надзор) в сфере образования",
+    "Description": "Предписания органов",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Predpisaniya_2014.pdf"
+  },
+  {
+    "Name": "Отчет о результатах самообследования",
+    "Description": "Отчет о самоообследовании",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/otchet_samoobsledovanie_2023.pdf"
+  },
+  {
+    "Name": "Особенности приёма (Федеральный закон от 17 февраля 2023 г. N 19-ФЗ)",
+    "Description": "Особенности приёма",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/special_things2.pdf?v=2024"
+  },
+  {
+    "Name": "Правила приема",
+    "Description": "Правила приема",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/Pravila_priema.pdf?v=2026"
+  },
+  {
+    "Name": "Памятка абитуриенту",
+    "Description": "Памятка абитуриенту",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/abiturient_abstract.pdf"
+  },
+  {
+    "Name": "Положение о порядке предоставления особых прав победителям и призерам олимпиад школьников при приеме на направления подготовки (специальности) СПбПУ",
+    "Description": "Положение о порядке предоставления особых прав победителям и призерам олимпиад",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/olimpicrules.pdf"
+  },
+  {
+    "Name": "Положение о порядке предоставления особых прав победителям и призерам олимпиад школьников при приеме на направления подготовки (специальности) СПбПУ",
+    "Description": "Положение о порядке предоставления особых прав победителям и призерам олимпиад",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/olimpicrules.pdf"
+  },
+  {
+    "Name": "Положение о порядке предоставления особых прав",
+    "Description": "Положение о порядке предоставления особых прав",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/olimpicrules2021.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2023",
+    "Description": "Проходные баллы 2023",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2023.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2022",
+    "Description": "Проходные баллы 2022",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2022.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2021",
+    "Description": "Проходные баллы 2021",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2021.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2020",
+    "Description": "Проходные баллы 2020",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2020.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2019",
+    "Description": "Проходные баллы 2019",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2019.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2018",
+    "Description": "Проходные баллы 2018",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2018.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2017",
+    "Description": "Проходные баллы 2017",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2017.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2016",
+    "Description": "Проходные баллы 2016",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2016.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2015",
+    "Description": "Проходные баллы 2015",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/competition2015.pdf"
+  },
+  {
+    "Name": "Проходные баллы 2014",
+    "Description": "Проходные баллы 2014",
+    "DownloadUrl": "https://www.spbstu.ru/upload/admission/admission_competition_average_score_2014.pdf"
+  },
+  {
+    "Name": "Приказ № 160 от 09.02.16 об утверждении документов, регламентирующих деятельность студгородка",
+    "Description": "Студгородок",
+    "DownloadUrl": "https://www.spbstu.ru/upload/campus/Prikaz_ob_utverzhdenii_dokumentov_reglamentiruyuschih_deyatel_nost_studencheskogo_gorodka.pdf"
+  },
+  {
+    "Name": "Приложение 1 (Положение о студенческом городке)",
+    "Description": "Положение о студенческом городке",
+    "DownloadUrl": "https://www.spbstu.ru/upload/campus/hostel_statut.pdf"
+  },
+  {
+    "Name": "Правила приёма на обучение по программам подготовки научно-педагогических кадров в аспирантуре на 2024-2025 учебный год",
+    "Description": "Правила приема 2024-2025",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/admission-rules-2021.pdf?v=2025"
+  },
+  {
+    "Name": "Стоимость обучения по программам ВО (бакалавриат, специалитет, магистратура) — приказ от 27.04.2024 № 1168 «Об утверждении стоимости обучения на 2024/2025 учебный год для обучающихся на условиях договора (контингент российских граждан)»",
+    "Description": "Стоимость обучения по программам ВО (бак, спец, маг)",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/2021/paid-services/prikaz_1168_27-04-2024_signature.pdf"
+  },
+  {
+    "Name": "Стоимость обучения по программам ВО (аспирантура) — приказ от 07.05.2024 № 1237 Об утверждении стоимости обучения на 2024/2025 учебный год для обучающихся по программам подготовки научных и научно-педагогических кадров в аспирантуре на условиях договора (контингент российских граждан)",
+    "Description": "Стоимость обучения по программам ВО (аспирантура)",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/2021/paid-services/order-1237-07-05-2024.pdf"
+  },
+  {
+    "Name": "Стоимость обучения по программам СПО — приказ от 23.04.2024 № 1070 \"Об утверждении стоимости обучения на 2024/2025 учебный год для обучающихся на условиях договора (контингент российских граждан) по программам среднего профессионального образования",
+    "Description": "Стоимость обучения по программам СПО",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/2021/paid-services/order-1237-07-05-2024.pdf"
+  },
+  {
+    "Name": "Приказ № 1168 от 27.04.2024 г. Об утверждении стоимости обучения на 2024/2025 учебный год для обучающихся на условиях договора контингент российских граждан",
+    "Description": "Утверждение стоимости обучения",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/2021/paid-services/prikaz_1168_27-04-2024_signature.pdf"
+  },
+  {
+    "Name": "Положение о предметной экзаменационной комиссии",
+    "Description": "Экзаменационная комиссия",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/exam_comission_2023.pdf"
+  },
+  {
+    "Name": "Положение о Приёмной комиссии",
+    "Description": "Приемная комиссия",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/admission.pdf"
+  },
+  {
+    "Name": "Положение об апелляционной комиссии",
+    "Description": "Апелляционная комиссия",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/exam_comission.pdf?v=2025"
+  },
+  {
+    "Name": "Правила поведения обучающихся СПбПУ",
+    "Description": "Правила поведения",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/behavior_rules.pdf"
+  },
+  {
+    "Name": "Согласие на обработку персональных данных абитуриента",
+    "Description": "Обработка данных абитуриента (от 18 лет)",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/agreement_normal.pdf"
+  },
+  {
+    "Name": "Информация об особенностях проведения вступительных испытаний для лиц с ограниченными возможностями здоровья, инвалидов",
+    "Description": "Информация об особенностях проведения вступительных испытаний для лиц с ограниченными возможностями здоровья, инвалидов",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/features_of_entrance_examinations.pdf"
+  },
+  {
+    "Name": "Положение об организации образовательного процесса и условиях обучения инвалидов и лиц с ограниченными возможностями здоровья",
+    "Description": "Положение об организации образовательного процесса и условиях обучения инвалидов и лиц с ограниченными возможностями здоровья",
+    "DownloadUrl": "https://www.spbstu.ru/upload/dmo/position-organization-educational-persons-disabilities.pdf"
+  },
+  {
+    "Name": "Информация о возможности сдачи вступительных испытаний, проводимых организацией самостоятельно, на языке республики Российской Федерации, на территории которой расположена организация",
+    "Description": "Сдача вступительных на языке республики",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/language.pdf"
+  },
+  {
+    "Name": "Информация о проведении вступительных испытаний с использованием дистанционных технологий",
+    "Description": "Вступительные дистант",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/distancemodevi.pdf"
+  },
+  {
+    "Name": "Информация о проведении вступительных испытаний с использованием дистанционных технологий",
+    "Description": "Вступительные дистант",
+    "DownloadUrl": "https://www.spbstu.ru/upload/sveden/distancemodevi.pdf"
   }
 ]
 
