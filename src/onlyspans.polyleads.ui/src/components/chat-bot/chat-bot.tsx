@@ -15,6 +15,21 @@ import PromptInput from "@/components/chat-bot/prompt-input/prompt-input";
 const ChatBot: FC = () => {
   const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
 
+  const MessageLoader: FC = () => {
+    if (vm.isLoading) {
+      return (
+        <div className='my-4 flex items-end gap-2 justify-start'>
+          <Avatar className='sm:block hidden'>
+            <AvatarFallback>AI</AvatarFallback>
+          </Avatar>
+          <Skeleton className='h-[60px] sm:w-3/4 w-5/6 border rounded-md'/>
+        </div>
+      );
+    }
+
+    return <></>;
+  };
+
   return (
     <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col gap-4 items-center content-center justify-between'>
       {vm.messages.length !== 0 ? (
@@ -44,16 +59,7 @@ const ChatBot: FC = () => {
               </div>
             </div>
           ))}
-          {vm.isLoading ? (
-            <div className='my-4 flex items-end gap-2 justify-start'>
-              <Avatar className='sm:block hidden'>
-                <AvatarFallback>AI</AvatarFallback>
-              </Avatar>
-              <Skeleton className='h-[60px] sm:w-3/4 w-5/6 border rounded-md' />
-            </div>
-          ) : (
-            <></>
-          )}
+          <MessageLoader />
           <div ref={vm.messagesEndRef} />
         </ScrollArea>
       ) : (
