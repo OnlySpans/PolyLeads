@@ -10,7 +10,7 @@ const ServiceSymbols = {
   IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM'),
   IHeaderVM: Symbol.for('IHeaderVM'),
   IEditDocumentModalVM: Symbol.for('IDocumentEditingModalVM'),
-  IRequestFormVM: Symbol.for('IRequestFormVM'),
+  IPromptInputVM: Symbol.for('IRequestFormVM'),
   IChatBotVM: Symbol.for('IChatBotVM'),
 };
 

@@ -3,15 +3,15 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import useGet from '@/hooks/useGet';
-import { IRequestFormVM } from '@/components/chat-bot/request-form/request-form.vm';
+import { IPromptInputVM } from '@/components/chat-bot/prompt-input/prompt-input.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { SendHorizontal } from 'lucide-react';
 import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
-const RequestForm: FC = () => {
-  const vm = useGet<IRequestFormVM>(ServiceSymbols.IRequestFormVM);
+const PromptInput: FC = () => {
+  const vm = useGet<IPromptInputVM>(ServiceSymbols.IPromptInputVM);
   const chatBotVM = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
 
   return (
@@ -27,7 +27,7 @@ const RequestForm: FC = () => {
       />
       <Button
         className='w-10 h-10 p-3'
-        onClick={vm.sendRequest}
+        onClick={vm.sendPrompt}
         disabled={chatBotVM.isLoading}
       >
         <SendHorizontal />
@@ -36,4 +36,4 @@ const RequestForm: FC = () => {
   );
 };
 
-export default observer(RequestForm);
+export default observer(PromptInput);

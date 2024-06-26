@@ -7,14 +7,14 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { requestExamplesData } from '@/components/chat-bot/request-examples-cards/request-examples.data';
+import { promptSamplesData } from '@/components/chat-bot/prompt-sample-cards/prompt-samples.data';
 import Autoplay from 'embla-carousel-autoplay';
 import useGet from '@/hooks/useGet';
-import { IRequestFormVM } from '@/components/chat-bot/request-form/request-form.vm';
+import { IPromptInputVM } from '@/components/chat-bot/prompt-input/prompt-input.vm';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 
-const RequestExamplesCards: FC = () => {
-  const vm = useGet<IRequestFormVM>(ServiceSymbols.IRequestFormVM);
+const PromptSampleCards: FC = () => {
+  const vm = useGet<IPromptInputVM>(ServiceSymbols.IPromptInputVM);
 
   return (
     <Carousel
@@ -29,18 +29,18 @@ const RequestExamplesCards: FC = () => {
       className='lg:w-[75%] sm:w-[70%] w-[50%]'
     >
       <CarouselContent>
-        {requestExamplesData.map((example, index) => (
+        {promptSamplesData.map((sample, index) => (
           <CarouselItem key={index} className='sm:basis-1/2 lg:basis-1/3'>
             <div className='p-1'>
               <Card
                 className='bg-muted hover:bg-muted-foreground/25 cursor-pointer max-h-[30%]'
-                onClick={() => vm.sendExampleRequest(example.request)}
+                onClick={() => vm.sendSamplePrompt(sample.prompt)}
               >
                 <CardHeader className='pb-2'>
-                  <CardTitle>{example.icon}</CardTitle>
+                  <CardTitle>{sample.icon}</CardTitle>
                 </CardHeader>
                 <CardContent className='flex min-h-32 items-start justify-center p-4'>
-                  {example.request}
+                  {sample.prompt}
                 </CardContent>
               </Card>
             </div>
@@ -53,4 +53,4 @@ const RequestExamplesCards: FC = () => {
   );
 };
 
-export default RequestExamplesCards;
+export default PromptSampleCards;

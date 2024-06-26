@@ -2,15 +2,15 @@
 
 import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
-import RequestForm from '@/components/chat-bot/request-form/request-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import moment from 'moment/moment';
-import RequestExamplesCards from '@/components/chat-bot/request-examples-cards/request-examples-cards';
+import PromptSampleCards from '@/components/chat-bot/prompt-sample-cards/prompt-sample-cards';
 import useGet from '@/hooks/useGet';
 import ServiceSymbols from '@/data/constant/ServiceSymbols';
 import { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 import { Skeleton } from '@/components/ui/skeleton';
+import PromptInput from "@/components/chat-bot/prompt-input/prompt-input";
 
 const ChatBot: FC = () => {
   const vm = useGet<IChatBotVM>(ServiceSymbols.IChatBotVM);
@@ -39,7 +39,7 @@ const ChatBot: FC = () => {
                   {message.text}
                 </p>
                 <p className='text-muted-foreground text-right text-xs mb-[-8px] mr-[-4px]'>
-                  {moment(message.timestamp).format('HH:mm')}
+                  {moment(message.sentAt).format('HH:mm')}
                 </p>
               </div>
             </div>
@@ -59,12 +59,12 @@ const ChatBot: FC = () => {
       ) : (
         <div className='w-full h-screen rounded-md border md:px-4 px-2'>
           <div className='flex h-full justify-center items-center content-center'>
-            <RequestExamplesCards />
+            <PromptSampleCards />
           </div>
         </div>
       )}
       <div className='w-full'>
-        <RequestForm />
+        <PromptInput />
       </div>
     </div>
   );

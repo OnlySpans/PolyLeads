@@ -5,16 +5,16 @@ import type { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 import type { RefObject } from 'react';
 import { createRef } from 'react';
 
-export interface IRequestFormVM {
+export interface IPromptInputVM {
   value: string;
   setValue: (value: string) => void;
-  sendRequest: () => void;
-  sendExampleRequest: (request: string) => void;
+  sendPrompt: () => void;
+  sendSamplePrompt: (request: string) => void;
   textareaRef: RefObject<HTMLTextAreaElement>;
 }
 
 @injectable()
-class RequestFormVM implements IRequestFormVM {
+class PromptInputVM implements IPromptInputVM {
   @observable
   public value: string = '';
 
@@ -41,16 +41,16 @@ class RequestFormVM implements IRequestFormVM {
   };
 
   @action
-  public sendRequest = () => {
+  public sendPrompt = () => {
     this.chatBotVM.sendRequest(this.value)
     this.value = '';
   };
 
   @action
-  public sendExampleRequest = (request: string) => {
+  public sendSamplePrompt = (request: string) => {
     this.value = request;
-    this.sendRequest();
+    this.sendPrompt();
   };
 }
 
-export default RequestFormVM;
+export default PromptInputVM;

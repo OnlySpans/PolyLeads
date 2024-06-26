@@ -45,10 +45,9 @@ class ChatBotVM implements IChatBotVM {
       this.messages = MessagesExample;
     } else {
       this.messages.push({
-        id: this.messages.length + 1,
-        type: 'user',
+        sender: 'user',
         text: request,
-        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        sentAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
     }
 
@@ -58,10 +57,9 @@ class ChatBotVM implements IChatBotVM {
 
     setTimeout(() => {
       this.messages.push({
-        id: this.messages.length + 1,
-        type: 'bot',
+        sender: 'bot',
         text: (request + ' ').repeat(15),
-        timestamp: moment().format('YYYY-MM-DD HH:mm:ss'),
+        sentAt: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
       this.isLoading = false
       this.scrollToBottom();
