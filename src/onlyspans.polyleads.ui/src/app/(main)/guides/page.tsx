@@ -3,7 +3,6 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import Header from '@/components/header/header';
 
 const Guides: React.FC = () => {
   return (

@@ -1,7 +1,6 @@
 'use client';
 
 import ChatBot from '@/components/chat-bot/chat-bot';
-import Header from '@/components/header/header';
 
 const ChatBotPage = () => {
   return (

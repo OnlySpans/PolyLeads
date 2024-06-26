@@ -1,6 +1,5 @@
 'use client';
 
-import Header from '@/components/header/header';
 import DocumentsTable from '@/components/documents/documents-table/documents-table';
 
 const Home = () => {

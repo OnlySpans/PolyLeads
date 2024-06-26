@@ -1,4 +1,3 @@
-import Header from '@/components/header/header';
 import React from 'react';
 import { BackButton } from '@/components/ui/back-button';
 
