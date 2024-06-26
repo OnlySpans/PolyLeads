@@ -21,10 +21,10 @@ const ChatBot: FC = () => {
         <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2'>
           {vm.messages.map((message, index) => (
             <div
-              className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
+              className={`my-4 flex items-end gap-2 ${message.sender === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
               key={index}
             >
-              {message.type === 'bot' ? (
+              {message.sender === 'bot' ? (
                 <Avatar className='sm:block hidden'>
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
