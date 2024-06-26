@@ -19,14 +19,13 @@ const ChatBot: FC = () => {
     <div className='xl:w-1/2 md:w-2/3 px-4 w-full flex flex-col gap-4 items-center content-center justify-between'>
       {vm.messages.length !== 0 ? (
         <ScrollArea className='w-full h-screen rounded-md border md:px-4 px-2'>
-          {vm.messages.map((message) => (
+          {vm.messages.map((message, index) => (
             <div
               className={`my-4 flex items-end gap-2 ${message.type === 'bot' ? 'justify-start' : 'flex-row-reverse'}`}
-              key={message.id}
+              key={index}
             >
               {message.type === 'bot' ? (
                 <Avatar className='sm:block hidden'>
-                  {/*<AvatarImage src='https://github.com/shadcn.png' />*/}
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
               ) : (
