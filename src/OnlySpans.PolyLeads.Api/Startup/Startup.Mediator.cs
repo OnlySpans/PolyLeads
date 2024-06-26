@@ -4,15 +4,20 @@ namespace OnlySpans.PolyLeads.Api.Startup;
 
 public static partial class Startup
 {
-    private static WebApplicationBuilder AddMediator(this WebApplicationBuilder builder)
+    private static WebApplicationBuilder AddApiMediator(this WebApplicationBuilder builder)
     {
-        builder
-           .Services
-           .AddMediator();
+        builder.Services.AddApiMediator();
 
         return builder;
     }
-    
+
+    public static IServiceCollection AddApiMediator(this IServiceCollection services)
+    {
+        services.AddMediator();
+
+        return services;
+    }
+
     private static WebApplicationBuilder AddMediatorPipeline(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
