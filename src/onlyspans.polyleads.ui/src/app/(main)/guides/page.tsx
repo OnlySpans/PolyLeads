@@ -8,7 +8,6 @@ import Header from '@/components/header/header';
 const Guides: React.FC = () => {
   return (
     <>
-      <Header />
       <div className='container space-y-8 w-full md:grids-col-2 grid md:gap-4'>
         <div className='items-start justify-center gap-6 px-0 md:px-8 py-8 md:grid lg:grid-cols-2 xl:grid-cols-3'>
           <div className='col-span-2 grid items-start gap-6 lg:col-span-1 mb-6'>
