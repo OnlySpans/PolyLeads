@@ -25,4 +25,14 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\OnlySpans.PolyLeads.Api\OnlySpans.PolyLeads.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\documents-seed-test.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
