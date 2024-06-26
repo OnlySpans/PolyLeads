@@ -25,9 +25,11 @@ public sealed class DocumentSeedCommandHandlerTests : DatabaseTests
             LastName = "ASFasf"
         };
 
-        await UserManager.CreateAsync(user, "1234567");
+        await UserManager
+           .CreateAsync(user, "1234567");
 
-        var masterUser = await UserManager.FindByNameAsync("Berkas");
+        var masterUser = await UserManager
+           .FindByNameAsync("Berkas");
 
         var userId = masterUser!.Id;
 

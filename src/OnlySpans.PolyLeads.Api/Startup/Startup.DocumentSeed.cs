@@ -13,15 +13,18 @@ public partial class Startup
         using var scope = app.Services.CreateScope();
         var provider = scope.ServiceProvider;
 
-        var sender = provider.GetRequiredService<ISender>();
+        var sender = provider
+           .GetRequiredService<ISender>();
 
         var masterRoleOptions = provider
            .GetRequiredService<IOptions<MasterRoleOptions>>()
            .Value;
 
-        var userManager = provider.GetRequiredService<UserManager<Entities.ApplicationUser>>();
+        var userManager = provider
+           .GetRequiredService<UserManager<Entities.ApplicationUser>>();
 
-        var masterUser = await userManager.FindByNameAsync(masterRoleOptions.UserName);
+        var masterUser = await userManager
+           .FindByNameAsync(masterRoleOptions.UserName);
 
         if (masterUser == null)
         {
