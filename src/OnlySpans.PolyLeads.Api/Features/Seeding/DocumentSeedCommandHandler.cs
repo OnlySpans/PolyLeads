@@ -1,8 +1,4 @@
-﻿using HotChocolate.Types;
-using JasperFx.Core;
-using Microsoft.AspNetCore.Identity;
-using OnlySpans.PolyLeads.Api.Data.Options;
-using OnlySpans.PolyLeads.Api.Data.Records;
+﻿using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Features.Documents.Create;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -11,21 +7,18 @@ namespace OnlySpans.PolyLeads.Api.Features.Seeding;
 
 public sealed record DocumentSeedCommand : IRequest
 {
-    public string FilePath { get; } = Path.GetFullPath(@"..\\OnlySpans.PolyLeads.Api\\documents-seed.json");
+    public required string FilePath { get; init; }
+
+    public required Guid Id { get; init; }
 }
 
 public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCommand>
 {
     private readonly ISender _sender;
 
-    private readonly UserManager<Entities.ApplicationUser> _userManager;
-
-    public DocumentSeedCommandHandler(
-        ISender sender,
-        UserManager<Entities.ApplicationUser> userManager)
+    public DocumentSeedCommandHandler(ISender sender)
     {
         _sender = sender;
-        _userManager = userManager;
     }
 
     public async ValueTask<Unit> Handle(
@@ -51,16 +44,6 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
             throw new ResourceNotFoundException("Документы не загрузились");
         }
 
-        var adminUsers = await _userManager
-           .GetUsersInRoleAsync("Admin");
-
-        if (adminUsers == null)
-        {
-            throw new ResourceNotFoundException("Пользователей с правами админа нет");
-        }
-
-        var adminUser = adminUsers.First();
-
         foreach (var document in documents)
         {
             await _sender.Send(new CreateDocumentCommand
@@ -70,7 +53,7 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
                 DownloadUrl = document.DownloadUrl,
                 User = new MaybeSet<Identity?>
                 {
-                    Value = new Identity(adminUser.Id),
+                    Value = new Identity(request.Id),
                     WasSet = true
                 }
             }, cancellationToken);
