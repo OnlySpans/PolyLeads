@@ -2,9 +2,9 @@
 
 namespace OnlySpans.PolyLeads.Api.Data.Options;
 
-public sealed record LLMOptions : IApplicationOptions
+public sealed record YandexGptOptions : IApplicationOptions
 {
-    public static string Section { get; } = "LLM";
+    public static string Section { get; } = "YandexGpt";
 
     public string ApiKey { get; init; } = string.Empty;
 

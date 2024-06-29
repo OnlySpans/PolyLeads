@@ -11,19 +11,18 @@ public sealed class YandexGptClient : ILLMClient
 {
     private readonly HttpClient _httpClient;
     
-    private readonly LLMOptions _options;
+    private readonly YandexGptOptions _options;
 
     public YandexGptClient(
         HttpClient httpClient, 
-        IOptions<LLMOptions> options)
+        IOptions<YandexGptOptions> options)
     {
         _httpClient = httpClient;
         _options = options.Value;
     }
 
     public async Task<Stream> GenerateResponseAsync(
-        string userPrompt, 
-        IReadOnlyList<string> documentsContent,
+        string prompt,
         CancellationToken cancellationToken = new())
     {
         var requestBody = new YandexGptRequestBody
@@ -44,7 +43,7 @@ public sealed class YandexGptClient : ILLMClient
                 new()
                 {
                     Role = MessageRole.User,
-                    Text = $"Вопрос пользователя: {userPrompt}. Документы: {string.Join(". ", documentsContent)}"
+                    Text = prompt
                 }
             ]
         };
