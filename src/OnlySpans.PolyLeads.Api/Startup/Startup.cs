@@ -12,7 +12,7 @@ public static partial class Startup
            .AddHttpClient()
            .AddScheduler()
            .AddWorkers()
-           .AddMediator()
+           .AddApiMediator()
            .AddMediatorPipeline()
            .AddMarten()
            .AddLogging()
@@ -46,6 +46,7 @@ public static partial class Startup
 
         await app.SeedUserRolesAsync();
         await app.SeedMasterUserAsync();
+        await app.SeedDocumentsAsync();
 
         return app;
     }

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Reverse
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{74E986A5-C8C9-45E6-9F74-88B98BBE308D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.Tests", "tests\OnlySpans.PolyLeads.Api.Tests\OnlySpans.PolyLeads.Api.Tests.csproj", "{E94FD102-8374-410A-A77A-22F9AD3E2D31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlySpans.PolyLeads.Api.IntegrationTests", "tests\OnlySpans.PolyLeads.Api.IntegrationTests\OnlySpans.PolyLeads.Api.IntegrationTests.csproj", "{E94FD102-8374-410A-A77A-22F9AD3E2D31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{5F921C70-5836-46FE-995E-8FD8C442C4E5}"
 	ProjectSection(SolutionItems) = preProject

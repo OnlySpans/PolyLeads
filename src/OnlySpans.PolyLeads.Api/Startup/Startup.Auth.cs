@@ -16,8 +16,15 @@ public static partial class Startup
 
     private static WebApplicationBuilder AddIdentity(this WebApplicationBuilder builder)
     {
-        var services = builder.Services;
+        builder
+           .Services
+           .AddIdentity();
 
+        return builder;
+    }
+
+    public static IServiceCollection AddIdentity(this IServiceCollection services)
+    {
         services
            .AddIdentity<Entities.ApplicationUser, Entities.ApplicationUserRole>(options =>
             {
@@ -47,6 +54,6 @@ public static partial class Startup
             };
         });
 
-        return builder;
+        return services;
     }
 }

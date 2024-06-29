@@ -53,4 +53,10 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="Resources\documents-seed.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
