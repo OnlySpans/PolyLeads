@@ -54,10 +54,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Remove="documents-seed.json" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Include="Resources\documents-seed.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>

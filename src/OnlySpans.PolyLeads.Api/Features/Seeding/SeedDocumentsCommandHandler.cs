@@ -5,24 +5,19 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace OnlySpans.PolyLeads.Api.Features.Seeding;
 
-public sealed record DocumentSeedCommand : IRequest
-{
-    public required string FilePath { get; init; }
+public sealed record SeedDocumentCommand(string FilePath, Guid UserId) : IRequest;
 
-    public required Guid Id { get; init; }
-}
-
-public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCommand>
+public sealed class SeedDocumentsCommandHandler : IRequestHandler<SeedDocumentCommand>
 {
     private readonly ISender _sender;
 
-    public DocumentSeedCommandHandler(ISender sender)
+    public SeedDocumentsCommandHandler(ISender sender)
     {
         _sender = sender;
     }
 
     public async ValueTask<Unit> Handle(
-        DocumentSeedCommand request,
+        SeedDocumentCommand request,
         CancellationToken cancellationToken)
     {
         var filepath = request.FilePath;
@@ -39,9 +34,9 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
                 stream,
                 cancellationToken: cancellationToken);
 
-        if (documents == null)
+        if (documents is null)
         {
-            throw new ResourceNotFoundException("Документы не загрузились");
+            throw new InvalidOperationException("Ошибка десериализации документов");
         }
 
         foreach (var document in documents)
@@ -53,7 +48,7 @@ public sealed class DocumentSeedCommandHandler : IRequestHandler<DocumentSeedCom
                 DownloadUrl = document.DownloadUrl,
                 User = new MaybeSet<Identity?>
                 {
-                    Value = new Identity(request.Id),
+                    Value = new Identity(request.UserId),
                     WasSet = true
                 }
             }, cancellationToken);

@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using OnlySpans.PolyLeads.Api.Data.Options;
-using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Features.Seeding;
 
 namespace OnlySpans.PolyLeads.Api.Startup;
@@ -26,16 +26,16 @@ public partial class Startup
         var masterUser = await userManager
            .FindByNameAsync(masterRoleOptions.UserName);
 
-        if (masterUser == null)
+        if (masterUser is null)
         {
-            throw new ResourceNotFoundException("Пользователя с правами администратора нет");
+            throw new UnreachableException("Пользователь с правами администратора не добавлен");
         }
 
-        var command = new DocumentSeedCommand
-        {
-            FilePath = "Resources/documents-seed.json",
-            Id = masterUser.Id
-        };
+        var filePath = "Resources/documents-seed.json";
+
+        var userId = masterUser.Id;
+
+        var command = new SeedDocumentCommand(filePath, userId);
 
         await sender.Send(command);
 
