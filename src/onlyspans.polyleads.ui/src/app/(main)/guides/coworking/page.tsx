@@ -1,11 +1,9 @@
-import Header from '@/components/header/header';
 import React from 'react';
 import { BackButton } from '@/components/ui/back-button';
 
 const CoworkingArticle: React.FC = () => {
   return (
     <>
-      <Header />
       <BackButton />
 
       <div className='container md:px-8 px-6 pt-4 pb-12 max-w-screen-md '>

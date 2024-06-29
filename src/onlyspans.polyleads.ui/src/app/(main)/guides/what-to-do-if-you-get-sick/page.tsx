@@ -1,11 +1,9 @@
-import Header from '@/components/header/header';
 import React from 'react';
 import { BackButton } from '@/components/ui/back-button';
 
 const GetSickArticle: React.FC = () => {
   return (
     <>
-      <Header />
       <BackButton />
 
       <div className='container md:px-8 px-6 py-4 max-w-screen-md '>

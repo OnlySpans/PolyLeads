@@ -21,6 +21,10 @@ import UploadDocumentModalVM, {
 import { DocumentApi, IDocumentApi } from '@/services/api/document/documentApi';
 import { IUserRoleApi, UserRoleApi } from '@/services/api/role/userRoleApi';
 import HeaderVM, { IHeaderVM } from '@/components/header/header.vm';
+import PromptInputVM, {
+  IPromptInputVM,
+} from '@/components/chat-bot/prompt-input/prompt-input.vm';
+import ChatBotVM, { IChatBotVM } from '@/components/chat-bot/chat-bot.vm';
 
 export const createDependencyContainer = (): Container => {
   const container = new Container();
@@ -44,6 +48,13 @@ export const createDependencyContainer = (): Container => {
   container
     .bind<IEditDocumentModalVM>(ServiceSymbols.IEditDocumentModalVM)
     .to(EditDocumentModalVM);
+  container
+    .bind<IPromptInputVM>(ServiceSymbols.IPromptInputVM)
+    .to(PromptInputVM);
+  container
+    .bind<IChatBotVM>(ServiceSymbols.IChatBotVM)
+    .to(ChatBotVM)
+    .inSingletonScope();
 
   return container;
 };

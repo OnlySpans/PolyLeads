@@ -1,8 +1,7 @@
-
 const ServiceSymbols = {
   IAuthFormVM: Symbol.for('IAuthFormVM'),
   AxiosInstance: Symbol.for('AxiosInstance'),
-  AuthApi: Symbol.for("AuthApi"),
+  AuthApi: Symbol.for('AuthApi'),
   IDocumentApi: Symbol.for('IDocumentApi'),
   IRoleApi: Symbol.for('IRoleApi'),
   ISignInFormVM: Symbol.for('IAuthFormVM'),
@@ -11,6 +10,8 @@ const ServiceSymbols = {
   IUploadDocumentModalVM: Symbol.for('IUploadDocumentModalVM'),
   IHeaderVM: Symbol.for('IHeaderVM'),
   IEditDocumentModalVM: Symbol.for('IDocumentEditingModalVM'),
+  IPromptInputVM: Symbol.for('IRequestFormVM'),
+  IChatBotVM: Symbol.for('IChatBotVM'),
 };
 
 export default ServiceSymbols;
