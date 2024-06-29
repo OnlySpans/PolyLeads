@@ -11,7 +11,7 @@ using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Startup;
 using Testcontainers.PostgreSql;
 
-namespace OnlySpans.PolyLeads.Api.Tests.Tools;
+namespace OnlySpans.PolyLeads.Api.IntegrationTests.Tools;
 
 public abstract class DatabaseTests : IAsyncLifetime
 {

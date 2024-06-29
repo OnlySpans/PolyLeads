@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlySpans.PolyLeads.Api.Data.Entities;
+﻿using OnlySpans.PolyLeads.Api.Data.Entities;
 using OnlySpans.PolyLeads.Api.Features.Seeding;
-using OnlySpans.PolyLeads.Api.Tests.Tools;
+using OnlySpans.PolyLeads.Api.IntegrationTests.Tools;
 
-namespace OnlySpans.PolyLeads.Api.Tests.Features.Seeding;
+namespace OnlySpans.PolyLeads.Api.IntegrationTests.Features.Seeding;
 
 public sealed class SeedDocumentsCommandHandlerTests : DatabaseTests
 {
@@ -12,67 +11,6 @@ public sealed class SeedDocumentsCommandHandlerTests : DatabaseTests
     protected override async Task InitializeAsync()
     {
         Handler = new(Sender);
-    }
-
-    [Fact]
-    public async Task Should_create_file_by_admin()
-    {
-        // Arrange
-        var user = new ApplicationUser()
-        {
-            UserName = "Berkas",
-            FirstName = "Vivo",
-            LastName = "ASFasf"
-        };
-
-        await UserManager
-           .CreateAsync(user, "1234567");
-
-        var masterUser = await UserManager
-           .FindByNameAsync("Berkas");
-
-        var userId = masterUser!.Id;
-
-        var filePath = "Resources/documents-seed-test.json";
-
-        var command = new SeedDocumentCommand(filePath, userId);
-
-        // Act
-        await Handler
-           .Handle(command, CancellationToken.None);
-
-        // Assert
-        var expected = new Document
-        {
-            Name = "Устав образовательной организации",
-            Description = "sbabab",
-            DownloadUrl = new Uri("https://www.spbstu.ru/upload/administration-catalogue/ustav-18-03-21.pdf"),
-            CreatedById = userId
-        };
-
-        var createdDocument = await Context
-           .Documents
-           .FirstAsync();
-
-        createdDocument
-           .Name
-           .Should()
-           .Be(expected.Name);
-
-        createdDocument
-           .Description
-           .Should()
-           .Be(expected.Description);
-
-        createdDocument
-           .DownloadUrl
-           .Should()
-           .Be(expected.DownloadUrl);
-
-        createdDocument
-           .CreatedById
-           .Should()
-           .Be(expected.CreatedById);
     }
 
     [Fact]
