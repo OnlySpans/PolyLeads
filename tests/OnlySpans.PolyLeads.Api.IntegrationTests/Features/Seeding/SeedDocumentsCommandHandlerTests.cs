@@ -10,7 +10,7 @@ public sealed class SeedDocumentsCommandHandlerTests : DatabaseTests
 
     protected override async Task InitializeAsync()
     {
-        Handler = new(Sender);
+        Handler = new(Sender, Context);
     }
 
     [Fact]
