@@ -1,4 +1,6 @@
-﻿using OnlySpans.PolyLeads.Api.Data.Records;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlySpans.PolyLeads.Api.Data.Contexts;
+using OnlySpans.PolyLeads.Api.Data.Records;
 using OnlySpans.PolyLeads.Api.Exceptions;
 using OnlySpans.PolyLeads.Api.Features.Documents.Create;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -11,9 +13,12 @@ public sealed class SeedDocumentsCommandHandler : IRequestHandler<SeedDocumentCo
 {
     private readonly ISender _sender;
 
-    public SeedDocumentsCommandHandler(ISender sender)
+    private readonly ApplicationDbContext _context;
+
+    public SeedDocumentsCommandHandler(ISender sender, ApplicationDbContext context)
     {
         _sender = sender;
+        _context = context;
     }
 
     public async ValueTask<Unit> Handle(
@@ -41,6 +46,17 @@ public sealed class SeedDocumentsCommandHandler : IRequestHandler<SeedDocumentCo
 
         foreach (var document in documents)
         {
+            var isSameDocumentInDb = await _context
+               .Documents
+               .AnyAsync(x =>
+                    x.Name == document.Name,
+                    cancellationToken);
+
+            if (isSameDocumentInDb)
+            {
+                continue;
+            }
+
             await _sender.Send(new CreateDocumentCommand
             {
                 Name = document.Name,
